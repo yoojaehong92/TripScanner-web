@@ -1,14 +1,21 @@
 <!doctype html>
 <!-- Latest compiled and minified CSS -->
+<!--
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-
+-->
 <!-- Optional theme -->
+<!--
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVZa1VHc0fu-WhhqW0LCB4_55MwGPLSII&libraries=places"></script>
+    <link rel="stylesheet" href="http://daemonite.github.io/material/css/material.min.css">
+
+
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -21,10 +28,9 @@
     <title>Hello World</title>
   </head>
   <body>
-    <nav>
-
-    </nav>
+    <nav id="navi"></nav>
     <div id="root"></div>
+    <div id="App"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -35,5 +41,8 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
+  <footer id="footer">
+
+  </footer>
   </body>
 </html>
