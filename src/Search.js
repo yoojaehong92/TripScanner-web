@@ -1,3 +1,4 @@
+
 import React from "react";
 import PlacesAutocomplete, {geocodeByAddress} from "react-places-autocomplete";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -12,10 +13,12 @@ class Search extends React.Component {
         this.startDate = null
         this.endDate = null
         this.onChange = (address) => this.setState({address})
+
     }
 
     handleFormSubmit = (event) => {
         event.preventDefault()
+
         const {address} = this.state
 
         geocodeByAddress(address, (err, {lat, lng}) => {
