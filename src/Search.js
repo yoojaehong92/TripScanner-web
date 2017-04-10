@@ -1,4 +1,3 @@
-
 import React from "react";
 import PlacesAutocomplete, {geocodeByAddress} from "react-places-autocomplete";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
@@ -9,7 +8,7 @@ import DatePicker from "material-ui/DatePicker";
 class Search extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { address: ''}
         this.startDate = null
         this.endDate = null
         this.onChange = (address) => this.setState({address})
@@ -31,15 +30,11 @@ class Search extends React.Component {
         })
     }
 
-    setStartDate = (event, date) => {
-        this.startDate = date
-        console.log(this.startDate)
-    }
+    setStartDate = (event, date) => this.startDate = date
 
-    setEndDate = (event, date) => {
-        this.endDate = date
-        console.log(this.endDate)
-    }
+
+    setEndDate = (event, date) => this.endDate = date
+
 
     render() {
         const myStyles = {
@@ -67,14 +62,16 @@ class Search extends React.Component {
                         />
                         <MuiThemeProvider>
                             <DatePicker hintText="Start Date" container="inline"
-                                        onChange={this.setStartDate} autoOk='true' className="col" textFieldStyle={{width:'100%'}}/>
+                                        onChange={this.setStartDate} autoOk={true} className="col-sm"
+                                        textFieldStyle={{width: '100%'}}/>
                         </MuiThemeProvider>
                         <MuiThemeProvider>
                             <DatePicker hintText="End Date" container="inline"
-                                        onChange={this.setEndDate} autoOk='true' className="col" textFieldStyle={{width:'100%'}}/>
+                                        onChange={this.setEndDate} autoOk={true} className="col-sm"
+                                        textFieldStyle={{width: '100%'}}/>
                         </MuiThemeProvider>
                         <MuiThemeProvider>
-                            <RaisedButton type='submit' label="Search" className="col"/>
+                            <RaisedButton type='submit' label="Search" className="col-sm"/>
                         </MuiThemeProvider>
                     </div>
                 </div>
