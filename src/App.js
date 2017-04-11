@@ -1,12 +1,24 @@
-import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from "react";
+import {BrowserRouter, Route, Link} from "react-router-dom";
+import Home from "./routes/Home";
+import Login from "./routes/Login"
+import Navigator from './Navigation'
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import FlatButton from "material-ui/FlatButton";
 
-const App = () => (
-    <MuiThemeProvider>
-        <RaisedButton label="App" />
-    </MuiThemeProvider>
-);
+const App = () => {
+    return (
+
+        <BrowserRouter>
+            <div>
+                <Navigator />
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/login" component={Login}/>
+            </div>
+        </BrowserRouter>
+
+    );
+};
 
 
 export default App;
