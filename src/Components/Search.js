@@ -46,7 +46,7 @@ class Search extends React.Component {
         }
 
         const cssClasses = {
-            root: 'col',
+            root: 'col-sm',
             input: 'form-control',
             autocompleteContainer: 'my-autocomplete-container'
         }
