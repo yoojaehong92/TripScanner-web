@@ -7,31 +7,31 @@ const style = {
     border: "solid",
     width: "50%"
 }
-
+JSON.stringify()
 const responseFacebook = (response) => {
     console.log(response);
 }
 
 const LoginForm = () => {
     return (
-        <form style={style}>
+        <form encType="application/json" style={style} action="test" method="post">
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       placeholder="Enter email"/>
+                <input type="email" className="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="Enter email" name="user[email]"/>
                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.
                 </small>
             </div>
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                <input type="password" className="form-control" id="password" placeholder="Password" name="user[password]"/>
             </div>
             <MuiThemeProvider>
                 <RaisedButton type="submit" label="Log in" primary={true}/>
             </MuiThemeProvider>
             <FacebookLogin
-                appId="1088597931155576"
-                autoLoad={true}
+                appId="200726200423220"
+                size="small"
                 fields="name,email,picture"
                 callback={responseFacebook}/>
         </form>
