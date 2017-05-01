@@ -38,8 +38,7 @@ class Search extends React.Component {
 
     render() {
         const myStyles = {
-
-            input: {width: '100%'},
+            input: {width: '100%', padding: '20px',},
             autocompleteContainer: {backgroundColor: 'green'},
             autocompleteItem: {color: 'black'},
             autocompleteItemActive: {color: 'blue'}
@@ -47,13 +46,16 @@ class Search extends React.Component {
 
         const cssClasses = {
             root: 'col-sm',
-            input: 'form-control',
             autocompleteContainer: 'my-autocomplete-container'
+        }
+
+        const datePickerStyle = {
+            'border-style': 'groove'
         }
         return (
             <form onSubmit={this.handleFormSubmit}>
                 <div className="container">
-                    <div className="row">
+                    <div className="row" style={datePickerStyle}>
                         <PlacesAutocomplete
                             value={this.state.address}
                             onChange={this.onChange}
@@ -63,12 +65,12 @@ class Search extends React.Component {
                         <MuiThemeProvider>
                             <DatePicker hintText="Start Date" container="inline"
                                         onChange={this.setStartDate} autoOk={true} className="col-sm"
-                                        textFieldStyle={{width: '100%'}}/>
+                                        textFieldStyle={{width: '100%'}} style={datePickerStyle}/>
                         </MuiThemeProvider>
                         <MuiThemeProvider>
                             <DatePicker hintText="End Date" container="inline"
                                         onChange={this.setEndDate} autoOk={true} className="col-sm"
-                                        textFieldStyle={{width: '100%'}}/>
+                                        textFieldStyle={{width: '100%'}} style={datePickerStyle}/>
                         </MuiThemeProvider>
                         <MuiThemeProvider>
                             <RaisedButton type='submit' label="Search" className="col-sm"/>
