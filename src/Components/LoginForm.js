@@ -5,11 +5,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import 'whatwg-fetch'
 
-
-const style = {
-    border: "solid",
-    width: "50%"
-}
 const responseFacebook = (response) => {
     console.log(response);
 }
@@ -58,7 +53,8 @@ const onSubmit = ({formData}) => {
 const LoginForm = () => {
 
     return (
-        <div style={style}>
+        <div className="card w-50" style={{margin:'auto', align:'center',padding:'20px '}}>
+            <h2 className="card-header" style={{'text-align':'center'}}>Login</h2>
             <Form encType="application/json" action="login" method="post" schema={schema}
                   uiSchema={uiSchema}  onSubmit={onSubmit}>
                 <div>
