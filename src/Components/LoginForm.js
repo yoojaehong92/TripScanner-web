@@ -54,7 +54,7 @@ const LoginForm = () => {
 
     return (
         <div className="card w-50" style={{margin:'auto', align:'center',padding:'20px '}}>
-            <h2 className="card-header" style={{'text-align':'center'}}>Login</h2>
+            <h2 className="card-header" style={{textAlign:'center'}}>Login</h2>
             <Form encType="application/json" action="login" method="post" schema={schema}
                   uiSchema={uiSchema}  onSubmit={onSubmit}>
                 <div>

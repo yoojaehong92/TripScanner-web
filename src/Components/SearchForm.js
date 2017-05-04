@@ -5,7 +5,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import DatePicker from "material-ui/DatePicker";
 
 
-class Search extends React.Component {
+class SearchForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {address: ''}
@@ -52,16 +52,14 @@ class Search extends React.Component {
 
         })
     }
+    setStartDate = (event, date) => this.startDate = date.toISOString().slice(0,10);
 
-    setStartDate = (event, date) => this.startDate = date
-
-
-    setEndDate = (event, date) => this.endDate = date
+    setEndDate = (event, date) => this.endDate = date.toISOString().slice(0,10);
 
 
     render() {
         const myStyles = {
-            input: {width: '100%', padding: '20px', border: 'none', outline: 'none'},
+            input: {width: '100%', paddingTop: '15px', border: 'none', outline: 'none'},
             autocompleteContainer: {backgroundColor: 'green'},
             autocompleteItem: {color: 'black'},
             autocompleteItemActive: {color: 'blue'}
@@ -73,10 +71,14 @@ class Search extends React.Component {
         }
 
         const datePickerStyle = {
-            'border-style': 'groove'
+            borderStyle: 'groove',
+            paddingTop:'5px'
         }
+
+
+
         return (
-            <form onSubmit={this.handleFormSubmit}>
+            <form onSubmit={this.handleFormSubmit} style={{marginTop:'10px'}}>
                 <div className="container">
                     <div className="row" style={datePickerStyle}>
                         <PlacesAutocomplete
@@ -88,7 +90,7 @@ class Search extends React.Component {
                         <MuiThemeProvider>
                             <DatePicker hintText="Start Date" container="inline"
                                         onChange={this.setStartDate} autoOk={true} className="col-sm"
-                                        textFieldStyle={{width: '100%',}}/>
+                                        textFieldStyle={{width: '100%'}}/>
                         </MuiThemeProvider>
                         <MuiThemeProvider>
                             <DatePicker hintText="End Date" container="inline"
@@ -97,7 +99,7 @@ class Search extends React.Component {
                         </MuiThemeProvider>
                         <div className="col-sm">
                             <MuiThemeProvider>
-                                <RaisedButton type='submit' label="Search"/>
+                                <RaisedButton type='submit' label="Search" style={{marginTop:'5px'}}/>
                             </MuiThemeProvider>
                         </div>
                     </div>
@@ -107,4 +109,4 @@ class Search extends React.Component {
     }
 }
 
-export default Search
+export default SearchForm
