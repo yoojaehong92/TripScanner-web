@@ -25,8 +25,9 @@ class SearchForm extends React.Component {
                 console.log('Oh no!', err)
             }
 
-            console.log(`Yay! got latitude and longitude for ${address}`, {lat, lng})
-            console.log(this.startDate, this.endDate)
+            // console.log(`Yay! got latitude and longitude for ${address}`, {lat, lng})
+            // console.log(this.startDate, this.endDate)
+
             const startDate = this.startDate
             const endDate = this.endDate
             const obj = {
@@ -36,6 +37,9 @@ class SearchForm extends React.Component {
                 startDate,
                 endDate
             }
+
+            console.log(obj)
+
             fetch('http://localhost:3000/api/v1/test', {
                 method: 'POST',
                 headers: {

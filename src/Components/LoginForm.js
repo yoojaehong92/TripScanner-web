@@ -3,7 +3,7 @@ import FacebookLogin from "react-facebook-login";
 import Form from "react-jsonschema-form";
 import RaisedButton from "material-ui/RaisedButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import 'whatwg-fetch'
+import "whatwg-fetch";
 
 const responseFacebook = (response) => {
     console.log(response);
@@ -16,8 +16,8 @@ const schema = {
             type: "object",
             title: "User",
             properties: {
-                email: { type: "string", title:"Email"},
-                password: { type: "string",title:"Password"}
+                email: {type: "string", title: "Email"},
+                password: {type: "string", title: "Password"}
             }
         }
     }
@@ -34,18 +34,20 @@ const uiSchema = {
     }
 }
 const onSubmit = ({formData}) => {
-    console.log("yay I'm valid!",formData);
-    fetch('http://localhost:3000/api/v1/users/sign_in',{
-        method:'POST',
+    console.log("yay I'm valid!", formData);
+
+    fetch('http://localhost:3000/api/v1/users/sign_in', {
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            credentials: 'include'
         },
         body: JSON.stringify(formData)
-    }).then(function(response) {
+    }).then(function (response) {
         return response.json()
-    }).then(function(json) {
+    }).then(function (json) {
         console.log('parsed json', json)
-    }).catch(function(ex) {
+    }).catch(function (ex) {
         console.log('parsing failed', ex)
     })
 }
@@ -53,10 +55,10 @@ const onSubmit = ({formData}) => {
 const LoginForm = () => {
 
     return (
-        <div className="card w-50" style={{margin:'auto', align:'center',padding:'20px '}}>
-            <h2 className="card-header" style={{textAlign:'center'}}>Login</h2>
+        <div className="card w-50" style={{margin: 'auto', align: 'center', padding: '20px '}}>
+            <h2 className="card-header" style={{textAlign: 'center'}}>Login</h2>
             <Form encType="application/json" action="login" method="post" schema={schema}
-                  uiSchema={uiSchema}  onSubmit={onSubmit}>
+                  uiSchema={uiSchema} onSubmit={onSubmit}>
                 <div>
                     <MuiThemeProvider>
                         <RaisedButton type="submit" label="Log in" primary={true}/>
