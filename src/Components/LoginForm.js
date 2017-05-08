@@ -38,9 +38,9 @@ const onSubmit = ({formData}) => {
 
     fetch('http://localhost:3000/api/v1/users/sign_in', {
         method: 'POST',
+        credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
-            credentials: 'include'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
     }).then(function (response) {
