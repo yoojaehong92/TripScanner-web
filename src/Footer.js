@@ -1,10 +1,22 @@
-/**
- * Created by jaehong on 2017. 3. 24..
- */
-import React from 'react'
+import React, { Component } from 'react'
 
-const footerInstance = (
-    <p>Footer</p>
-)
+class Footer extends Component {
+  constructor(props) {
+    super(props)
+    this.state = props
+  }
+  componentDidMount() {
+  }
 
-export default footerInstance;
+  componentDidUpdate() {
+  }
+
+  render() {
+    return (
+      <div>
+      </div>
+    )
+  }
+}
+
+export default Footer
