@@ -18,8 +18,8 @@ const Header = () => {
         onTitleTouchTap={ handleTouchTap }
         iconElementRight={
           <FlatButton
-            label='Login'
-            containerElement={ <Link to='/SignIn' /> }
+            label="Login"
+            containerElement={ <Link to="/SignIn" /> }
           />
         }
       />

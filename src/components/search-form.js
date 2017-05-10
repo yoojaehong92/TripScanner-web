@@ -42,8 +42,6 @@ class SearchForm extends React.Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(obj)
-      }).then(function (response) {
-        return response.json()
       })
     })
   }

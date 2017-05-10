@@ -5,9 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 
-const responseFacebook = (response) => {
-  console.log(response);
-}
+// const responseFacebook = (response) => {
+//   response
+// }
 
 const schema = {
   type: 'object',
@@ -74,7 +74,6 @@ const SignInForm = () => {
             appId="200726200423220"
             size="small"
             fields="name,email,picture"
-            callback={ responseFacebook }
           />
         </div>
       </Form>
