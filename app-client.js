@@ -1,7 +1,6 @@
 // app-client.js
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-// import config from './config'
 // import uuid from 'node-uuid'
 // import S from 'shorti'
 // import _ from 'lodash'

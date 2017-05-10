@@ -19,7 +19,7 @@ const Header = () => {
         iconElementRight={
           <FlatButton
             label="Login"
-            containerElement={ <Link to="/SignIn" /> }
+            containerElement={ <Link to="/sign_in" /> }
           />
         }
       />

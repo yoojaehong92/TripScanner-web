@@ -60,8 +60,6 @@ const SignInForm = () => {
         SignIn
       </h2>
       <Form encType="application/json"
-        action="signin"
-        method="post"
         schema={ schema }
         uiSchema={ uiSchema }
         onSubmit={ onSubmit }
