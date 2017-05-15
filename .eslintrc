@@ -1,4 +1,4 @@
-{ 
+{
   "extends": "airbnb",
   "parser": "babel-eslint",
   "env": {
@@ -9,6 +9,7 @@
     "react"
   ],
   "rules": {
+    "no-console": 0,
     "react/jsx-no-bind": 0,
     "no-new": 0,
     "curly": [2, "multi-or-nest"],

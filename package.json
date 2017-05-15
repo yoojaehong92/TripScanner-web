@@ -4,7 +4,6 @@
   "description": "",
   "main": "app-client.js",
   "dependencies": {
-    "material-ui": "^0.17.1",
     "babel": "^6.3.26",
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
@@ -13,18 +12,21 @@
     "babel-preset-stage-2": "^6.3.13",
     "babel-register": "^6.4.3",
     "express": "^4.13.3",
+    "image-webpack-loader": "^3.2.0",
     "lodash": "^4.0.0",
+    "material-ui": "^0.17.1",
     "node-uuid": "^1.4.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-router-dom": "^4.0.0",
     "react-facebook-login": "^3.5.0",
     "react-jsonschema-form": "^0.46.0",
     "react-places-autocomplete": "^4.1.1",
+    "react-redux": "^5.0.4",
+    "react-router-dom": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
     "shorti": "^1.1.3",
-    "webpack": "^1.12.2",
-    "image-webpack-loader": "^3.2.0"
+    "webpack": "^1.12.2"
   },
   "scripts": {
     "start": "npm run production",
@@ -44,6 +46,7 @@
     "eslint-plugin-react": "^3.14.0",
     "image-webpack-loader": "^3.2.0",
     "react-hot-loader": "^1.3.0",
+    "redux-devtools": "^3.4.0",
     "webpack-dev-server": "^1.12.1"
   }
 }

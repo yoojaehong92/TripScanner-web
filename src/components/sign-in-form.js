@@ -1,13 +1,11 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
+import S from 'shorti';
 
-// const responseFacebook = (response) => {
-//   response
-// }
+const facebookAuthUrl = 'http://localhost:3000/api/v1/users/auth/facebook'
 
 const schema = {
   type: 'object',
@@ -47,35 +45,42 @@ const onSubmit = ({ formData }) => {
 
 const SignInForm = () => {
   return (
-    <div className="card w-50"
-      style={
-        {
-          margin: 'auto',
-          align: 'center',
-          padding: '20px'
+    <MuiThemeProvider>
+      <div className="card w-50"
+        style={
+          {
+            margin: 'auto',
+            align: 'center',
+            padding: '20px'
+          }
         }
-      }
-    >
-      <h2 className="card-header" style={ { textAlign: 'center' } }>
-        SignIn
-      </h2>
-      <Form encType="application/json"
-        schema={ schema }
-        uiSchema={ uiSchema }
-        onSubmit={ onSubmit }
       >
-        <div>
-          <MuiThemeProvider>
-            <RaisedButton type="submit" label="Sign in" primary/>
-          </MuiThemeProvider>
-          <FacebookLogin
-            appId="200726200423220"
-            size="small"
-            fields="name,email,picture"
-          />
-        </div>
-      </Form>
-    </div>
+        <h2 className="card-header" style={ { textAlign: 'center' } }>
+          SignIn
+        </h2>
+        <Form encType="application/json"
+          schema={ schema }
+          uiSchema={ uiSchema }
+          onSubmit={ onSubmit }
+        >
+          <div>
+            <RaisedButton
+              type="submit"
+              label="Sign in"
+              primary
+              style={S('mr-10')}
+            />
+            <RaisedButton
+              href={facebookAuthUrl}
+              type="submit"
+              label="Sign With Facebook"
+              secondary
+              style={S('mr-10')}
+            />
+          </div>
+        </Form>
+      </div>
+    </MuiThemeProvider>
   );
 };
 
