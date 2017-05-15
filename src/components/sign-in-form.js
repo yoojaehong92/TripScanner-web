@@ -1,13 +1,12 @@
 import React from 'react';
-import FacebookLogin from 'react-facebook-login';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 import { Redirect } from 'react-router-dom'
-// const responseFacebook = (response) => {
-//   response
-// }
+import S from 'shorti';
+
+const facebookAuthUrl = 'http://localhost:3000/api/v1/users/auth/facebook'
 
 const schema = {
   type: 'object',
@@ -41,7 +40,6 @@ class SignInForm extends React.Component {
       redirect: false
     }
   }
-
   onSubmit = ({ formData }) => {
     fetch('http://localhost:3000/api/v1/users/sign_in', {
       method: 'POST',
@@ -66,48 +64,55 @@ class SignInForm extends React.Component {
     if (this.state.redirect)
       return <Redirect push to='/'/>
     return (
-      <div className="card w-50"
-        style={
-          {
-            align: 'center',
-            margin: 'auto',
-            padding: '20px'
-          }
-        }
-      >
-        <h2 className="card-header" style={ { textAlign: 'center' } }>
-          SignIn
-        </h2>
-        <Form encType="application/json"
-          schema={ schema }
-          uiSchema={ uiSchema }
-          onSubmit={ this.onSubmit }
-        >
-          <div>
+      <MuiThemeProvider>
+        <div className="card w-50"
+          style={
             {
-              this.state.error ?
-                <p className="card-text"
-                  style={
-                    {
-                      color: 'red'
-                    }
-                  }
-                >
-                  Invalid Email or password.
-                </p> :
-                <p/>
+              align: 'center',
+              margin: 'auto',
+              padding: '20px'
             }
-            <MuiThemeProvider>
-              <RaisedButton type="submit" label="Sign in" primary/>
-            </MuiThemeProvider>
-            <FacebookLogin
-              appId="200726200423220"
-              size="small"
-              fields="name,email,picture"
-            />
-          </div>
-        </Form>
-      </div>
+          }
+        >
+          <h2 className="card-header" style={ { textAlign: 'center' } }>
+            SignIn
+          </h2>
+          <Form encType="application/json"
+            schema={ schema }
+            uiSchema={ uiSchema }
+            onSubmit={ this.onSubmit }
+          >
+            <div>
+              {
+                this.state.error ?
+                  <p className="card-text"
+                    style={
+                      {
+                        color: 'red'
+                      }
+                    }
+                  >
+                    Invalid Email or password.
+                  </p> :
+                  <p/>
+              }
+               <RaisedButton
+                type="submit"
+                label="Sign in"
+                primary
+                style={S('mr-10')}
+              />
+              <RaisedButton
+                href={facebookAuthUrl}
+                type="submit"
+                label="Sign With Facebook"
+                secondary
+                style={S('mr-10')}
+              />
+            </div>
+          </Form>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
