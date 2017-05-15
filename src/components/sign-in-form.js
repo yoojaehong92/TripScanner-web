@@ -4,6 +4,7 @@ import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
+import { Redirect } from 'react-router-dom'
 // const responseFacebook = (response) => {
 //   response
 // }
@@ -35,7 +36,10 @@ const uiSchema = {
 class SignInForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { error: false }
+    this.state = {
+      error: false,
+      redirect: false
+    }
   }
 
   onSubmit = ({ formData }) => {
@@ -47,19 +51,20 @@ class SignInForm extends React.Component {
       },
       body: JSON.stringify(formData)
     }).then(function (response) {
-      if (response.ok)
-        console.log('ok')
-      else
+      if (response.ok) {
+        return (
+          this.setState({ redirect: true })
+        )
+      }
+      if (!response.ok)
         this.setState({ error: true })
       return response.json()
-    }.bind(this)).then(function (json) {
-      console.log('parsed json', json)
-    }).catch(function (ex) {
-      console.log('parsing failed', ex)
-    })
+    }.bind(this))
   }
 
   render() {
+    if (this.state.redirect)
+      return <Redirect push to='/'/>
     return (
       <div className="card w-50"
         style={
@@ -88,7 +93,7 @@ class SignInForm extends React.Component {
                     }
                   }
                 >
-                  ID Password Fail
+                  Invalid Email or password.
                 </p> :
                 <p/>
             }

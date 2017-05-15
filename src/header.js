@@ -10,22 +10,27 @@ function handleTouchTap() {
 }
 
 
-const Header = () => {
-  return (
-    <MuiThemeProvider>
-      <AppBar
-        title={ <span style={ { cursor: 'pointer' } }>TripScanner</span> }
-        onTitleTouchTap={ handleTouchTap }
-        iconElementRight={
-          <FlatButton
-            label="Login"
-            containerElement={ <Link to="/sign_in" /> }
-          />
-        }
-      />
-    </MuiThemeProvider>
-  );
-};
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <MuiThemeProvider>
+        <AppBar
+          title={ <span style={ { cursor: 'pointer' } }>TripScanner</span> }
+          onTitleTouchTap={ handleTouchTap }
+          iconElementRight={
+            <FlatButton
+              label="Login"
+              containerElement={ <Link to="/sign_in" /> }
+            />
+          }
+        />
+      </MuiThemeProvider>
+    );
+  }
+}
 
 
 export default Header;
