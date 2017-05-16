@@ -6,7 +6,6 @@ import 'whatwg-fetch';
 import { Redirect } from 'react-router-dom'
 import S from 'shorti';
 
-const facebookAuthUrl = 'http://localhost:3000/api/v1/users/auth/facebook'
 
 const schema = {
   type: 'object',
@@ -16,7 +15,8 @@ const schema = {
       title: 'User',
       properties: {
         email: { type: 'string', title: 'Email' },
-        password: { type: 'string', title: 'Password' }
+        password: { type: 'string', title: 'Password' },
+        password_confirmation: { type: 'string', title: 'Password Confirm' }
       }
     }
   }
@@ -28,11 +28,14 @@ const uiSchema = {
     },
     password: {
       'ui:widget': 'password'
+    },
+    password_confirmation: {
+      'ui:widget': 'password'
     }
   }
 }
 
-class SignInForm extends React.Component {
+class SignUpForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -41,7 +44,7 @@ class SignInForm extends React.Component {
     }
   }
   onSubmit = ({ formData }) => {
-    fetch('http://localhost:3000/api/v1/users/sign_in', {
+    fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -59,7 +62,11 @@ class SignInForm extends React.Component {
       return response.json()
     }.bind(this))
   }
-
+  validate(formData, errors) {
+    if (formData.user.password !== formData.user.password_confirmation)
+      errors.user.password_confirmation.addError('Passwords don\'t match');
+    return errors;
+  }
   render() {
     if (this.state.redirect)
       return <Redirect push to='/'/>
@@ -75,12 +82,14 @@ class SignInForm extends React.Component {
           }
         >
           <h2 className="card-header" style={ { textAlign: 'center' } }>
-            SignIn
+            Sign Up
           </h2>
           <Form encType="application/json"
             schema={ schema }
             uiSchema={ uiSchema }
             onSubmit={ this.onSubmit }
+            validate={ this.validate }
+            liveValidate
           >
             <div>
               {
@@ -90,23 +99,16 @@ class SignInForm extends React.Component {
                       {
                         color: 'red'
                       }
-                    }
+                     }
                   >
-                    Invalid Email or password.
+                    Email has already been taken
                   </p> :
                   <p/>
               }
               <RaisedButton
                 type="submit"
-                label="Sign in"
+                label="Sign Up"
                 primary
-                style={S('mr-10')}
-              />
-              <RaisedButton
-                href={facebookAuthUrl}
-                type="submit"
-                label="Sign With Facebook"
-                secondary
                 style={S('mr-10')}
               />
             </div>
@@ -117,4 +119,4 @@ class SignInForm extends React.Component {
   }
 }
 
-export default SignInForm;
+export default SignUpForm;
