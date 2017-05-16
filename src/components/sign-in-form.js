@@ -66,16 +66,10 @@ class SignInForm extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="card w-50"
-          style={
-            {
-              align: 'center',
-              margin: 'auto',
-              padding: '20px'
-            }
-          }
+          style={S('center-block p-20')}
         >
-          <h2 className="card-header" style={ { textAlign: 'center' } }>
-            SignIn
+          <h2 className="card-header" style={S('text-center')}>
+            Sign In
           </h2>
           <Form encType="application/json"
             schema={ schema }
@@ -86,11 +80,7 @@ class SignInForm extends React.Component {
               {
                 this.state.error ?
                   <p className="card-text"
-                    style={
-                      {
-                        color: 'red'
-                      }
-                    }
+                    style={S('color-f00')}
                   >
                     Invalid Email or password.
                   </p> :

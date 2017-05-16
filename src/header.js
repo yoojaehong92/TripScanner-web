@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Link } from 'react-router-dom'
 import 'whatwg-fetch';
+import S from 'shorti'
 
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -17,14 +18,16 @@ function handleTouchTap() {
 class Login extends React.Component {
   render() {
     return (
-      <div>
+      <div style={S('mt-7')}>
         <FlatButton
           label="SignIn"
           containerElement={ <Link to="/sign_in" /> }
+          style={S('color-fff')}
         />
         <FlatButton
           label="SignUp"
           containerElement={ <Link to="/sign_up" /> }
+          style={S('color-fff')}
         />
       </div>
     )
@@ -72,7 +75,7 @@ class Header extends React.Component {
     return (
       <MuiThemeProvider>
         <AppBar
-          title={ <span style={ { cursor: 'pointer' } }>TripScanner</span> }
+          title={ <span style={S('pointer')}>TripScanner</span> }
           onTitleTouchTap={ handleTouchTap }
           iconElementRight={
             this.state.signIn ? <Logged /> : <Login />

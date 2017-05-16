@@ -73,15 +73,9 @@ class SignUpForm extends React.Component {
     return (
       <MuiThemeProvider>
         <div className="card w-50"
-          style={
-            {
-              align: 'center',
-              margin: 'auto',
-              padding: '20px'
-            }
-          }
+          style={S('center-block p-20')}
         >
-          <h2 className="card-header" style={ { textAlign: 'center' } }>
+          <h2 className="card-header" style={S('text-center')}>
             Sign Up
           </h2>
           <Form encType="application/json"
@@ -95,11 +89,7 @@ class SignUpForm extends React.Component {
               {
                 this.state.error ?
                   <p className="card-text"
-                    style={
-                      {
-                        color: 'red'
-                      }
-                     }
+                    style={S('color-f00')}
                   >
                     Email has already been taken
                   </p> :
