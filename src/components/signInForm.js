@@ -4,8 +4,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 import S from 'shorti';
+import config from '../../config'
 
-const facebookAuthUrl = 'http://localhost:3000/api/v1/users/auth/facebook'
+const facebookAuthUrl = `${config.apiServer.host}/users/auth/facebook`
 
 const schema = {
   type: 'object',

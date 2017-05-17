@@ -1,45 +1,30 @@
-// app-client.js
-import React, { Component } from 'react'
-import { render } from 'react-dom'
-// import uuid from 'node-uuid'
-// import S from 'shorti'
-// import _ from 'lodash'
-// import { Input } from 'react-bootstrap'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import App from './src/app';
 import Home from './src/routes/home';
-import SignIn from './src/routes/sign-in'
-import Header from './src/header'
-import Footer from './src/footer'
+import SignIn from './src/routes/signIn'
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { BrowserRouter, Route } from 'react-router-dom';
 
 injectTapEventPlugin();
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-    }
-  }
+// Component
+// constructor -> componentWillMount -> render -> componentDidMount
 
-  componentDidMount() {
-  }
+// Props change
+// componentWillReceiveProps -> shouldComponentUpdate -> componentWillUpdate ->
+// componentDidUpdate
+// Unmount
+// componentWillUnmount
 
-  componentDidUpdate() {
-  }
 
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <Header/>
-          <Footer/>
-          <Route exact path="/" component={ Home }/>
-          <Route exact path="/sign_in" component={ SignIn }/>
-        </div>
-      </BrowserRouter>
-    )
-  }
-}
-
-const app = document.getElementById('app')
-render(<App />, app)
+ReactDOM.render(
+  <Router history={ browserHistory }>
+    <Route path="/" component={ App }>
+      <IndexRoute component={ Home }/>
+      <Route path="/sign_in" component={ SignIn }/>
+    </Route>
+  </Router>,
+  document.getElementById('root')
+);

@@ -22,7 +22,7 @@
     "react-jsonschema-form": "^0.46.0",
     "react-places-autocomplete": "^4.1.1",
     "react-redux": "^5.0.4",
-    "react-router-dom": "^4.0.0",
+    "react-router": "^3.0.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "shorti": "^1.1.3",
