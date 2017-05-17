@@ -47,7 +47,7 @@ class Logged extends React.Component {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem primaryText="Refresh" />
-        <MenuItem primaryText="Help" />
+        <MenuItem primaryText="Edit Profile" />
         <MenuItem
           primaryText="Sign out"
           onTouchTap={
@@ -68,7 +68,7 @@ class Logged extends React.Component {
 class Header extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { signIn: false }
+    this.state = { signIn: true }
   }
 
   render() {
@@ -80,6 +80,7 @@ class Header extends React.Component {
           iconElementRight={
             this.state.signIn ? <Logged /> : <Login />
           }
+          style={S('fixed')}
         />
       </MuiThemeProvider>
     );

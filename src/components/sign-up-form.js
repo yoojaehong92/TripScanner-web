@@ -40,7 +40,8 @@ class SignUpForm extends React.Component {
     super(props)
     this.state = {
       error: false,
-      redirect: false
+      redirect: false,
+      errors: ''
     }
   }
   onSubmit = ({ formData }) => {
@@ -57,8 +58,16 @@ class SignUpForm extends React.Component {
           this.setState({ redirect: true })
         )
       }
-      if (!response.ok)
+      if (!response.ok) {
+        response.json().then(res => {
+          let errorMessage = ''
+          Object.keys(res.errors).forEach(function (value) {
+            errorMessage += value + ' ' + res.errors[value][0] + '\n'
+          })
+          this.setState({ errors: errorMessage })
+        })
         this.setState({ error: true })
+      }
       return response.json()
     }.bind(this))
   }
@@ -91,7 +100,7 @@ class SignUpForm extends React.Component {
                   <p className="card-text"
                     style={S('color-f00')}
                   >
-                    Email has already been taken
+                    { this.state.errors }
                   </p> :
                   <p/>
               }

@@ -36,6 +36,7 @@ class SearchForm extends React.Component {
         startDate,
         endDate
       }
+
       fetch('http://localhost:3000/api/v1/test', {
         method: 'POST',
         headers: {
@@ -69,7 +70,6 @@ class SearchForm extends React.Component {
       paddingTop: '5px'
     }
 
-
     return (
       <form onSubmit={ this.handleFormSubmit } style={ { marginTop: '10px' } }>
         <div className="container">
@@ -79,6 +79,7 @@ class SearchForm extends React.Component {
               onChange={ this.onChange }
               styles={ myStyles }
               classNames={ cssClasses }
+
             />
             <MuiThemeProvider>
               <DatePicker hintText="Start Date"
