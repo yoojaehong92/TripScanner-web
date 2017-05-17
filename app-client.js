@@ -1,30 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import App from './src/app';
 import Home from './src/routes/home';
 import SignIn from './src/routes/signIn'
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import counterApp from './src/reducers/example'
 
+// for material-ui
 injectTapEventPlugin();
 
-// Component
-// constructor -> componentWillMount -> render -> componentDidMount
+const store = createStore(
+  combineReducers({
+    counterApp,
+    routing: routerReducer
+  })
+)
 
-// Props change
-// componentWillReceiveProps -> shouldComponentUpdate -> componentWillUpdate ->
-// componentDidUpdate
-// Unmount
-// componentWillUnmount
-
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
-  <Router history={ browserHistory }>
-    <Route path="/" component={ App }>
-      <IndexRoute component={ Home }/>
-      <Route path="/sign_in" component={ SignIn }/>
-    </Route>
-  </Router>,
+  <Provider store={ store }>
+    <Router history={ history }>
+      <Route path="/" component={ App }>
+        <IndexRoute component={ Home }/>
+        <Route path="/sign_in" component={ SignIn }/>
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
