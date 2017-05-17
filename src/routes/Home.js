@@ -1,27 +1,15 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SearchForm from '../components/searchForm';
-import PropTypes from 'prop-types';
+import React from 'react';
+import SearchForm from '../components/search-form'
+import S from 'shorti'
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    // via connect()
-    return (
-      <div>
-        <SearchForm/>
-        <span>Home</span>
-      </div>
-    );
-  }
-}
-
-Home.propTypes = {
-  count: PropTypes.number,
-  store: PropTypes.object
+const Home = () => {
+  return (
+    <div style={S('p-20 pt-65')}>
+      <SearchForm/>
+      <span>Home</span>
+    </div>
+  );
 };
 
 export default connect()(Home);
