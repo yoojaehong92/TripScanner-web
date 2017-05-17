@@ -3,6 +3,7 @@ import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
+import { Redirect } from 'react-router'
 import S from 'shorti';
 import config from '../../config'
 
@@ -21,7 +22,6 @@ const schema = {
     }
   }
 }
-
 const uiSchema = {
   user: {
     email: {
@@ -33,56 +33,89 @@ const uiSchema = {
   }
 }
 
-const onSubmit = ({ formData }) => {
-  fetch('http://localhost:3000/api/v1/users/sign_in', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  })
-}
+class SignInForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      error: false,
+      redirect: false
+    }
+  }
+  onSubmit = ({ formData }) => {
+    fetch('http://localhost:3000/api/v1/users/sign_in', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    }).then(function cb(response) {
+      if (response.ok) {
+        return (
+          this.setState({ redirect: true })
+        )
+      }
+      if (!response.ok)
+        this.setState({ error: true })
+      return response.json()
+    }.bind(this))
+  }
 
-const SignInForm = () => {
-  return (
-    <MuiThemeProvider>
-      <div className="card w-50"
-        style={
-          {
-            margin: 'auto',
-            align: 'center',
-            padding: '20px'
+  render() {
+    if (this.state.redirect)
+      return <Redirect push to="/"/>
+    return (
+      <MuiThemeProvider>
+        <div className="card w-50"
+          style={
+            {
+              align: 'center',
+              margin: 'auto',
+              padding: '20px'
+            }
           }
-        }
-      >
-        <h2 className="card-header" style={ { textAlign: 'center' } }>
-          SignIn
-        </h2>
-        <Form encType="application/json"
-          schema={ schema }
-          uiSchema={ uiSchema }
-          onSubmit={ onSubmit }
         >
-          <div>
-            <RaisedButton
-              type="submit"
-              label="Sign in"
-              primary
-              style={S('mr-10')}
-            />
-            <RaisedButton
-              href={facebookAuthUrl}
-              type="submit"
-              label="Sign With Facebook"
-              secondary
-              style={S('mr-10')}
-            />
-          </div>
-        </Form>
-      </div>
-    </MuiThemeProvider>
-  );
-};
+          <h2 className="card-header" style={ { textAlign: 'center' } }>
+            SignIn
+          </h2>
+          <Form encType="application/json"
+            schema={ schema }
+            uiSchema={ uiSchema }
+            onSubmit={ this.onSubmit }
+          >
+            <div>
+              {
+                this.state.error ?
+                  <p className="card-text"
+                    style={
+                      {
+                        color: 'red'
+                      }
+                    }
+                  >
+                    Invalid Email or password.
+                  </p> :
+                  <p/>
+              }
+              <RaisedButton
+                type="submit"
+                label="Sign in"
+                primary
+                style={S('mr-10')}
+              />
+              <RaisedButton
+                href={facebookAuthUrl}
+                type="submit"
+                label="Sign With Facebook"
+                secondary
+                style={S('mr-10')}
+              />
+            </div>
+          </Form>
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+}
 
 export default SignInForm;
