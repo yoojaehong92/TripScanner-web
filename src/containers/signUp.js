@@ -6,7 +6,6 @@ const SignUp = () => {
   return (
     <div style={S('p-20 pt-80')}>
       <SignUpForm/>
-      SignUp
     </div>
   );
 };

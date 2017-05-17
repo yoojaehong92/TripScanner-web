@@ -3,7 +3,7 @@ import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router'
 import S from 'shorti';
 
 
@@ -44,6 +44,7 @@ class SignUpForm extends React.Component {
       errors: ''
     }
   }
+
   onSubmit = ({ formData }) => {
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
@@ -52,7 +53,7 @@ class SignUpForm extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formData)
-    }).then(function (response) {
+    }).then(function callback(response) {
       if (response.ok) {
         return (
           this.setState({ redirect: true })
@@ -61,7 +62,7 @@ class SignUpForm extends React.Component {
       if (!response.ok) {
         response.json().then(res => {
           let errorMessage = ''
-          Object.keys(res.errors).forEach(function (value) {
+          Object.keys(res.errors).forEach(function x(value) {
             errorMessage += value + ' ' + res.errors[value][0] + '\n'
           })
           this.setState({ errors: errorMessage })
@@ -78,7 +79,7 @@ class SignUpForm extends React.Component {
   }
   render() {
     if (this.state.redirect)
-      return <Redirect push to='/'/>
+      return <Redirect push to="/"/>
     return (
       <MuiThemeProvider>
         <div className="card w-50"

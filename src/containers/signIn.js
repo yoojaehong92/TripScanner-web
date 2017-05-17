@@ -5,7 +5,6 @@ const SignIn = () => {
   return (
     <div style={ { padding: '20px' } }>
       <SignInForm/>
-      SignIn
     </div>
   );
 };

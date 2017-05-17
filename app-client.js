@@ -9,8 +9,9 @@ import { routerMiddleware } from 'react-router-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './src/app';
-import Home from './src/routes/home';
-import SignIn from './src/routes/signIn'
+import Home from './src/containers/home';
+import SignIn from './src/containers/signIn'
+import SignUp from './src/containers/signUp'
 
 import counterApp from './src/reducers/example'
 
@@ -36,6 +37,7 @@ ReactDOM.render(
       <Route path="/" component={ App }>
         <IndexRoute component={ Home }/>
         <Route path="/sign_in" component={ SignIn }/>
+        <Route path="/sign_up" component={ SignUp }/>
       </Route>
     </Router>
   </Provider>,

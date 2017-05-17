@@ -6,6 +6,7 @@ import 'whatwg-fetch';
 import { Redirect } from 'react-router'
 import S from 'shorti';
 import config from '../../config'
+import { Link } from 'react-router';
 
 const facebookAuthUrl = `${config.apiServer.host}/users/auth/facebook`
 
@@ -105,8 +106,15 @@ class SignInForm extends React.Component {
               />
               <RaisedButton
                 href={facebookAuthUrl}
-                type="submit"
+                type="button"
                 label="Sign With Facebook"
+                secondary
+                style={S('mr-10')}
+              />
+              <RaisedButton
+                containerElement={ <Link to="sign_up"/>}
+                type="button"
+                label="Sign Up"
                 secondary
                 style={S('mr-10')}
               />
