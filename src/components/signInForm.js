@@ -1,12 +1,12 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
 import S from 'shorti';
-import config from '../../config'
+import config from '../../config';
 import { Link } from 'react-router';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 const facebookAuthUrl = `${config.apiServer.host}/users/auth/facebook`
 
@@ -66,19 +66,9 @@ class SignInForm extends React.Component {
     if (this.state.redirect)
       return <Redirect push to="/"/>
     return (
-      <MuiThemeProvider>
-        <div className="card w-50"
-          style={
-            {
-              align: 'center',
-              margin: 'auto',
-              padding: '20px'
-            }
-          }
-        >
-          <h2 className="card-header" style={ { textAlign: 'center' } }>
-            SignIn
-          </h2>
+      <Card style={S('w-50p center-block color-eee')}>
+        <CardTitle title="SignIn" titleStyle={S('text-center')} style={S('bg-eee')}/>
+        <CardText>
           <Form encType="application/json"
             schema={ schema }
             uiSchema={ uiSchema }
@@ -88,11 +78,7 @@ class SignInForm extends React.Component {
               {
                 this.state.error ?
                   <p className="card-text"
-                    style={
-                      {
-                        color: 'red'
-                      }
-                    }
+                    style={S('color-f00')}
                   >
                     Invalid Email or password.
                   </p> :
@@ -120,8 +106,8 @@ class SignInForm extends React.Component {
               />
             </div>
           </Form>
-        </div>
-      </MuiThemeProvider>
+        </CardText>
+      </Card>
     )
   }
 }

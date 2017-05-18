@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 import 'whatwg-fetch';
 import { Redirect } from 'react-router'
 import S from 'shorti';
@@ -81,13 +81,9 @@ class SignUpForm extends React.Component {
     if (this.state.redirect)
       return <Redirect push to="/"/>
     return (
-      <MuiThemeProvider>
-        <div className="card w-50"
-          style={S('center-block p-20')}
-        >
-          <h2 className="card-header" style={S('text-center')}>
-            Sign Up
-          </h2>
+      <Card style={S('w-50p center-block color-eee')}>
+        <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
+        <CardText>
           <Form encType="application/json"
             schema={ schema }
             uiSchema={ uiSchema }
@@ -113,8 +109,8 @@ class SignUpForm extends React.Component {
               />
             </div>
           </Form>
-        </div>
-      </MuiThemeProvider>
+        </CardText>
+      </Card>
     )
   }
 }
