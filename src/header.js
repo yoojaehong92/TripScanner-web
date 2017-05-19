@@ -5,9 +5,12 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import SignedInMenu from './components/signedInMenu'
+import S from 'shorti'
 
 class Header extends React.Component {
   static propTypes = {
+    user: PropTypes.object,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -15,20 +18,29 @@ class Header extends React.Component {
     super(props)
   }
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, user } = this.props;
     return (
       <AppBar
-        title={ <span style={ { cursor: 'pointer' } }>TripScanner</span> }
+        style={ S('fixed')}
+        title={ <span style={ S('pointer') }>TripScanner</span> }
         onTitleTouchTap={ () => dispatch(push('/')) }
         iconElementRight={
-          <FlatButton
-            label="SignIn"
-            containerElement={ <Link to="/sign_in" /> }
-          />
+          user ?
+            <SignedInMenu/> :
+            <FlatButton
+              label="SignIn"
+              containerElement={ <Link to="/sign_in" /> }
+            />
         }
       />
     );
   }
 }
 
-export default connect()(Header);
+function mapCurrentUser(state) {
+  return {
+    user: state.currentUserReducer.user
+  };
+}
+
+export default connect(mapCurrentUser)(Header);

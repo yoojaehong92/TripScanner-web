@@ -1,9 +1,10 @@
 import React from 'react';
 import SignInForm from '../components/signInForm'
+import S from 'shorti'
 
 const SignIn = () => {
   return (
-    <div style={ { padding: '20px' } }>
+    <div style={S('p-20 pt-80')}>
       <SignInForm/>
     </div>
   );

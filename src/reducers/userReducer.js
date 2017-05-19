@@ -3,6 +3,7 @@
  */
 
 import { REQUEST_SIGN_IN, RECEIVE_SIGN_IN, ERROR_SIGN_IN } from '../actions/userAction';
+import { REQUEST_SIGN_OUT } from '../actions/userAction';
 
 export function currentUserReducer(state = {
   isFetching: false,
@@ -25,6 +26,10 @@ export function currentUserReducer(state = {
       return Object.assign({}, state, {
         isFetching: false,
         hasError: true
+      })
+    case REQUEST_SIGN_OUT:
+      return Object.assign({}, state, {
+        user: null
       })
     default:
       return state;
