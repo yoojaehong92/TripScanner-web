@@ -1,15 +1,15 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
 import S from 'shorti';
-import config from '../../config'
+import config from '../../config';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchSignIn } from '../actions/userAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 const facebookAuthUrl = `${config.apiServer.host}/users/auth/facebook`
 
@@ -57,19 +57,9 @@ class SignInForm extends React.Component {
     if (this.props.user)
       this.props.dispatch(push('/'))
     return (
-      <MuiThemeProvider>
-        <div className="card w-50"
-          style={
-            {
-              align: 'center',
-              margin: 'auto',
-              padding: '20px'
-            }
-          }
-        >
-          <h2 className="card-header" style={ { textAlign: 'center' } }>
-            SignIn
-          </h2>
+      <Card style={S('w-50p center-block color-eee')}>
+        <CardTitle title="SignIn" titleStyle={S('text-center')} style={S('bg-eee')}/>
+        <CardText>
           <Form encType="application/json"
             schema={ schema }
             uiSchema={ uiSchema }
@@ -78,7 +68,7 @@ class SignInForm extends React.Component {
             <div>
               {
                 this.props.hasError ?
-                  <p className="card-text" style={{ color: 'red' }}>
+                  <p className="card-text" style={S('color-f00')}>
                     Invalid Email or password.
                   </p>
                 : null
@@ -105,8 +95,8 @@ class SignInForm extends React.Component {
               />
             </div>
           </Form>
-        </div>
-      </MuiThemeProvider>
+        </CardText>
+      </Card>
     )
   }
 }
