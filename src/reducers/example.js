@@ -1,5 +1,5 @@
 import { INCREMENT, DECREMENT } from '../actions/example.js';
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
 function counterReducer(state = 0, action) {
   switch (action.type) {

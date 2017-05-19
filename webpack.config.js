@@ -27,6 +27,8 @@ if(process.env.NODE_ENV === 'development'){
   loaders.push(es_lint)
 }
 
+
+
 var image_loaders = {
   test: /\.(gif|png|jpe?g|svg)$/i,
   loaders: [

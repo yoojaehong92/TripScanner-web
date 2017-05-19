@@ -3,10 +3,13 @@ import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'whatwg-fetch';
-import { Redirect } from 'react-router'
 import S from 'shorti';
 import config from '../../config'
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { fetchSignIn } from '../actions/userAction';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 const facebookAuthUrl = `${config.apiServer.host}/users/auth/facebook`
 
@@ -35,36 +38,24 @@ const uiSchema = {
 }
 
 class SignInForm extends React.Component {
+  static propTypes = {
+    user: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
+    hasError: PropTypes.bool
+  };
+
   constructor(props) {
     super(props)
-    this.state = {
-      error: false,
-      redirect: false
-    }
+    this.onSubmit = this.onSubmit.bind(this)
   }
   onSubmit = ({ formData }) => {
-    fetch('http://localhost:3000/api/v1/users/sign_in', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then(function cb(response) {
-      if (response.ok) {
-        return (
-          this.setState({ redirect: true })
-        )
-      }
-      if (!response.ok)
-        this.setState({ error: true })
-      return response.json()
-    }.bind(this))
+    const { dispatch } = this.props
+    dispatch(fetchSignIn(JSON.stringify(formData)))
   }
 
   render() {
-    if (this.state.redirect)
-      return <Redirect push to="/"/>
+    if (this.props.user)
+      this.props.dispatch(push('/'))
     return (
       <MuiThemeProvider>
         <div className="card w-50"
@@ -86,17 +77,11 @@ class SignInForm extends React.Component {
           >
             <div>
               {
-                this.state.error ?
-                  <p className="card-text"
-                    style={
-                      {
-                        color: 'red'
-                      }
-                    }
-                  >
+                this.props.hasError ?
+                  <p className="card-text" style={{ color: 'red' }}>
                     Invalid Email or password.
-                  </p> :
-                  <p/>
+                  </p>
+                : null
               }
               <RaisedButton
                 type="submit"
@@ -126,4 +111,12 @@ class SignInForm extends React.Component {
   }
 }
 
-export default SignInForm;
+function mapCurrentUser(state) {
+  return {
+    isFetching: state.currentUserReducer.isFetching,
+    hasError: state.currentUserReducer.hasError,
+    user: state.currentUserReducer.user
+  };
+}
+
+export default connect(mapCurrentUser)(SignInForm);

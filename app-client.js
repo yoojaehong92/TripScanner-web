@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { routerMiddleware } from 'react-router-redux'
+import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -14,19 +16,28 @@ import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 
 import counterApp from './src/reducers/example'
+import { currentUserReducer } from './src/reducers/userReducer';
+
 
 // for material-ui
 injectTapEventPlugin();
 
 // Apply the middleware to the store
-const middleware = routerMiddleware(browserHistory)
+const rMiddleware = routerMiddleware(browserHistory);
+const loggerMiddleware = createLogger();
+
 const store = createStore(
   combineReducers({
+    currentUserReducer,
     counterApp,
     routing: routerReducer
   }),
-  applyMiddleware(middleware)
-)
+  applyMiddleware(
+    rMiddleware,
+    thunkMiddleware,
+    loggerMiddleware
+  )
+);
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
