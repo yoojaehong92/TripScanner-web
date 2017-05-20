@@ -14,6 +14,11 @@ export const ERROR_SIGN_IN = 'ERROR_SIGN_IN';
 
 const usersSignInUrl = `${config.apiServer.host}/users/sign_in`
 
+// For api/v1/users/sign_out
+export const REQUEST_SIGN_OUT = 'REQUEST_SIGN_OUT';
+
+const userSignOutUrl = `${config.apiServer.host}/users/sign_out`
+
 function requestSignIn(user) {
   return {
     type: REQUEST_SIGN_IN,
@@ -41,6 +46,12 @@ function handleErrors(response) {
   return response;
 }
 
+function requestSignOut() {
+  return {
+    type: REQUEST_SIGN_OUT
+  }
+}
+
 export function fetchSignIn(user) {
   return dispatch => {
     dispatch(requestSignIn(user));
@@ -57,6 +68,16 @@ export function fetchSignIn(user) {
     .then(json => dispatch(recceiveSignIn(json)))
     .catch(error => dispatch(errorSignIn(error)));
   };
+}
+
+export function fetchSignOut() {
+  return dispatch => {
+    dispatch(requestSignOut());
+    return fetch(userSignOutUrl, {
+      method: 'DELETE',
+      credentials: 'include'
+    })
+  }
 }
 
 // function shouldFetchSignIn(state, user) {
