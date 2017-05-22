@@ -12,7 +12,7 @@ import { FlatButton } from 'material-ui';
 class SearchForm extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    trips: PropTypes.object
+    trips: PropTypes.array
   };
 
   constructor(props) {
