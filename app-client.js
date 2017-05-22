@@ -15,7 +15,6 @@ import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 
-import counterApp from './src/reducers/example'
 import { currentUserReducer } from './src/reducers/userReducer';
 
 
@@ -29,7 +28,6 @@ const loggerMiddleware = createLogger();
 const store = createStore(
   combineReducers({
     currentUserReducer,
-    counterApp,
     routing: routerReducer
   }),
   applyMiddleware(
