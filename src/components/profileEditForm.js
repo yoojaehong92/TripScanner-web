@@ -6,13 +6,13 @@ class ProfileEditForm extends React.Component {
   render() {
     return (
       <Card style={S('w-50p center-block')}>
-        <CardTitle title="Profile"/>
+        <CardTitle title="Profile" titleStyle={S('text-center')} style={S('bg-eee')}/>
         <CardText>
           <div className="form-group row">
             <label htmlFor="example-text-input" className="col-2 col-form-label">Text</label>
             <div className="col-10">
               <input className="form-control"
-                     type="text" value="Artisanal kale" id="example-text-input"
+                type="text" value="Artisanal kale" id="example-text-input"
               />
             </div>
           </div>
@@ -20,7 +20,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-search-input" className="col-2 col-form-label">Search</label>
             <div className="col-10">
               <input className="form-control"
-                     type="search" value="How do I shoot web" id="example-search-input"
+                type="search" value="How do I shoot web" id="example-search-input"
               />
             </div>
           </div>
@@ -28,7 +28,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-email-input" className="col-2 col-form-label">Email</label>
             <div className="col-10">
               <input className="form-control"
-                     type="email" value="bootstrap@example.com" id="example-email-input"
+                type="email" value="bootstrap@example.com" id="example-email-input"
               />
             </div>
           </div>
@@ -36,7 +36,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-url-input" className="col-2 col-form-label">URL</label>
             <div className="col-10">
               <input className="form-control"
-                     type="url" value="https://getbootstrap.com" id="example-url-input"
+                type="url" value="https://getbootstrap.com" id="example-url-input"
               />
             </div>
           </div>
@@ -44,7 +44,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-tel-input" className="col-2 col-form-label">Telephone</label>
             <div className="col-10">
               <input className="form-control"
-                     type="tel" value="1-(555)-555-5555" id="example-tel-input"
+                type="tel" value="1-(555)-555-5555" id="example-tel-input"
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ class ProfileEditForm extends React.Component {
             </label>
             <div className="col-10">
               <input className="form-control"
-                     type="password" value="hunter2" id="example-password-input"
+                type="password" value="hunter2" id="example-password-input"
               />
             </div>
           </div>
@@ -70,7 +70,7 @@ class ProfileEditForm extends React.Component {
             </label>
             <div className="col-10">
               <input className="form-control" type="datetime-local" value="2011-08-19T13:45:00"
-                     id="example-datetime-local-input"
+                id="example-datetime-local-input"
               />
             </div>
           </div>
@@ -78,7 +78,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-date-input" className="col-2 col-form-label">Date</label>
             <div className="col-10">
               <input className="form-control"
-                     type="date" value="2011-08-19" id="example-date-input"
+                type="date" value="2011-08-19" id="example-date-input"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@ class ProfileEditForm extends React.Component {
             <label htmlFor="example-month-input" className="col-2 col-form-label">Month</label>
             <div className="col-10">
               <input className="form-control"
-                     type="month" value="2011-08" id="example-month-input"
+                type="month" value="2011-08" id="example-month-input"
               />
             </div>
           </div>
@@ -103,10 +103,10 @@ class ProfileEditForm extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label forName="example-color-input" className="col-2 col-form-label">Color</label>
+            <label htmlFor="example-color-input" className="col-2 col-form-label">Color</label>
             <div className="col-10">
-              <input className="form-control" type="color"
-                     value="#563d7c" id="example-color-input"
+              <input className="form-control"
+                type="color" value="#563d7c" id="example-color-input"
               />
             </div>
           </div>

@@ -19,6 +19,12 @@ export const REQUEST_SIGN_OUT = 'REQUEST_SIGN_OUT';
 
 const userSignOutUrl = `${config.apiServer.host}/users/sign_out`
 
+// For api/v1/users/sign_up
+export const REQUEST_SIGN_UP = 'REQUEST_SIGN_UP';
+export const ERROR_SIGN_UP = 'ERROR_SIGN_UP';
+
+const userSignUpUrl = `${config.apiServer.host}/users`
+
 function requestSignIn(user) {
   return {
     type: REQUEST_SIGN_IN,
@@ -26,7 +32,7 @@ function requestSignIn(user) {
   };
 }
 
-function recceiveSignIn(json) {
+function receiveSignIn(json) {
   return {
     type: RECEIVE_SIGN_IN,
     user: json.user
@@ -52,6 +58,30 @@ function requestSignOut() {
   }
 }
 
+function requestSignUp() {
+  return {
+    type: REQUEST_SIGN_UP
+  }
+}
+
+function errorSignUp(json) {
+  let statusText = ''
+
+  Object.keys(json.errors).forEach((value) => {
+    statusText += value + ' ' + json.errors[value][0] + '\n'
+  })
+  return {
+    type: ERROR_SIGN_UP,
+    error: statusText
+  }
+}
+
+function handleErrorInSignUp(response) {
+  if (!response.ok)
+    throw response;
+  return response
+}
+
 export function fetchSignIn(user) {
   return dispatch => {
     dispatch(requestSignIn(user));
@@ -65,7 +95,7 @@ export function fetchSignIn(user) {
     })
     .then(handleErrors)
     .then(response => response.json())
-    .then(json => dispatch(recceiveSignIn(json)))
+    .then(json => dispatch(receiveSignIn(json)))
     .catch(error => dispatch(errorSignIn(error)));
   };
 }
@@ -77,7 +107,26 @@ export function fetchSignOut() {
       method: 'DELETE',
       credentials: 'include'
     })
-  }
+  };
+}
+
+export function fetchSignUp(user) {
+  return dispatch => {
+    dispatch(requestSignUp());
+    return fetch(userSignUpUrl, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: user
+    })
+    .then(handleErrorInSignUp)
+    .then(response => response.json())
+    .then(json => dispatch(receiveSignIn(json)))
+    .catch(error => error.json())
+    .then(json => dispatch(errorSignUp(json)));
+  };
 }
 
 // function shouldFetchSignIn(state, user) {

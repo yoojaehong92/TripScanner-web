@@ -2,10 +2,11 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import 'whatwg-fetch';
-import { Redirect } from 'react-router'
 import S from 'shorti';
-
+import { connect } from 'react-redux';
+import { fetchSignUp } from '../actions/userAction';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 const schema = {
   type: 'object',
@@ -14,7 +15,15 @@ const schema = {
       type: 'object',
       title: 'User',
       properties: {
+        name: { type: 'string', title: 'Name' },
         email: { type: 'string', title: 'Email' },
+        gender: {
+          type: 'string',
+          title: 'Gender',
+          enum: [
+            'male',
+            'female'
+          ] },
         password: { type: 'string', title: 'Password' },
         password_confirmation: { type: 'string', title: 'Password Confirm' }
       }
@@ -23,6 +32,9 @@ const schema = {
 }
 const uiSchema = {
   user: {
+    gender: {
+      'ui:placeholder': 'Gender'
+    },
     email: {
       'ui:widget': 'email'
     },
@@ -36,41 +48,19 @@ const uiSchema = {
 }
 
 class SignUpForm extends React.Component {
+  static propTypes = {
+    user: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
+    hasError: PropTypes.bool,
+    error: PropTypes.string
+  };
   constructor(props) {
     super(props)
-    this.state = {
-      error: false,
-      redirect: false,
-      errors: ''
-    }
   }
 
   onSubmit = ({ formData }) => {
-    fetch('http://localhost:3000/api/v1/users', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then(function callback(response) {
-      if (response.ok) {
-        return (
-          this.setState({ redirect: true })
-        )
-      }
-      if (!response.ok) {
-        response.json().then(res => {
-          let errorMessage = ''
-          Object.keys(res.errors).forEach(function x(value) {
-            errorMessage += value + ' ' + res.errors[value][0] + '\n'
-          })
-          this.setState({ errors: errorMessage })
-        })
-        this.setState({ error: true })
-      }
-      return response.json()
-    }.bind(this))
+    const { dispatch } = this.props
+    dispatch(fetchSignUp(JSON.stringify(formData)))
   }
   validate(formData, errors) {
     if (formData.user.password !== formData.user.password_confirmation)
@@ -78,8 +68,8 @@ class SignUpForm extends React.Component {
     return errors;
   }
   render() {
-    if (this.state.redirect)
-      return <Redirect push to="/"/>
+    if (this.props.user)
+      this.props.dispatch(push('/'))
     return (
       <Card style={S('w-50p center-block color-eee')}>
         <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
@@ -93,11 +83,11 @@ class SignUpForm extends React.Component {
           >
             <div>
               {
-                this.state.error ?
+                this.props.hasError ?
                   <p className="card-text"
                     style={S('color-f00')}
                   >
-                    { this.state.errors }
+                    { this.props.error }
                   </p> :
                   <p/>
               }
@@ -115,4 +105,12 @@ class SignUpForm extends React.Component {
   }
 }
 
-export default SignUpForm;
+function mapCurrentUser(state) {
+  return {
+    hasError: state.currentUserReducer.hasError,
+    user: state.currentUserReducer.user,
+    error: state.currentUserReducer.error
+  };
+}
+
+export default connect(mapCurrentUser)(SignUpForm);
