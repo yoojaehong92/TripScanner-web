@@ -12,6 +12,12 @@ const schema = {
   type: 'object',
   properties: {
     user: {
+      required: [
+        'name',
+        'email',
+        'gender',
+        'password'
+      ],
       type: 'object',
       title: 'User',
       properties: {
@@ -24,8 +30,8 @@ const schema = {
             'male',
             'female'
           ] },
-        password: { type: 'string', title: 'Password' },
-        password_confirmation: { type: 'string', title: 'Password Confirm' }
+        password: { type: 'string', title: 'Password', minLength: 6 },
+        password_confirmation: { type: 'string', title: 'Password Confirm', minLength: 6 }
       }
     }
   }
@@ -52,55 +58,115 @@ class SignUpForm extends React.Component {
     user: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     hasError: PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.object
   };
   constructor(props) {
     super(props)
   }
 
   onSubmit = ({ formData }) => {
+    // formData
     const { dispatch } = this.props
+    // console.log('hi', this.props.error)
     dispatch(fetchSignUp(JSON.stringify(formData)))
+    // .then(() => console.log(this.props.error))
   }
   validate(formData, errors) {
     if (formData.user.password !== formData.user.password_confirmation)
       errors.user.password_confirmation.addError('Passwords don\'t match');
-    return errors;
+    return errors
   }
+  // validate(formData, errors) {
+  //   // const { dispatch } = this.props
+  //   if (this.props.hasError) {
+  //       Object.keys(this.props.error).forEach((element) => {
+  //         Object.keys(this.props.error[element]).forEach((x) => {
+  //           console.log(this.props.error[element][x])
+  //           errors.user[element].addError(this.props.error[element][x])
+  //         })
+  //       })
+  //     // return errors
+  //   }
+    // console.log(this.props.error)
+    // errors.user.email.addError('Passwords don\'t match');
+    // // errors.user.password_confirmation.addError('Passwords don\'t match');
+    // // return errors
+    // console.log(errors, 1)
+    // console.log(
+    //   dispatch(fetchSignUp(JSON.stringify(formData)))
+    //     .then(() => {
+    //       Object.keys(this.props.error).forEach((element) => {
+    //         Object.keys(this.props.error[element]).forEach((x) => {
+    //           console.log(element, this.props.error[element][x])
+    //           errors.user[element].addError(this.props.error[element][x])
+    //         })
+    //         // console.log(errors.user[element].addError, element)
+    //       })
+          // console.log(errors)
+    //   return errors
+    // })
+    // )
+    // if(this.props.error)
+    //   Object.keys(this.props.error).forEach((element) => {
+    //     Object.keys(this.props.error[element]).forEach((x) => {
+    //       console.log(this.props.error[element][x])
+    //       errors.user[element].addError(this.props.error[element][x])
+    //     })
+    //   })
+    //
+    // return errors;
+  //   return errors
+  // }
+
   render() {
+    let errors = ''
+    if (this.props.hasError) {
+      Object.keys(this.props.error).forEach((element) => {
+        Object.keys(this.props.error[element]).forEach((x) => {
+          console.log(this.props.error[element][x])
+          errors += element + ' ' + this.props.error[element][x] + '\n\n'
+        })
+      })
+    }
     if (this.props.user)
       this.props.dispatch(push('/'))
     return (
-      <Card style={S('w-50p center-block color-eee')}>
-        <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
-        <CardText>
-          <Form encType="application/json"
-            schema={ schema }
-            uiSchema={ uiSchema }
-            onSubmit={ this.onSubmit }
-            validate={ this.validate }
-            liveValidate
-          >
-            <div>
-              {
-                this.props.hasError ?
-                  <p className="card-text"
-                    style={S('color-f00')}
-                  >
-                    { this.props.error }
-                  </p> :
-                  <p/>
-              }
-              <RaisedButton
-                type="submit"
-                label="Sign Up"
-                primary
-                style={S('mr-10')}
-              />
-            </div>
-          </Form>
-        </CardText>
-      </Card>
+      <div>
+        {
+          this.props.hasError ?
+          <Card style={S('w-50p center-block color-933 mb-20')}>
+            <CardTitle title="Errors"
+              titleStyle={S('text-center color-933')} style={S('bg-eaa')}
+            />
+            <CardText style={S('color-b44')}>
+              { errors }
+            </CardText>
+          </Card> :
+          <br/>
+        }
+        <Card style={S('w-50p center-block')}>
+          <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
+          <CardText>
+            <Form encType="application/json"
+              schema={ schema }
+              uiSchema={ uiSchema }
+              onSubmit={ this.onSubmit }
+              validate={ this. validate }
+              showErrorList={ false }
+              liveValidate
+            >
+              <div>
+                <RaisedButton
+                  type="submit"
+                  label="Sign Up"
+                  primary
+                  style={S('mr-10')}
+                />
+              </div>
+            </Form>
+          </CardText>
+        </Card>
+      </div>
     )
   }
 }

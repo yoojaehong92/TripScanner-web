@@ -5,6 +5,7 @@
 import { REQUEST_SIGN_IN, RECEIVE_SIGN_IN, ERROR_SIGN_IN } from '../actions/userAction';
 import { REQUEST_SIGN_OUT } from '../actions/userAction';
 import { REQUEST_SIGN_UP, ERROR_SIGN_UP } from '../actions/userAction';
+import { REQUEST_USER_ME, RECEIVE_USER_ME } from '../actions/userAction';
 
 export function currentUserReducer(state = {
   isFetching: false,
@@ -19,6 +20,7 @@ export function currentUserReducer(state = {
         hasError: false
       })
     case RECEIVE_SIGN_IN:
+    case RECEIVE_USER_ME:
       return Object.assign({}, state, {
         isFetching: false,
         user: action.user,
@@ -44,6 +46,11 @@ export function currentUserReducer(state = {
         isFetching: false,
         hasError: true,
         error: action.error
+      })
+    case REQUEST_USER_ME:
+      return Object.assign({}, state, {
+        isFetching: true,
+        hasError: false
       })
     default:
       return state;

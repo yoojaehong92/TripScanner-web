@@ -4,6 +4,7 @@ import Header from './header'
 import Footer from './footer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
+import { fetchUserMe } from './actions/userAction'
 
 // Component
 // constructor -> componentWillMount -> render -> componentDidMount
@@ -16,7 +17,8 @@ import { connect } from 'react-redux';
 
 class App extends Component {
   static propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.element.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -24,6 +26,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    //
+    this.props.dispatch(fetchUserMe())
   }
 
   componentDidUpdate() {
