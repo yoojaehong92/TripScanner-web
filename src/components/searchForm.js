@@ -1,13 +1,13 @@
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import S from 'shorti';
-import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 
 import { fetchSearchTrip } from '../actions/tripAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { FlatButton } from 'material-ui';
 
 class SearchForm extends React.Component {
   static propTypes = {
@@ -56,19 +56,36 @@ class SearchForm extends React.Component {
       value: this.state.address,
       onChange: this.onChangeAddress,
       placeholder: 'Search Places...'
-    }
+    };
+
+    const cssClasses = {
+      root: '',
+      input: 'form-control',
+      autocompleteContainer: 'my-autocomplete-container'
+    };
+
+    const AutocompleteItem = ({ formattedSuggestion }) => (
+      <div>
+        <strong>{ formattedSuggestion.mainText }</strong>{' '}
+        <small>{ formattedSuggestion.secondaryText }</small>
+      </div>
+    )
 
     return (
       <div className="container">
-        <div className="row" style={ rowStyle }>
-          <PlacesAutocomplete
-            inputProps={ inputProps }
-          />
+        <div className="row form-group" style={ rowStyle }>
+          <div className="col-sm" style={ S('w-100p pt-5') }>
+            <PlacesAutocomplete
+              inputProps={ inputProps }
+              autocompleteItem={ AutocompleteItem }
+              classNames={ cssClasses }
+            />
+          </div>
           <div className="col-sm" style={ S('w-100p') }>
             <DatePicker hintText="Check In"
               onChange={ this.onChangeCheckIn }
               autoOk
-              textFieldStyle={ S('mt-5 w-100p') }
+              textFieldStyle={ S('w-100p') }
               maxDate={ this.state.checkOut }
             />
           </div>
@@ -76,14 +93,14 @@ class SearchForm extends React.Component {
             <DatePicker hintText="Check Out"
               onChange={ this.onChangeCheckOut }
               autoOk
-              textFieldStyle={ S('mt-5 w-100p') }
+              textFieldStyle={ S('w-100p') }
               minDate={ this.state.checkIn }
             />
           </div>
-          <div className="col-sm">
-            <RaisedButton
+          <div className="col-sm" style={ S('w-100p pt-5') }>
+            <FlatButton
               label="Search"
-              style={ S('mt-5 w-100p') }
+              style={ S('w-100p') }
               onTouchTap={ this.onSearch }
             />
           </div>
