@@ -1,10 +1,16 @@
 import React from 'react';
 import SearchForm from '../components/searchForm'
 import S from 'shorti'
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class Home extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    const { dispatch } = this.props;
+    if (!this.props.user) {
+      dispatch(push('/sign_in'))
+    }
   }
 
   render() {
@@ -16,5 +22,10 @@ class Home extends React.Component {
   }
 }
 
+function mapCurrentUser(state) {
+  return {
+    user: state.currentUserReducer.user
+  };
+}
 
-export default (Home);
+export default connect(mapCurrentUser)(Home);

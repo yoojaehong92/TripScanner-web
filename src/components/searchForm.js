@@ -1,113 +1,103 @@
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { geocodeByAddress } from 'react-places-autocomplete';
+import S from 'shorti';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 
+import { fetchSearchTrip } from '../actions/tripAction';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
+import { connect } from 'react-redux';
 
 class SearchForm extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    trips: PropTypes.object
+  };
+
   constructor(props) {
-    super(props)
-    this.state = { address: '' }
-    this.startDate = null
-    this.endDate = null
-    this.onChange = (address) => this.setState({ address })
+    super(props);
+    this.state = {
+      address: '',
+      checkIn: null,
+      checkOut: null
+    };
+
+    this.onChangeAddress = (address) => this.setState({ address });
+    this.onChangeCheckIn = (event, date) => {
+      this.setState({ checkIn: date });
+    };
+    this.onChangeCheckOut = (event, date) => {
+      this.setState({ checkOut: date });
+    };
+    this.onSearch = this.onSearch.bind(this);
   }
 
-  setStartDate = (event, date) =>
-    this.startDate = date.toISOString().slice(0, 10);
-
-  setEndDate = (event, date) =>
-    this.endDate = date.toISOString().slice(0, 10);
-
-  handleFormSubmit = (event) => {
-    event.preventDefault()
-
-    const { address } = this.state
-
-    geocodeByAddress(address, (err, { lat, lng }) => {
-      const startDate = this.startDate
-      const endDate = this.endDate
-      const obj = {
-        address,
-        lat,
-        lng,
-        startDate,
-        endDate
-      }
-      fetch('http://localhost:3000/api/v1/test', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(obj)
-      })
-    })
-  }
+  onSearch = () => {
+    const { address, checkIn, checkOut } = this.state;
+    const { dispatch } = this.props;
+    const toLocalDateString = (date) => {
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    };
+    dispatch(fetchSearchTrip({
+      address,
+      checkIn: toLocalDateString(checkIn),
+      checkOut: toLocalDateString(checkOut)
+    })).then(() => dispatch(push('/trips')))
+  };
 
   render() {
-    const myStyles = {
-      input: {
-        width: '100%',
-        paddingTop: '15px',
-        border: 'none',
-        outline: 'none'
-      },
-      autocompleteContainer: { backgroundColor: 'green' },
-      autocompleteItem: { color: 'black' },
-      autocompleteItemActive: { color: 'blue' }
-    }
-
-    const cssClasses = {
-      root: 'col-sm',
-      autocompleteContainer: 'my-autocomplete-container'
-    }
-
-    const datePickerStyle = {
+    const rowStyle = {
       borderStyle: 'groove',
-      paddingTop: '5px'
-    }
+      padding: '5px 10px'
+    };
 
+    const inputProps = {
+      value: this.state.address,
+      onChange: this.onChangeAddress,
+      placeholder: 'Search Places...'
+    }
 
     return (
-      <form onSubmit={ this.handleFormSubmit } style={ { marginTop: '10px' } }>
-        <div className="container">
-          <div className="row" style={ datePickerStyle }>
-            <PlacesAutocomplete
-              value={ this.state.address }
-              onChange={ this.onChange }
-              styles={ myStyles }
-              classNames={ cssClasses }
-            />
-            <DatePicker hintText="Start Date"
-              container="inline"
-              onChange={ this.setStartDate }
+      <div className="container">
+        <div className="row" style={ rowStyle }>
+          <PlacesAutocomplete
+            inputProps={ inputProps }
+          />
+          <div className="col-sm" style={ S('w-100p') }>
+            <DatePicker hintText="Check In"
+              onChange={ this.onChangeCheckIn }
               autoOk
-              className="col-sm"
-              textFieldStyle={ { width: '100%' } }
+              textFieldStyle={ S('mt-5 w-100p') }
+              maxDate={ this.state.checkOut }
             />
-            <DatePicker hintText="End Date"
-              container="inline"
-              onChange={ this.setEndDate }
+          </div>
+          <div className="col-sm" style={ S('w-100p') }>
+            <DatePicker hintText="Check Out"
+              onChange={ this.onChangeCheckOut }
               autoOk
-              className="col-sm"
-              textFieldStyle={ { width: '100%' } }
+              textFieldStyle={ S('mt-5 w-100p') }
+              minDate={ this.state.checkIn }
             />
-            <div className="col-sm">
-              <RaisedButton
-                type="submit"
-                label="Search"
-                style={{
-                  marginTop: '5px',
-                  width: '100%'
-                }}
-              />
-            </div>
+          </div>
+          <div className="col-sm">
+            <RaisedButton
+              label="Search"
+              style={ S('mt-5 w-100p') }
+              onTouchTap={ this.onSearch }
+            />
           </div>
         </div>
-      </form>
+      </div>
     )
   }
 }
 
-export default SearchForm
+function mapTrips(state) {
+  return {
+    isFetching: state.tripsReducer.isFetching,
+    trips: state.tripsReducer.trips
+  };
+}
+
+export default connect(mapTrips)(SearchForm);

@@ -26,7 +26,7 @@ function requestSignIn(user) {
   };
 }
 
-function recceiveSignIn(json) {
+function receiveSignIn(json) {
   return {
     type: RECEIVE_SIGN_IN,
     user: json.user
@@ -65,7 +65,7 @@ export function fetchSignIn(user) {
     })
     .then(handleErrors)
     .then(response => response.json())
-    .then(json => dispatch(recceiveSignIn(json)))
+    .then(json => dispatch(receiveSignIn(json)))
     .catch(error => dispatch(errorSignIn(error)));
   };
 }

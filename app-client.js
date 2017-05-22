@@ -14,8 +14,10 @@ import App from './src/app';
 import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
+import Trips from './src/containers/trips'
 
 import { currentUserReducer } from './src/reducers/userReducer';
+import { tripsReducer } from './src/reducers/tripReducer';
 
 
 // for material-ui
@@ -28,6 +30,7 @@ const loggerMiddleware = createLogger();
 const store = createStore(
   combineReducers({
     currentUserReducer,
+    tripsReducer,
     routing: routerReducer
   }),
   applyMiddleware(
@@ -47,6 +50,7 @@ ReactDOM.render(
         <IndexRoute component={ Home }/>
         <Route path="/sign_in" component={ SignIn }/>
         <Route path="/sign_up" component={ SignUp }/>
+        <Route path="/trips" component={ Trips }/>
       </Route>
     </Router>
   </Provider>,
