@@ -100,6 +100,24 @@ export function fetchUserMe() {
   }
 }
 
+export function fetchProfileEdit(user) {
+  return dispatch => {
+    dispatch(requestUserMe());
+    return fetch(userMeUrl, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: user
+    })
+    .then(handleErrors)
+    .then(response => response.json())
+    .then(json => dispatch(receiveUserMe(json)))
+    .catch()
+  }
+}
+
 export function fetchSignIn(user) {
   return dispatch => {
     dispatch(requestSignIn(user));

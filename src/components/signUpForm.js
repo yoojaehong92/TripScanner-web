@@ -65,58 +65,14 @@ class SignUpForm extends React.Component {
   }
 
   onSubmit = ({ formData }) => {
-    // formData
     const { dispatch } = this.props
-    // console.log('hi', this.props.error)
     dispatch(fetchSignUp(JSON.stringify(formData)))
-    // .then(() => console.log(this.props.error))
   }
   validate(formData, errors) {
     if (formData.user.password !== formData.user.password_confirmation)
       errors.user.password_confirmation.addError('Passwords don\'t match');
     return errors
   }
-  // validate(formData, errors) {
-  //   // const { dispatch } = this.props
-  //   if (this.props.hasError) {
-  //       Object.keys(this.props.error).forEach((element) => {
-  //         Object.keys(this.props.error[element]).forEach((x) => {
-  //           console.log(this.props.error[element][x])
-  //           errors.user[element].addError(this.props.error[element][x])
-  //         })
-  //       })
-  //     // return errors
-  //   }
-    // console.log(this.props.error)
-    // errors.user.email.addError('Passwords don\'t match');
-    // // errors.user.password_confirmation.addError('Passwords don\'t match');
-    // // return errors
-    // console.log(errors, 1)
-    // console.log(
-    //   dispatch(fetchSignUp(JSON.stringify(formData)))
-    //     .then(() => {
-    //       Object.keys(this.props.error).forEach((element) => {
-    //         Object.keys(this.props.error[element]).forEach((x) => {
-    //           console.log(element, this.props.error[element][x])
-    //           errors.user[element].addError(this.props.error[element][x])
-    //         })
-    //         // console.log(errors.user[element].addError, element)
-    //       })
-          // console.log(errors)
-    //   return errors
-    // })
-    // )
-    // if(this.props.error)
-    //   Object.keys(this.props.error).forEach((element) => {
-    //     Object.keys(this.props.error[element]).forEach((x) => {
-    //       console.log(this.props.error[element][x])
-    //       errors.user[element].addError(this.props.error[element][x])
-    //     })
-    //   })
-    //
-    // return errors;
-  //   return errors
-  // }
 
   render() {
     let errors = ''
