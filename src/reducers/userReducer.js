@@ -6,6 +6,7 @@ import { REQUEST_SIGN_IN, RECEIVE_SIGN_IN, ERROR_SIGN_IN } from '../actions/user
 import { REQUEST_SIGN_OUT } from '../actions/userAction';
 import { REQUEST_SIGN_UP, ERROR_SIGN_UP } from '../actions/userAction';
 import { REQUEST_USER_ME, RECEIVE_USER_ME } from '../actions/userAction';
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 export function currentUserReducer(state = {
   isFetching: false,
@@ -50,6 +51,11 @@ export function currentUserReducer(state = {
     case REQUEST_USER_ME:
       return Object.assign({}, state, {
         isFetching: true,
+        hasError: false
+      })
+    case LOCATION_CHANGE:
+      return Object.assign({}, state, {
+        error: null,
         hasError: false
       })
     default:

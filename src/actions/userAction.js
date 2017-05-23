@@ -96,7 +96,7 @@ export function fetchUserMe() {
     .then(handleErrors)
     .then(response => response.json())
     .then(json => dispatch(receiveUserMe(json)))
-    .catch()
+    .catch(error => console.log(error.statusText))
   }
 }
 

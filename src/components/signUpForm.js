@@ -98,7 +98,7 @@ class SignUpForm extends React.Component {
               { errors }
             </CardText>
           </Card> :
-          <br/>
+          <div/>
         }
         <Card style={S('w-50p center-block')}>
           <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { fetchProfileEdit } from '../actions/userAction';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const schema = {
   type: 'object',
@@ -23,17 +24,20 @@ const schema = {
             'female'
           ] },
         mobile_number: { type: 'string', title: 'Mobile Number' },
-        locale: { type: 'string' },
-        country: { type: 'string' },
-        introduction: { type: 'string' },
-        school: { type: 'string' },
-        job: { type: 'string' }
+        locale: { type: 'string', title: 'Locale' },
+        country: { type: 'string', title: 'Country' },
+        introduction: { type: 'string', title: 'Introduction' },
+        school: { type: 'string', title: 'School' },
+        job: { type: 'string', title: 'Job' }
       }
     }
   }
 }
 const uiSchema = {
   user: {
+    gender: {
+      'ui:placeholder': 'Gender'
+    },
     date_of_birth: { 'ui:widget': 'date' },
     introduction: { 'ui:widget': 'textarea' }
   }
@@ -50,6 +54,7 @@ class ProfileEditForm extends React.Component {
     const { dispatch } = this.props
     if (!this.props.user)
       dispatch(push('/'))
+
     return (
       <Card style={S('w-50p center-block')}>
         <CardTitle title="Profile" titleStyle={S('text-center')} style={S('bg-eee')}/>
@@ -57,12 +62,20 @@ class ProfileEditForm extends React.Component {
           <Form
             schema={ schema }
             uiSchema={ uiSchema }
-            formData={{ user: this.props.user }}
+            formData={
+              this.props.user ? { user: this.props.user } : { }
+            }
             onSubmit={({ formData }) =>
               dispatch(fetchProfileEdit(JSON.stringify(formData)))
               .then(dispatch(push('/')))
             }
-          />
+          >
+            <RaisedButton
+              type="submit"
+              label="Submit"
+              primary
+            />
+          </Form>
         </CardText>
       </Card>
     )
