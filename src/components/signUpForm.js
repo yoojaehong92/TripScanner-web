@@ -2,27 +2,45 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import 'whatwg-fetch';
-import { Redirect } from 'react-router'
 import S from 'shorti';
-
+import { connect } from 'react-redux';
+import { fetchSignUp } from '../actions/userAction';
+import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 const schema = {
   type: 'object',
   properties: {
     user: {
+      required: [
+        'name',
+        'email',
+        'gender',
+        'password'
+      ],
       type: 'object',
       title: 'User',
       properties: {
+        name: { type: 'string', title: 'Name' },
         email: { type: 'string', title: 'Email' },
-        password: { type: 'string', title: 'Password' },
-        password_confirmation: { type: 'string', title: 'Password Confirm' }
+        gender: {
+          type: 'string',
+          title: 'Gender',
+          enum: [
+            'male',
+            'female'
+          ] },
+        password: { type: 'string', title: 'Password', minLength: 6 },
+        password_confirmation: { type: 'string', title: 'Password Confirm', minLength: 6 }
       }
     }
   }
 }
 const uiSchema = {
   user: {
+    gender: {
+      'ui:placeholder': 'Gender'
+    },
     email: {
       'ui:widget': 'email'
     },
@@ -36,83 +54,85 @@ const uiSchema = {
 }
 
 class SignUpForm extends React.Component {
+  static propTypes = {
+    user: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
+    hasError: PropTypes.bool,
+    error: PropTypes.object
+  };
   constructor(props) {
     super(props)
-    this.state = {
-      error: false,
-      redirect: false,
-      errors: ''
-    }
   }
 
   onSubmit = ({ formData }) => {
-    fetch('http://localhost:3000/api/v1/users', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then(function callback(response) {
-      if (response.ok) {
-        return (
-          this.setState({ redirect: true })
-        )
-      }
-      if (!response.ok) {
-        response.json().then(res => {
-          let errorMessage = ''
-          Object.keys(res.errors).forEach(function x(value) {
-            errorMessage += value + ' ' + res.errors[value][0] + '\n'
-          })
-          this.setState({ errors: errorMessage })
-        })
-        this.setState({ error: true })
-      }
-      return response.json()
-    }.bind(this))
+    const { dispatch } = this.props
+    dispatch(fetchSignUp(JSON.stringify(formData)))
   }
   validate(formData, errors) {
     if (formData.user.password !== formData.user.password_confirmation)
       errors.user.password_confirmation.addError('Passwords don\'t match');
-    return errors;
+    return errors
   }
+
   render() {
-    if (this.state.redirect)
-      return <Redirect push to="/"/>
+    let errors = ''
+    if (this.props.hasError) {
+      Object.keys(this.props.error).forEach((element) => {
+        Object.keys(this.props.error[element]).forEach((x) => {
+          console.log(this.props.error[element][x])
+          errors += element + ' ' + this.props.error[element][x] + '\n\n'
+        })
+      })
+    }
+    if (this.props.user)
+      this.props.dispatch(push('/'))
     return (
-      <Card style={S('w-50p center-block color-eee')}>
-        <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
-        <CardText>
-          <Form encType="application/json"
-            schema={ schema }
-            uiSchema={ uiSchema }
-            onSubmit={ this.onSubmit }
-            validate={ this.validate }
-            liveValidate
-          >
-            <div>
-              {
-                this.state.error ?
-                  <p className="card-text"
-                    style={S('color-f00')}
-                  >
-                    { this.state.errors }
-                  </p> :
-                  <p/>
-              }
-              <RaisedButton
-                type="submit"
-                label="Sign Up"
-                primary
-                style={S('mr-10')}
-              />
-            </div>
-          </Form>
-        </CardText>
-      </Card>
+      <div>
+        {
+          this.props.hasError ?
+          <Card style={S('w-50p center-block color-933 mb-20')}>
+            <CardTitle title="Errors"
+              titleStyle={S('text-center color-933')} style={S('bg-eaa')}
+            />
+            <CardText style={S('color-b44')}>
+              { errors }
+            </CardText>
+          </Card> :
+          <div/>
+        }
+        <Card style={S('w-50p center-block')}>
+          <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
+          <CardText>
+            <Form encType="application/json"
+              schema={ schema }
+              uiSchema={ uiSchema }
+              onSubmit={ this.onSubmit }
+              validate={ this. validate }
+              showErrorList={ false }
+              liveValidate
+            >
+              <div>
+                <RaisedButton
+                  type="submit"
+                  label="Sign Up"
+                  primary
+                  style={S('mr-10')}
+                />
+              </div>
+            </Form>
+          </CardText>
+        </Card>
+      </div>
     )
   }
 }
 
-export default SignUpForm;
+function mapCurrentUser(state) {
+  return {
+    hasError: state.currentUserReducer.hasError,
+    user: state.currentUserReducer.user,
+    error: state.currentUserReducer.error
+  };
+}
+
+export default connect(mapCurrentUser)(SignUpForm);

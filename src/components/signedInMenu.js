@@ -9,6 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import PropTypes from 'prop-types'
 import { fetchSignOut } from '../actions/userAction'
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class SignedInMenu extends React.Component {
   static propTypes = {
@@ -33,7 +34,7 @@ class SignedInMenu extends React.Component {
         <MenuItem primaryText="Refresh" />
         <MenuItem
           primaryText="Edit Profile"
-
+          onTouchTap={ () => this.props.dispatch(push('/profile_edit')) }
         />
         <MenuItem
           primaryText="Sign out"

@@ -14,6 +14,7 @@ import App from './src/app';
 import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
+import ProfileEdit from './src/containers/profileEdit'
 
 import { currentUserReducer } from './src/reducers/userReducer';
 
@@ -47,6 +48,7 @@ ReactDOM.render(
         <IndexRoute component={ Home }/>
         <Route path="/sign_in" component={ SignIn }/>
         <Route path="/sign_up" component={ SignUp }/>
+        <Route path="/profile_edit" component={ ProfileEdit }/>
       </Route>
     </Router>
   </Provider>,
