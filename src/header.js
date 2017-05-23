@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import SignedInMenu from './components/signedInMenu'
 import S from 'shorti'
+import { openDrawer } from './actions/appAction'
 
 class Header extends React.Component {
   static propTypes = {
@@ -23,6 +24,7 @@ class Header extends React.Component {
       <AppBar
         style={ S('fixed')}
         title={ <span style={ S('pointer') }>TripScanner</span> }
+        onLeftIconButtonTouchTap={ () => this.props.dispatch(openDrawer()) }
         onTitleTouchTap={ () => dispatch(push('/')) }
         iconElementRight={
           user ?
