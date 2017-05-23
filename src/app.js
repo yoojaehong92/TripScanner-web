@@ -22,7 +22,7 @@ class App extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
@@ -34,12 +34,38 @@ class App extends Component {
   }
 
   render() {
+    const tableWrapper = {
+      display: 'table',
+      width: '100%',
+      height: '100%'
+    }
+    const tableCell = {
+      display: 'table-cell',
+      margin: '0 auto',
+      verticalAlign: 'middle'
+    }
+    const tableRow = {
+      display: 'table-row'
+    }
+    const tableCellAlignBottom = {
+      display: 'table-cell',
+      verticalAlign: 'bottom'
+    }
+
     return (
       <MuiThemeProvider>
-        <div>
-          <Header/>
-          {this.props.children}
-          <Footer/>
+        <div style={ tableWrapper }>
+          <div style={ tableRow }>
+            <Header/>
+          </div>
+          <div style={ tableRow }>
+            <div style={ tableCell }>
+              {this.props.children}
+            </div>
+          </div>
+          <div style={ tableCellAlignBottom }>
+            <Footer/>
+          </div>
         </div>
       </MuiThemeProvider>
     )
