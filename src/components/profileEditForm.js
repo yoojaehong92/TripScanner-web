@@ -88,4 +88,3 @@ function mapCurrentUser(state) {
   };
 }
 export default connect(mapCurrentUser)(ProfileEditForm);
-
