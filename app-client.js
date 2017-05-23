@@ -15,6 +15,7 @@ import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 import Trips from './src/containers/trips'
+import ProfileEdit from './src/containers/profileEdit'
 
 import { currentUserReducer } from './src/reducers/userReducer';
 import { tripsReducer } from './src/reducers/tripReducer';
@@ -51,6 +52,7 @@ ReactDOM.render(
         <Route path="/sign_in" component={ SignIn }/>
         <Route path="/sign_up" component={ SignUp }/>
         <Route path="/trips" component={ Trips }/>
+        <Route path="/profile_edit" component={ ProfileEdit }/>
       </Route>
     </Router>
   </Provider>,
