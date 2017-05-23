@@ -1,13 +1,11 @@
-##React Chat App
-![Screencast](https://github.com/tonyspiro/react-chat-app/blob/master/screencast.gif)
+##TripScanner-web react
 
-This is an example of a basic real time chat app using React, Socket.io and Cosmic JS.  This example consists of the following:
+This app consists of the following:
 
 1. [React](https://facebook.github.io/react/) for UI
 2. [Babel](https://babeljs.io/) for ES6 and JSX transformation
 3. [Webpack](https://webpack.github.io/) for bundling
-4. [Socket.io](http://socket.io/) for real-time communication
-5. [Cosmic JS](https://cosmicjs.com) for saving and returning messages from a cloud-hosted API
+4. [Redux](http://redux.js.org/) for React Store
 
 The following dev tools are used:
 
@@ -17,8 +15,8 @@ The following dev tools are used:
 ###Install
 Run the following commands to install the app:
 ```
-git clone https://github.com/tonyspiro/react-chat-app
-cd react-chat-app
+git clone git@github.com:yoojaehong92/TripScanner-web.git
+cd TripScanner-web
 npm install
 ```
 ####Run in production
@@ -39,18 +37,19 @@ npm run development
 ```
 View the app running in development at [http://localhost:8080](http://localhost:8080)
 
-###Configure your own chat app
-1. Set up a bucket in [Cosmic JS](https://cosmicjs.com) with an object type of `messages`.
+###Configure your own app
+1. This app need to deploy [TripScanner-rails](https://github.com/kty1965/TripScanner-rails)
 2. Edit config.js:
 ```javascript
 // config.js
 export default {
-  bucket: {
-    slug: 'your-bucket-slug',
-    type_slug: 'messages'
-  },
   server: {
     host: process.env.APP_URL || 'http://localhost:3000'
+  },
+  googleMapAPI: 'AIzaSyCVZa1VHc0fu-WhhqW0LCB4_55MwGPLSII',
+  apiServer: {
+    host: 'http://localhost:3000/api/v1'
   }
 }
+
 ```
