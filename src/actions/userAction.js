@@ -165,6 +165,16 @@ export function fetchSignUp(user) {
   };
 }
 
+export function fetchSignOut() {
+  return dispatch => {
+    dispatch(requestSignOut());
+    return fetch(userSignOutUrl, {
+      method: 'DELETE',
+      credentials: 'include'
+    })
+  }
+}
+
 // function shouldFetchSignIn(state, user) {
 //   const posts = state.postsByReddit[reddit];
 //   if (!posts) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 
@@ -80,32 +79,29 @@ class SearchForm extends React.Component {
               styles={ myStyles }
               classNames={ cssClasses }
             />
-            <MuiThemeProvider>
-              <DatePicker hintText="Start Date"
-                container="inline"
-                onChange={ this.setStartDate }
-                autoOk
-                className="col-sm"
-                textFieldStyle={ { width: '100%' } }
-              />
-            </MuiThemeProvider>
-            <MuiThemeProvider>
-              <DatePicker hintText="End Date"
-                container="inline"
-                onChange={ this.setEndDate }
-                autoOk
-                className="col-sm"
-                textFieldStyle={ { width: '100%' } }
-              />
-            </MuiThemeProvider>
+            <DatePicker hintText="Start Date"
+              container="inline"
+              onChange={ this.setStartDate }
+              autoOk
+              className="col-sm"
+              textFieldStyle={ { width: '100%' } }
+            />
+            <DatePicker hintText="End Date"
+              container="inline"
+              onChange={ this.setEndDate }
+              autoOk
+              className="col-sm"
+              textFieldStyle={ { width: '100%' } }
+            />
             <div className="col-sm">
-                <MuiThemeProvider>
-                    <RaisedButton
-                      type="submit"
-                      label="Search"
-                      style={ { marginTop: '5px' } }
-                    />
-                </MuiThemeProvider>
+              <RaisedButton
+                type="submit"
+                label="Search"
+                style={{
+                  marginTop: '5px',
+                  width: '100%'
+                }}
+              />
             </div>
           </div>
         </div>

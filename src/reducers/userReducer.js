@@ -8,6 +8,7 @@ import { REQUEST_SIGN_UP, ERROR_SIGN_UP } from '../actions/userAction';
 import { REQUEST_USER_ME, RECEIVE_USER_ME } from '../actions/userAction';
 import { LOCATION_CHANGE } from 'react-router-redux'
 
+
 export function currentUserReducer(state = {
   isFetching: false,
   hasError: false,

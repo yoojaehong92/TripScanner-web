@@ -81,9 +81,11 @@ class ProfileEditForm extends React.Component {
     )
   }
 }
+
 function mapCurrentUser(state) {
   return {
     user: state.currentUserReducer.user
   };
 }
 export default connect(mapCurrentUser)(ProfileEditForm);
+

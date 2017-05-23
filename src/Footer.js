@@ -13,8 +13,8 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div>
-        Footer
+      <div className="text-center">
+        ⊙ Copyright(c)2017 | Zenith team All rights reserved.
       </div>
     )
   }
