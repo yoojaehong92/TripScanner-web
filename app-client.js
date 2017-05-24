@@ -16,7 +16,7 @@ import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 import TripIndex from './src/containers/tripIndex'
 import ProfileEdit from './src/containers/profileEdit'
-import MakeTrip from './src/containers/MakeTrip'
+import MakeTrip from './src/containers/makeTrip'
 import UserShow from './src/containers/userShow'
 import TripShow from './src/containers/tripShow'
 
