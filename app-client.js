@@ -16,7 +16,7 @@ import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 import Trips from './src/containers/trips'
 import ProfileEdit from './src/containers/profileEdit'
-import CreateTrip from './src/containers/createTrip'
+import MakeTrip from './src/containers/MakeTrip'
 
 import { currentUserReducer } from './src/reducers/userReducer';
 import { tripsReducer } from './src/reducers/tripReducer';
@@ -57,7 +57,7 @@ ReactDOM.render(
         <Route path="/sign_up" component={ SignUp }/>
         <Route path="/trips" component={ Trips }/>
         <Route path="/profile_edit" component={ ProfileEdit }/>
-        <Route path="/create_trip" component={ CreateTrip }/>
+        <Route path="/create_trip" component={ MakeTrip }/>
       </Route>
     </Router>
   </Provider>,

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setTripContent } from '../../actions/makeTripAction'
 
-class CreateTripStep2 extends React.Component {
+class MakeTripStep2 extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     step: PropTypes.number
@@ -46,4 +46,4 @@ function mapStep(state) {
   };
 }
 
-export default connect(mapStep)(CreateTripStep2)
+export default connect(mapStep)(MakeTripStep2)

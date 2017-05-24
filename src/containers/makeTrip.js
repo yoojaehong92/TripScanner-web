@@ -5,15 +5,16 @@ import React from 'react';
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import CreateTripStep1 from '../components/makeTrip/createTripStep1';
-import CreateTripStep2 from '../components/makeTrip/createTripStep2';
-import CreateTripStep3 from '../components/makeTrip/createTripStep3'
+import MakeTripStep1 from '../components/makeTrip/makeTripStep1';
+import MakeTripStep2 from '../components/makeTrip/makeTripStep2';
+import MakeTripStep3 from '../components/makeTrip/makeTripStep3'
 import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
 import { nextStep, prevStep, fetchMakeTrip } from '../actions/makeTripAction'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import S from 'shorti'
 
-class CreateTrip extends React.Component {
+class MakeTrip extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
@@ -27,13 +28,13 @@ class CreateTrip extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <CreateTripStep1/>
+        return <MakeTripStep1/>
       case 1:
-        return <CreateTripStep2/>
+        return <MakeTripStep2/>
       case 2:
-        return <CreateTripStep3/>
+        return <MakeTripStep3/>
       case 3:
-        return 'Host a Trip';
+        return '동행을 생성하시겠습니까?';
       default:
         return 'You\'re a long way from home sonny jim!';
     }
@@ -41,13 +42,13 @@ class CreateTrip extends React.Component {
   getStepLabel(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return 'Select campaign settings'
+        return '장소 및 기간 설정'
       case 1:
-        return 'Content';
+        return '동행 설명';
       case 2:
-        return 'Upload Image';
+        return '이미지 업로드';
       case 3:
-        return 'Finish';
+        return '완료';
       default:
         return 'You\'re a long way from home sonny jim!';
     }
@@ -67,19 +68,19 @@ class CreateTrip extends React.Component {
   render() {
     const { step } = this.props;
     return (
-      <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
+      <div style={S('w-100p maxw-700 center-block')}>
         <Stepper activeStep={step}>
           <Step>
-            <StepLabel>Select campaign settings</StepLabel>
+            <StepLabel>{this.getStepLabel(0)}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Content</StepLabel>
+            <StepLabel>{this.getStepLabel(1)}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Image</StepLabel>
+            <StepLabel>{this.getStepLabel(2)}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Create an ad</StepLabel>
+            <StepLabel>{this.getStepLabel(3)}</StepLabel>
           </Step>
         </Stepper>
         <Card>
@@ -126,4 +127,4 @@ function mapStep(state) {
     trip: state.makeTripReducer.trip
   }
 }
-export default connect(mapStep)(CreateTrip);
+export default connect(mapStep)(MakeTrip);

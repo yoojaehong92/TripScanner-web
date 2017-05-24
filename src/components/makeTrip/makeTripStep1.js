@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAddress } from '../../actions/makeTripAction'
 
-class CreateTripStep1 extends React.Component {
+class MakeTripStep1 extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     step: PropTypes.number
@@ -38,8 +38,8 @@ class CreateTripStep1 extends React.Component {
     };
     this.props.dispatch(setAddress({
       address,
-      "check_in": toLocalDateString(checkIn),
-      "check_out": toLocalDateString(checkOut)
+      'check_in': toLocalDateString(checkIn),
+      'check_out': toLocalDateString(checkOut)
     }))
   }
   render() {
@@ -105,4 +105,4 @@ function mapStep(state) {
   };
 }
 
-export default connect(mapStep)(CreateTripStep1);
+export default connect(mapStep)(MakeTripStep1);

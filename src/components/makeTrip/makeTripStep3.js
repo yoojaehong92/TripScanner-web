@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { setTripImage } from '../../actions/makeTripAction'
 
 
-class CreateTripStep3 extends React.Component {
+class MakeTripStep3 extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     step: PropTypes.number
@@ -31,7 +31,6 @@ class CreateTripStep3 extends React.Component {
     const fileName = event.target.files[0].name
     reader.onload = () => {
       const index = reader.result.indexOf(';')
-
       this.setState({
         image: reader.result.slice(0, index) +
         ';name=' + fileName + reader.result.slice(index, )
@@ -52,4 +51,4 @@ class CreateTripStep3 extends React.Component {
   }
 }
 
-export default connect()(CreateTripStep3);
+export default connect()(MakeTripStep3);
