@@ -15,6 +15,11 @@ const schema = {
       type: 'object',
       title: 'User',
       properties: {
+        'image_data': {
+          type: 'string',
+          format: 'data-url',
+          title: 'Profile Image'
+        },
         date_of_birth: { type: 'string', title: 'Birth' },
         gender: {
           type: 'string',
@@ -33,13 +38,14 @@ const schema = {
     }
   }
 }
+
 const uiSchema = {
   user: {
     gender: {
       'ui:placeholder': 'Gender'
     },
     date_of_birth: { 'ui:widget': 'date' },
-    introduction: { 'ui:widget': 'text' }
+    introduction: { 'ui:widget': 'textarea' }
   }
 }
 class ProfileEditForm extends React.Component {

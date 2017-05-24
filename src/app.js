@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Header from './header'
 import Footer from './footer'
+import Menu from './menu'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
 import { fetchUserMe } from './actions/currentUserAction'
@@ -68,6 +69,7 @@ class App extends Component {
         <div style={ tableWrapper }>
           <div style={ tableHeaderRow }>
             <Header/>
+            <Menu/>
           </div>
           <div style={ tableRow }>
             <div style={ tableCell }>
