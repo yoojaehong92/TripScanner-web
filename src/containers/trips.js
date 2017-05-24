@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import TripListItem from '../components/tripListItem';
 import PropTypes from 'prop-types';
 
-
 class Trips extends React.Component {
   static propTypes = {
-    trips: PropTypes.array.isRequired
+    trips: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -15,6 +15,7 @@ class Trips extends React.Component {
 
   render() {
     const { trips } = this.props
+
     const tripListItems = trips.map((trip) =>
       <TripListItem
         key={ trip.id }

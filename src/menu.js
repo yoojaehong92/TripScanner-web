@@ -7,7 +7,7 @@ import { ListItem } from 'material-ui/List';
 import React from 'react';
 import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripAction'
-import { closeDrawer } from './actions/appAction'
+import { closeDrawer } from './actions/appBarAction'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -47,8 +47,8 @@ class Menu extends React.Component {
         >
           <ListItem
             primaryText="Trip"
-            primaryTogglesNestedList
             initiallyOpen
+            primaryTogglesNestedList
             leftIcon={ <ActionFlightTakeoff /> }
             nestedItems={[
               <ListItem
@@ -73,7 +73,7 @@ class Menu extends React.Component {
 
 function mapApp(state) {
   return {
-    open: state.appReducer.open
+    open: state.appBarReducer.open
   }
 }
 
