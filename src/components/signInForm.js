@@ -6,7 +6,7 @@ import S from 'shorti';
 import config from '../../config';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchSignIn } from '../actions/userAction';
+import { fetchSignIn } from '../actions/currentUserAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { Card, CardTitle, CardText } from 'material-ui/Card';

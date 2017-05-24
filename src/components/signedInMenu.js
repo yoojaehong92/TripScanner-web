@@ -9,7 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Avatar from 'material-ui/Avatar';
 
 import PropTypes from 'prop-types'
-import { fetchSignOut } from '../actions/userAction'
+import { fetchSignOut } from '../actions/currentUserAction'
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
@@ -41,7 +41,6 @@ class SignedInMenu extends React.Component {
               targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
-              <MenuItem primaryText="Refresh" />
               <MenuItem
                 primaryText="Edit Profile"
                 onTouchTap={ () => this.props.dispatch(push('/profile_edit')) }

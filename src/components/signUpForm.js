@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import S from 'shorti';
 import { connect } from 'react-redux';
-import { fetchSignUp } from '../actions/userAction';
+import { fetchSignUp } from '../actions/currentUserAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 
@@ -79,7 +79,6 @@ class SignUpForm extends React.Component {
     if (this.props.hasError) {
       Object.keys(this.props.error).forEach((element) => {
         Object.keys(this.props.error[element]).forEach((x) => {
-          console.log(this.props.error[element][x])
           errors += element + ' ' + this.props.error[element][x] + '\n\n'
         })
       })

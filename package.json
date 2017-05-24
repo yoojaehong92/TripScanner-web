@@ -38,7 +38,7 @@
     "development": "npm run webpack-dev-server",
     "production": "webpack -p && node app-entry.js",
     "server": "nodemon app-entry.js",
-    "webpack-dev-server": "NODE_ENV=development webpack-dev-server --hot --inline --devtool inline-source-map --history-api-fallback"
+    "webpack-dev-server": "NODE_ENV=development webpack-dev-server --host 0.0.0.0 --hot --inline --devtool inline-source-map --history-api-fallback"
   },
   "author": "",
   "license": "ISC",

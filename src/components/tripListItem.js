@@ -3,26 +3,20 @@
  */
 
 import {
-  Card, CardActions, CardHeader, CardMedia,
-  CardText, CardTitle, FlatButton, Chip, Divider
+  Card, CardActions, CardHeader, CardText, Divider, FlatButton
 } from 'material-ui';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  amber200, blue300, blueGrey300, deepOrange100
-} from 'material-ui/styles/colors';
+import S from 'shorti';
+import MemberList from './memberList';
+import UserInfoChips from './userInfoChips';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class TripListItem extends React.Component {
   static propTypes = {
-    check_in: PropTypes.string.isRequired,
-    check_out: PropTypes.string.isRequired,
-    content: PropTypes.string,
-    image_original: PropTypes.string,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    owner: PropTypes.object.isRequired,
-    reviews: PropTypes.array,
-    members: PropTypes.array
+    dispatch: PropTypes.func.isRequired,
+    trip: PropTypes.object
   };
 
   constructor(props) {
@@ -30,72 +24,52 @@ class TripListItem extends React.Component {
   }
 
   render() {
-    const { check_in, check_out, city, country, image_original, content } = this.props;
-    const { owner } = this.props;
-    const chipStyles = {
-      chip: {
-        margin: 4
-      },
-      wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        padding: '10px'
-      }
-    };
+    const {
+      id, check_in, check_out, city, country, content,
+      owner, members
+    } = this.props.trip;
+    const { dispatch } = this.props;
+
+    const contentToHtml = content ? content.split('\n')
+      .map(line => {
+        return (<span>{ line }<br/></span>)
+      }) : '';
     return (
       <Card>
         <CardHeader
           title={ owner.name }
-          subtitle={ owner.email }
+          subtitle={
+            <div>
+              <span>{ `${city}, ${country}` }</span>
+              <br/>
+              <span>{ `${check_in} ~ ${check_out}` }</span>
+            </div>
+          }
           avatar={ owner.image_thumb }
         />
-        <CardMedia
-          overlay={
-            <CardTitle
-              title={ `${city}, ${country}` }
-              subtitle={ `${check_in} ~ ${check_out}` }
-            />
-          }
-        >
-          <img src={ image_original } />
-        </CardMedia>
-        <div style={chipStyles.wrapper}>
-          <Chip
-            style={chipStyles.chip}
-            backgroundColor={ blue300 }
-          >
-            { owner.school }
-          </Chip>
-          <Chip
-            style={chipStyles.chip}
-            backgroundColor={ blueGrey300 }
-          >
-            { owner.job }
-          </Chip>
-          <Chip
-            style={chipStyles.chip}
-            backgroundColor={ deepOrange100 }
-          >
-            { owner.locale }
-          </Chip>
-          <Chip
-            style={chipStyles.chip}
-            backgroundColor={ amber200 }
-          >
-            { owner.country }
-          </Chip>
-        </div>
         <Divider />
-        <CardText>
-          { content }
+        <UserInfoChips owner={ owner }/>
+        <Divider />
+        <CardText style={S('bg-eee')}>
+          { contentToHtml }
         </CardText>
+        <Divider />
+        members.length > 0 ? <MemberList members={ members }/> : null
+        <Divider />
         <CardActions>
-          <FlatButton label="Action1" />
-          <FlatButton label="Action2" />
+          <FlatButton
+            label="호스트 정보보기"
+            onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
+          />
+          <FlatButton
+            label="동행 자세히보기" secondary
+            onTouchTap={ () => dispatch(push(`trips/${id}`)) }
+          />
+          <FlatButton label="동행 참여하기" primary />
         </CardActions>
       </Card>
     )
   }
 }
 
-export default TripListItem;
+export default connect()(TripListItem);
