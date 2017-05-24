@@ -13,6 +13,8 @@ import { fetchSignOut } from '../actions/userAction'
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import S from 'shorti'
+
 class SignedInMenu extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -28,6 +30,7 @@ class SignedInMenu extends React.Component {
         <ListItem
           primaryText={ this.props.user.email }
           leftAvatar={<Avatar src={ this.props.user.image_thumb }/>}
+          style={S('color-fff')}
           rightIconButton={
             <IconMenu
               iconButtonElement={
