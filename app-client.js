@@ -16,6 +16,7 @@ import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 import TripIndex from './src/containers/tripIndex'
 import ProfileEdit from './src/containers/profileEdit'
+import MakeTrip from './src/containers/MakeTrip'
 import UserShow from './src/containers/userShow'
 import TripShow from './src/containers/tripShow'
 
@@ -23,7 +24,7 @@ import { currentUserReducer } from './src/reducers/currentUserReducer';
 import { tripsReducer } from './src/reducers/tripsReducer';
 import { usersReducer } from './src/reducers/usersRedcuer';
 import { appBarReducer } from './src/reducers/appBarReducer';
-
+import { makeTripReducer } from './src/reducers/makeTripReducer'
 
 // for material-ui
 injectTapEventPlugin();
@@ -38,6 +39,7 @@ const store = createStore(
     usersReducer,
     tripsReducer,
     appBarReducer,
+    makeTripReducer,
     routing: routerReducer
   }),
   applyMiddleware(
@@ -60,6 +62,7 @@ ReactDOM.render(
         <Route path="/trips_index" component={ TripIndex } />
         <Route path="/trips/:id" component={ TripShow } />
         <Route path="/profile_edit" component={ ProfileEdit }/>
+        <Route path="/create_trip" component={ MakeTrip }/>
         <Route path="/users/:id" component={ UserShow }/>
       </Route>
     </Router>
