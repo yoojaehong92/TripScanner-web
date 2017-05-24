@@ -7,7 +7,7 @@ import React from 'react';
 import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import MapsRateReview from 'material-ui/svg-icons/maps/rate-review'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
-import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripAction'
+import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripsAction'
 import { closeDrawer } from './actions/appBarAction'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
