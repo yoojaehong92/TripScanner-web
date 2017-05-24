@@ -62,7 +62,7 @@ ReactDOM.render(
         <Route path="/trips_index" component={ TripIndex } />
         <Route path="/trips/:id" component={ TripShow } />
         <Route path="/profile_edit" component={ ProfileEdit }/>
-        <Route path="/create_trip" component={ MakeTrip }/>
+        <Route path="/make_trip" component={ MakeTrip }/>
         <Route path="/users/:id" component={ UserShow }/>
       </Route>
     </Router>
