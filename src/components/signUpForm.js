@@ -79,7 +79,6 @@ class SignUpForm extends React.Component {
     if (this.props.hasError) {
       Object.keys(this.props.error).forEach((element) => {
         Object.keys(this.props.error[element]).forEach((x) => {
-          console.log(this.props.error[element][x])
           errors += element + ' ' + this.props.error[element][x] + '\n\n'
         })
       })

@@ -15,7 +15,7 @@ export function usersReducer(state = {
     case RECEIVE_USER_SHOW:
       return Object.assign({}, state, {
         isFetching: false,
-        trips: action.user
+        user: action.user
       })
     default:
       return state;

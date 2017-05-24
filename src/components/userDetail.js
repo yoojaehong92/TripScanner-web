@@ -19,7 +19,8 @@ class UserDetail extends React.Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user } = this.props;
+    console.log(user);
     return (
       <Card>
         <CardHeader

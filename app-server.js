@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 })
 
 http.listen(app.get('port'), () => {
-  console.log('React Chat App listening on ' + app.get('port'))
+  console.log('TripScanner App listening on ' + app.get('port'))
 })

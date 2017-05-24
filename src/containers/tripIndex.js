@@ -7,7 +7,7 @@ import TripList from '../components/tripList'
 
 class TripIndex extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
     trips: PropTypes.array
   };
 

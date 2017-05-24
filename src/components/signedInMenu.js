@@ -41,7 +41,6 @@ class SignedInMenu extends React.Component {
               targetOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
-              <MenuItem primaryText="Refresh" />
               <MenuItem
                 primaryText="Edit Profile"
                 onTouchTap={ () => this.props.dispatch(push('/profile_edit')) }

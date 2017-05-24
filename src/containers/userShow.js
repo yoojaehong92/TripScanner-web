@@ -13,19 +13,18 @@ class UserShow extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object
   };
 
   constructor(props) {
-    super(props)
-    const { id } = this.props.params
-    const { dispatch } = this.props
-    dispatch(fetchShow)(id);
+    super(props);
+    const { id } = this.props.params;
+    const { dispatch } = this.props;
+    dispatch(fetchShow(id));
   }
 
   render() {
     const { user } = this.props;
-
     return (
       <div style={S('p-20 pt-80')}>
         {
@@ -38,7 +37,7 @@ class UserShow extends React.Component {
 
 function mapUser(state) {
   return {
-    trips: state.usersReducer.user
+    user: state.usersReducer.user
   };
 }
 

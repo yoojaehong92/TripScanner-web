@@ -26,6 +26,7 @@ class Header extends React.Component {
         title={ <span style={ S('pointer') }>TripScanner</span> }
         onLeftIconButtonTouchTap={ user ? () => dispatch(openDrawer()) : null }
         onTitleTouchTap={ () => dispatch(push('/')) }
+        iconStyleRight={ S('mt-4')}
         iconElementRight={
           user ?
             <SignedInMenu/> :
