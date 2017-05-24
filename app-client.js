@@ -16,11 +16,12 @@ import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
 import Trips from './src/containers/trips'
 import ProfileEdit from './src/containers/profileEdit'
+import CreateTrip from './src/containers/createTrip'
 
 import { currentUserReducer } from './src/reducers/userReducer';
 import { tripsReducer } from './src/reducers/tripReducer';
 import { appBarReducer } from './src/reducers/appBarReducer';
-
+import { makeTripReducer } from './src/reducers/makeTripReducer'
 
 // for material-ui
 injectTapEventPlugin();
@@ -34,6 +35,7 @@ const store = createStore(
     currentUserReducer,
     tripsReducer,
     appBarReducer,
+    makeTripReducer,
     routing: routerReducer
   }),
   applyMiddleware(
@@ -55,6 +57,7 @@ ReactDOM.render(
         <Route path="/sign_up" component={ SignUp }/>
         <Route path="/trips" component={ Trips }/>
         <Route path="/profile_edit" component={ ProfileEdit }/>
+        <Route path="/create_trip" component={ CreateTrip }/>
       </Route>
     </Router>
   </Provider>,
