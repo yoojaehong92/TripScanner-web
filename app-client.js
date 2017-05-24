@@ -19,6 +19,7 @@ import ProfileEdit from './src/containers/profileEdit'
 
 import { currentUserReducer } from './src/reducers/userReducer';
 import { tripsReducer } from './src/reducers/tripReducer';
+import { appBarReducer } from './src/reducers/appBarReducer';
 
 
 // for material-ui
@@ -32,6 +33,7 @@ const store = createStore(
   combineReducers({
     currentUserReducer,
     tripsReducer,
+    appBarReducer,
     routing: routerReducer
   }),
   applyMiddleware(

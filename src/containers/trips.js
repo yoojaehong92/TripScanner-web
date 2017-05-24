@@ -4,7 +4,6 @@ import TripListItem from '../components/tripListItem';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 
-
 class Trips extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
