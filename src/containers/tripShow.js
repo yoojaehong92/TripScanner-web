@@ -3,16 +3,16 @@
  */
 
 import React from 'react';
-import UserDetail from '../components/userDetail'
+import TripDetail from '../components/tripDetail'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchShow } from '../actions/usersAction';
+import { fetchShow } from '../actions/tripsAction';
 
-class UserShow extends React.Component {
+class TripShow extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
-    user: PropTypes.object
+    trip: PropTypes.object
   };
 
   constructor(props) {
@@ -23,23 +23,23 @@ class UserShow extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { trip } = this.props;
     return (
       <div
         className="container"
       >
         {
-          user ? <UserDetail user={ user }/> : ''
+          trip ? <TripDetail trip={ trip }/> : ''
         }
       </div>
     );
   }
 }
 
-function mapUser(state) {
+function mapTrip(state) {
   return {
-    user: state.usersReducer.user
+    trip: state.tripsReducer.trip
   };
 }
 
-export default connect(mapUser)(UserShow);
+export default connect(mapTrip)(TripShow);

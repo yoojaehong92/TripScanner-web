@@ -18,6 +18,12 @@ export const RECEIVE_HOSTED_TRIP = 'RECEIVE_HOSTED_TRIP';
 
 const hostedTripUrl = `${config.apiServer.host}/trips/owned`
 
+// For api/v1/trips/:id
+export const REQUEST_TRIP_SHOW = 'REQUEST_TRIP_SHOW';
+export const RECEIVE_TRIP_SHOW = 'RECEIVE_TRIP_SHOW';
+
+const tripShowUrl = (id) => `${config.apiServer.host}/trips/${id}`
+
 function requestSearchTrip(query) {
   return {
     type: REQUEST_SEARCH_TRIP,
@@ -64,6 +70,20 @@ function receiveHostedTrip(json) {
   }
 }
 
+function requestShow(id) {
+  return {
+    type: REQUEST_TRIP_SHOW,
+    id
+  }
+}
+
+function receiveShow(json) {
+  return {
+    type: RECEIVE_TRIP_SHOW,
+    trip: json.trip
+  }
+}
+
 export function fetchSearchTrip(query) {
   return dispatch => {
     dispatch(requestSearchTrip(query));
@@ -101,4 +121,19 @@ export function fetchHostedTrip() {
       .then(response => response.json())
       .then(json => dispatch(receiveHostedTrip(json)));
   }
+}
+
+export function fetchShow(id) {
+  return dispatch => {
+    dispatch(requestShow(id));
+    return fetch(tripShowUrl(id), {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveShow(json)))
+  };
 }

@@ -28,14 +28,14 @@ class Menu extends React.Component {
     const { dispatch } = this.props
     dispatch(closeDrawer())
     dispatch(fetchJoinedTrip())
-      .then(() => this.props.dispatch(push('/trips')))
+      .then(() => this.props.dispatch(push('/trips_index')))
   }
 
   onTouchHostedTrips = () => {
     const { dispatch } = this.props
     dispatch(closeDrawer())
     dispatch(fetchHostedTrip())
-      .then(() => this.props.dispatch(push('/trips')))
+      .then(() => this.props.dispatch(push('/trips_index')))
   }
 
   render() {

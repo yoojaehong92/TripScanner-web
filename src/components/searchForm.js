@@ -43,7 +43,7 @@ class SearchForm extends React.Component {
       address,
       checkIn: toLocalDateString(checkIn),
       checkOut: toLocalDateString(checkOut)
-    })).then(() => dispatch(push('/trips')))
+    })).then(() => dispatch(push('/trips_index')))
   };
 
   render() {

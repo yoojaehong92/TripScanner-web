@@ -10,18 +10,13 @@ import * as React from 'react';
 import S from 'shorti';
 import MemberList from './memberList';
 import UserInfoChips from './userInfoChips';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class TripListItem extends React.Component {
   static propTypes = {
-    check_in: PropTypes.string.isRequired,
-    check_out: PropTypes.string.isRequired,
-    content: PropTypes.string,
-    image_original: PropTypes.string,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    owner: PropTypes.object.isRequired,
-    reviews: PropTypes.array,
-    members: PropTypes.array
+    dispatch: PropTypes.func.isRequired,
+    trip: PropTypes.object
   };
 
   constructor(props) {
@@ -29,9 +24,13 @@ class TripListItem extends React.Component {
   }
 
   render() {
-    const { check_in, check_out, city, country, content } = this.props;
-    const { owner, members } = this.props;
-    const contentToHtml = content ? content.split('\r\n')
+    const {
+      id, check_in, check_out, city, country, content,
+      owner, members
+    } = this.props.trip;
+    const { dispatch } = this.props;
+
+    const contentToHtml = content ? content.split('\n')
       .map(line => {
         return (<span>{ line }<br/></span>)
       }) : '';
@@ -58,12 +57,19 @@ class TripListItem extends React.Component {
         members.length > 0 ? <MemberList members={ members }/> : null
         <Divider />
         <CardActions>
-          <FlatButton label="호스트 정보보기" primary />
-          <FlatButton label="동행 자세히보기" secondary />
+          <FlatButton
+            label="호스트 정보보기"
+            onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
+          />
+          <FlatButton
+            label="동행 자세히보기" secondary
+            onTouchTap={ () => dispatch(push(`trips/${id}`)) }
+          />
+          <FlatButton label="동행 참여하기" primary />
         </CardActions>
       </Card>
     )
   }
 }
 
-export default TripListItem;
+export default connect()(TripListItem);

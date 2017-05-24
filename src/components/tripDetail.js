@@ -4,25 +4,17 @@
 
 import {
   Card, CardActions, CardHeader, CardMedia,
-  CardText, CardTitle, FlatButton, Chip, Divider
+  CardText, CardTitle, FlatButton, Divider
 } from 'material-ui';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import {
-  amber200, blue300, blueGrey300, deepOrange100
-} from 'material-ui/styles/colors';
+import UserInfoChips from './userInfoChips';
+import { connect } from 'react-redux';
 
 class TripDetail extends React.Component {
   static propTypes = {
-    check_in: PropTypes.string.isRequired,
-    check_out: PropTypes.string.isRequired,
-    content: PropTypes.string,
-    image_original: PropTypes.string,
-    city: PropTypes.string.isRequired,
-    country: PropTypes.string.isRequired,
-    owner: PropTypes.object.isRequired,
-    reviews: PropTypes.array,
-    members: PropTypes.array
+    dispatch: PropTypes.func.isRequired,
+    trip: PropTypes.object
   };
 
   constructor(props) {
@@ -30,18 +22,10 @@ class TripDetail extends React.Component {
   }
 
   render() {
-    const { check_in, check_out, city, country, image_original, content } = this.props;
-    const { owner } = this.props;
-    const chipStyles = {
-      chip: {
-        margin: 4
-      },
-      wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        padding: '10px'
-      }
-    };
+    const {
+      check_in, check_out, city, country, image_original, content,
+      owner
+    } = this.props.trip;
     return (
       <Card>
         <CardHeader
@@ -63,7 +47,7 @@ class TripDetail extends React.Component {
         <Divider />
         <CardText>
           {
-            content.split('\r\n').map(line => {
+            content.split('\n').map(line => {
               return (<span>{ line }<br/></span>)
             })
           }
@@ -77,4 +61,12 @@ class TripDetail extends React.Component {
   }
 }
 
-export default TripDetail;
+/*
+<FlatButton
+ label="호스트 정보보기"
+ onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
+ />
+ <FlatButton label="동행 참여하기" primary />
+* */
+
+export default connect()(TripDetail);

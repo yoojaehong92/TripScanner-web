@@ -14,9 +14,10 @@ import App from './src/app';
 import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
-import Trips from './src/containers/tripIndex'
+import TripIndex from './src/containers/tripIndex'
 import ProfileEdit from './src/containers/profileEdit'
 import UserShow from './src/containers/userShow'
+import TripShow from './src/containers/tripShow'
 
 import { currentUserReducer } from './src/reducers/currentUserReducer';
 import { tripsReducer } from './src/reducers/tripsReducer';
@@ -56,7 +57,8 @@ ReactDOM.render(
         <IndexRoute component={ Home }/>
         <Route path="/sign_in" component={ SignIn }/>
         <Route path="/sign_up" component={ SignUp }/>
-        <Route path="/trips" component={ Trips }/>
+        <Route path="/trips_index" component={ TripIndex } />
+        <Route path="/trips/:id" component={ TripShow } />
         <Route path="/profile_edit" component={ ProfileEdit }/>
         <Route path="/users/:id" component={ UserShow }/>
       </Route>

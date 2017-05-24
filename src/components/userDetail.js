@@ -20,7 +20,10 @@ class UserDetail extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    const introductionToHtml = user.introduction ? user.introduction.split('\n')
+      .map(line => {
+        return (<span>{ line }<br/></span>)
+      }) : '';
     return (
       <Card>
         <CardHeader
@@ -31,7 +34,7 @@ class UserDetail extends React.Component {
         <Divider />
         <UserInfoChips owner={ user }/>
         <CardText>
-          { user.introduction }
+          { introductionToHtml }
         </CardText>
       </Card>
     )

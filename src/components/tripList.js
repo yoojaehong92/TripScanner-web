@@ -26,16 +26,7 @@ class TripList extends React.Component {
         <div style={ S('mt-20 mb-20')}>
           <TripListItem
             key={ trip.id }
-            check_in={ trip.check_in }
-            check_out={ trip.check_out }
-            city={ trip.city }
-            country={ trip.country }
-            address={ trip.address }
-            owner={ trip.owner }
-            members={ trip.members }
-            reviews={ trip.reviews }
-            content={ trip.content }
-            image_original={ trip.image_original }
+            trip={ trip }
           />
           <Divider />
         </div>
