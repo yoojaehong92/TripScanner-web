@@ -7,7 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import PropTypes from 'prop-types'
-import { fetchSignOut } from '../actions/userAction'
+import { fetchSignOut } from '../actions/currentUserAction'
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 

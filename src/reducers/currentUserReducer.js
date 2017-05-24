@@ -2,12 +2,13 @@
  * Created by huy on 2017-05-19.
  */
 
-import { REQUEST_SIGN_IN, RECEIVE_SIGN_IN, ERROR_SIGN_IN } from '../actions/userAction';
-import { REQUEST_SIGN_OUT } from '../actions/userAction';
-import { REQUEST_SIGN_UP, ERROR_SIGN_UP } from '../actions/userAction';
-import { REQUEST_USER_ME, RECEIVE_USER_ME } from '../actions/userAction';
+import {
+  REQUEST_SIGN_IN, RECEIVE_SIGN_IN, ERROR_SIGN_IN
+} from '../actions/currentUserAction';
+import { REQUEST_SIGN_OUT } from '../actions/currentUserAction';
+import { REQUEST_SIGN_UP, ERROR_SIGN_UP } from '../actions/currentUserAction';
+import { REQUEST_USER_ME, RECEIVE_USER_ME } from '../actions/currentUserAction';
 import { LOCATION_CHANGE } from 'react-router-redux'
-
 
 export function currentUserReducer(state = {
   isFetching: false,

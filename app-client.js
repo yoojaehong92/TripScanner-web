@@ -14,11 +14,13 @@ import App from './src/app';
 import Home from './src/containers/home';
 import SignIn from './src/containers/signIn'
 import SignUp from './src/containers/signUp'
-import Trips from './src/containers/trips'
+import Trips from './src/containers/tripIndex'
 import ProfileEdit from './src/containers/profileEdit'
+import UserShow from './src/containers/userShow'
 
-import { currentUserReducer } from './src/reducers/userReducer';
+import { currentUserReducer } from './src/reducers/currentUserReducer';
 import { tripsReducer } from './src/reducers/tripReducer';
+import { usersReducer } from './src/reducers/usersRedcuer';
 
 
 // for material-ui
@@ -31,6 +33,7 @@ const loggerMiddleware = createLogger();
 const store = createStore(
   combineReducers({
     currentUserReducer,
+    usersReducer,
     tripsReducer,
     routing: routerReducer
   }),
@@ -53,6 +56,7 @@ ReactDOM.render(
         <Route path="/sign_up" component={ SignUp }/>
         <Route path="/trips" component={ Trips }/>
         <Route path="/profile_edit" component={ ProfileEdit }/>
+        <Route path="/users/:id" component={ UserShow }/>
       </Route>
     </Router>
   </Provider>,

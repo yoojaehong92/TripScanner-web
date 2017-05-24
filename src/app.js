@@ -4,7 +4,7 @@ import Header from './header'
 import Footer from './footer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
-import { fetchUserMe } from './actions/userAction'
+import { fetchUserMe } from './actions/currentUserAction'
 
 // Component
 // constructor -> componentWillMount -> render -> componentDidMount

@@ -7,8 +7,6 @@ import config from '../../config';
 export const REQUEST_USER_ME = 'REQUEST_USER_ME';
 export const RECEIVE_USER_ME = 'RECEIVE_USER_ME';
 
-const userMeUrl = `${config.apiServer.host}/users/me`
-
 // For api/v1/users/sign_in
 export const REQUEST_SIGN_IN = 'REQUEST_SIGN_IN';
 export const RECEIVE_SIGN_IN = 'RECEIVE_SIGN_IN';
@@ -26,6 +24,7 @@ export const REQUEST_SIGN_UP = 'REQUEST_SIGN_UP';
 export const ERROR_SIGN_UP = 'ERROR_SIGN_UP';
 
 const userSignUpUrl = `${config.apiServer.host}/users`
+const userMeUrl = `${config.apiServer.host}/users/me`
 
 function requestUserMe() {
   return {

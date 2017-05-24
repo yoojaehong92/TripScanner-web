@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import S from 'shorti';
 import { connect } from 'react-redux';
-import { fetchSignUp } from '../actions/userAction';
+import { fetchSignUp } from '../actions/currentUserAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 

@@ -5,7 +5,7 @@ import Form from 'react-jsonschema-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { fetchProfileEdit } from '../actions/userAction';
+import { fetchProfileEdit } from '../actions/currentUserAction';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const schema = {

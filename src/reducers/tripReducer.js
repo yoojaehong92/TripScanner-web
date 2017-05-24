@@ -1,4 +1,4 @@
-import { RECEIVE_SEARCH_TRIP, REQUEST_SEARCH_TRIP } from '../actions/tripAction';
+import { RECEIVE_SEARCH_TRIP, REQUEST_SEARCH_TRIP } from '../actions/tripsAction';
 
 export function tripsReducer(state = {
   isFetching: false,

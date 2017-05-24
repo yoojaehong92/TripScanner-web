@@ -3,7 +3,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import S from 'shorti';
 import DatePicker from 'material-ui/DatePicker';
 
-import { fetchSearchTrip } from '../actions/tripAction';
+import { fetchSearchTrip } from '../actions/tripsAction';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
