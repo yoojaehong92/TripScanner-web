@@ -39,7 +39,7 @@ const uiSchema = {
       'ui:placeholder': 'Gender'
     },
     date_of_birth: { 'ui:widget': 'date' },
-    introduction: { 'ui:widget': 'textarea' }
+    introduction: { 'ui:widget': 'text' }
   }
 }
 class ProfileEditForm extends React.Component {
