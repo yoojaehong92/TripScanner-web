@@ -24,11 +24,14 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.props.dispatch(fetchUserMe())
+  }
+
+  componentWillMount() {
+
   }
 
   componentDidMount() {
-    //
-    this.props.dispatch(fetchUserMe())
   }
 
   componentDidUpdate() {
@@ -39,30 +42,40 @@ class App extends Component {
       display: 'table',
       width: '100%',
       height: '100%'
-    }
+    };
     const tableCell = {
       display: 'table-cell',
       margin: '0 auto',
       verticalAlign: 'middle'
-    }
+    };
+    const tableHeaderRow = {
+      display: 'table-row',
+      height: '64px'
+    };
     const tableRow = {
       display: 'table-row'
-    }
+    };
     const tableCellAlignBottom = {
       display: 'table-cell',
       verticalAlign: 'bottom'
+    };
+    const childrenContainer = {
+      paddingTop: '60px',
+      paddingBottom: '60px'
     }
 
     return (
       <MuiThemeProvider>
         <div style={ tableWrapper }>
-          <div style={ tableRow }>
+          <div style={ tableHeaderRow }>
             <Header/>
             <Menu/>
           </div>
           <div style={ tableRow }>
             <div style={ tableCell }>
-              {this.props.children}
+              <div style={ childrenContainer } >
+                {this.props.children}
+              </div>
             </div>
           </div>
           <div style={ tableCellAlignBottom }>
