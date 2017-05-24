@@ -7,6 +7,7 @@ import S from 'shorti';
 import DatePicker from 'material-ui/DatePicker';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setAddress } from '../../actions/makeTripAction'
 
 class CreateTripStep1 extends React.Component {
   static propTypes = {
@@ -30,10 +31,18 @@ class CreateTripStep1 extends React.Component {
       this.setState({ checkOut: date });
     };
   }
-
+  componentWillUnmount() {
+    const { address, checkIn, checkOut } = this.state;
+    const toLocalDateString = (date) => {
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    };
+    this.props.dispatch(setAddress({
+      address,
+      "check_in": toLocalDateString(checkIn),
+      "check_out": toLocalDateString(checkOut)
+    }))
+  }
   render() {
-    if (this.props.step !== 1)
-      console.log('test')
     const rowStyle = {
       borderStyle: 'groove',
       padding: '5px 10px'

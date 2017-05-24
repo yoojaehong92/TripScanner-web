@@ -3,17 +3,47 @@
  */
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setTripContent } from '../../actions/makeTripAction'
 
-const CreateTripStep2 = () => {
-  return (
-    <TextField
-      hintText="Message Field"
-      floatingLabelText="MultiLine and FloatingLabel"
-      rows={5}
-      multiLine
-      fullWidth
-    />
-  )
+class CreateTripStep2 extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    step: PropTypes.number
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: undefined
+    }
+  }
+  componentWillUnmount() {
+    this.props.dispatch(setTripContent({
+      content: this.state.value
+    }))
+  }
+
+  render() {
+    return (
+      <TextField
+        hintText="Message Field"
+        floatingLabelText="Write about your trip"
+        rows={5}
+        value={ this.state.value }
+        onChange={ (event) => this.setState({ value: event.target.value })}
+        multiLine
+        fullWidth
+      />
+    )
+  }
 }
 
-export default CreateTripStep2
+function mapStep(state) {
+  return {
+    step: state.makeTripReducer.step
+  };
+}
+
+export default connect(mapStep)(CreateTripStep2)

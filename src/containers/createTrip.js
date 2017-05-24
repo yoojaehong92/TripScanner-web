@@ -9,15 +9,19 @@ import CreateTripStep1 from '../components/makeTrip/createTripStep1';
 import CreateTripStep2 from '../components/makeTrip/createTripStep2';
 import CreateTripStep3 from '../components/makeTrip/createTripStep3'
 import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
+import { nextStep, prevStep, fetchMakeTrip } from '../actions/makeTripAction'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class CreateTrip extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    step: PropTypes.number.isRequired,
+    trip: PropTypes.object
+  };
+
   constructor(props) {
     super(props)
-    this.state = {
-      finished: false,
-      stepIndex: 0,
-      trip: null
-    };
   }
 
   getStepContent(stepIndex) {
@@ -29,7 +33,7 @@ class CreateTrip extends React.Component {
       case 2:
         return <CreateTripStep3/>
       case 3:
-        return 'Finish Hosting Trip';
+        return 'Host a Trip';
       default:
         return 'You\'re a long way from home sonny jim!';
     }
@@ -48,24 +52,23 @@ class CreateTrip extends React.Component {
         return 'You\'re a long way from home sonny jim!';
     }
   }
-  handleNext= () => {
-    const { stepIndex } = this.state;
-    this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 3
-    });
+  handleNext = () => {
+    this.props.dispatch(nextStep())
+    if (this.props.step >= 3) {
+      console.log(this.props.trip)
+      this.props.dispatch(fetchMakeTrip(JSON.stringify({ trip: this.props.trip })))
+    }
   };
   handlePrev = () => {
-    const { stepIndex } = this.state;
-    if (stepIndex > 0)
-      this.setState({ stepIndex: stepIndex - 1 });
+    if (this.props.step > 0)
+      this.props.dispatch(prevStep())
   };
 
   render() {
-    const { finished, stepIndex } = this.state;
+    const { step } = this.props;
     return (
       <div style={{ width: '100%', maxWidth: 700, margin: 'auto' }}>
-        <Stepper activeStep={stepIndex}>
+        <Stepper activeStep={step}>
           <Step>
             <StepLabel>Select campaign settings</StepLabel>
           </Step>
@@ -80,41 +83,33 @@ class CreateTrip extends React.Component {
           </Step>
         </Stepper>
         <Card>
-          <CardTitle title={ this.getStepLabel(stepIndex) }/>
+          <CardTitle title={ this.getStepLabel(step) }/>
           <CardText>
             <div>
-              {finished ? (
+              { step > 3 ? (
                   <p>
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        this.setState({ stepIndex: 0, finished: false });
-                      }}
-                    >
-                      Click here
-                    </a> to reset the example.
+                    made a trip
                   </p>
                 ) :
                   <div>
                     {
-                      this.getStepContent(stepIndex)
+                      this.getStepContent(step)
                     }
                   </div>
                 }
             </div>
           </CardText>
-          { finished ?
+          { step > 3 ?
             null :
           <CardActions>
             <FlatButton
               label="Back"
-              disabled={stepIndex === 0}
+              disabled={step === 0}
               onTouchTap={this.handlePrev}
               style={{ marginRight: 12 }}
             />
             <RaisedButton
-              label={stepIndex === 3 ? 'Finish' : 'Next'}
+              label={ step >= 3 ? 'Host' : 'Next'}
               primary
               onTouchTap={this.handleNext}
             />
@@ -125,4 +120,10 @@ class CreateTrip extends React.Component {
     );
   }
 }
-export default CreateTrip
+function mapStep(state) {
+  return {
+    step: state.makeTripReducer.step,
+    trip: state.makeTripReducer.trip
+  }
+}
+export default connect(mapStep)(CreateTrip);
