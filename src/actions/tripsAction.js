@@ -24,6 +24,12 @@ export const RECEIVE_TRIP_SHOW = 'RECEIVE_TRIP_SHOW';
 
 const tripShowUrl = (id) => `${config.apiServer.host}/trips/${id}`
 
+// For api/v1/trips/:id/join
+export const REQUEST_JOIN_TRIP = 'REQUEST_JOIN_TRIP';
+export const RECEIVE_JOIN_TRIP = 'RECEIVE_JOIN_TRIP';
+
+const tripJoinUrl = (id) => `${config.apiServer.host}/trips/${id}/join`
+
 function requestSearchTrip(query) {
   return {
     type: REQUEST_SEARCH_TRIP,
@@ -84,6 +90,20 @@ function receiveShow(json) {
   }
 }
 
+function requestJoin(id) {
+  return {
+    type: REQUEST_JOIN_TRIP,
+    id
+  };
+}
+
+function receiveJoin(json) {
+  return {
+    type: RECEIVE_JOIN_TRIP,
+    trip: json.trip
+  };
+}
+
 export function fetchSearchTrip(query) {
   return dispatch => {
     dispatch(requestSearchTrip(query));
@@ -135,5 +155,20 @@ export function fetchShow(id) {
     })
       .then(response => response.json())
       .then(json => dispatch(receiveShow(json)))
+  };
+}
+
+export function fetchJoin(id) {
+  return dispatch => {
+    dispatch(requestJoin(id));
+    return fetch(tripJoinUrl(id), {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveJoin(json)))
   };
 }

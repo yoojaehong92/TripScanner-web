@@ -12,6 +12,7 @@ import MemberList from './memberList';
 import UserInfoChips from './userInfoChips';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { fetchJoin } from '../actions/tripsAction';
 
 class TripListItem extends React.Component {
   static propTypes = {
@@ -65,7 +66,10 @@ class TripListItem extends React.Component {
             label="동행 자세히보기" secondary
             onTouchTap={ () => dispatch(push(`trips/${id}`)) }
           />
-          <FlatButton label="동행 참여하기" primary />
+          <FlatButton
+            label="동행 참여하기" primary
+            onTouchTap={ () => dispatch(fetchJoin(id)) }
+          />
         </CardActions>
       </Card>
     )
