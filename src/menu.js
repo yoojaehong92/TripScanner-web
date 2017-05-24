@@ -2,10 +2,11 @@
  * Created by jaehong on 2017. 5. 24..
  */
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import { ListItem } from 'material-ui/List';
 import React from 'react';
 import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
+import MapsRateReview from 'material-ui/svg-icons/maps/rate-review'
+import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripAction'
 import { closeDrawer } from './actions/appBarAction'
 import PropTypes from 'prop-types';
@@ -63,8 +64,41 @@ class Menu extends React.Component {
               />
             ]}
           />
-          <MenuItem>Menu Item</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
+          <ListItem
+            primaryText="Review"
+            initiallyOpen
+            primaryTogglesNestedList
+            leftIcon={ <MapsRateReview /> }
+            nestedItems={[
+              <ListItem
+                key={1}
+                primaryText="Joined Trips"
+                onTouchTap={ this.onTouchJoinedTrips }
+              />,
+              <ListItem
+                key={2}
+                primaryText="Hosted Trips"
+                onTouchTap={ this.onTouchHostedTrips }
+              />
+            ]}
+          />
+          <ListItem
+            primaryText="User"
+            primaryTogglesNestedList
+            leftIcon={ <ActionAccountBox /> }
+            nestedItems={[
+              <ListItem
+                key={1}
+                primaryText="Edit Profile"
+                onTouchTap={ this.onTouchJoinedTrips }
+              />,
+              <ListItem
+                key={2}
+                primaryText="Hosted Trips"
+                onTouchTap={ this.onTouchHostedTrips }
+              />
+            ]}
+          />
         </Drawer>
       </div>
     )
