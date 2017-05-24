@@ -36,11 +36,13 @@ class MakeTripStep1 extends React.Component {
     const toLocalDateString = (date) => {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     };
-    this.props.dispatch(setAddress({
-      address,
-      'check_in': toLocalDateString(checkIn),
-      'check_out': toLocalDateString(checkOut)
-    }))
+    if (address && checkIn && checkOut) {
+      this.props.dispatch(setAddress({
+        address,
+        'check_in': toLocalDateString(checkIn),
+        'check_out': toLocalDateString(checkOut)
+      }))
+    }
   }
   render() {
     const rowStyle = {

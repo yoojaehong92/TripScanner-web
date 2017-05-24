@@ -4,6 +4,7 @@
 import { NEXT_STEP, PREV_STEP } from '../actions/makeTripAction'
 import { SET_ADDRESS, SET_TRIP_CONTENT, SET_TRIP_IMAGE } from '../actions/makeTripAction'
 import { REQUEST_MAKE_TRIP } from '../actions/makeTripAction'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 export function makeTripReducer(state = {
   step: 0,
@@ -30,10 +31,14 @@ export function makeTripReducer(state = {
       return Object.assign({}, state, {
         trip: Object.assign(action.image, state.trip)
       })
-    case REQUEST_MAKE_TRIP:
+    case LOCATION_CHANGE:
       return Object.assign({}, state, {
         trip: {},
         step: 0
+      })
+    case REQUEST_MAKE_TRIP:
+      return Object.assign({}, state, {
+        trip: {}
       })
     default:
       return state
