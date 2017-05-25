@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { fetchProfileEdit } from '../actions/currentUserAction';
 import RaisedButton from 'material-ui/RaisedButton';
+import ImageUploadWidget from './imageUploadWidget';
 
 const schema = {
   type: 'object',
@@ -45,7 +46,8 @@ const uiSchema = {
       'ui:placeholder': 'Gender'
     },
     date_of_birth: { 'ui:widget': 'date' },
-    introduction: { 'ui:widget': 'textarea' }
+    introduction: { 'ui:widget': 'textarea' },
+    'image_data': { 'ui:widget': 'imageUploader' }
   }
 }
 class ProfileEditForm extends React.Component {
@@ -73,8 +75,10 @@ class ProfileEditForm extends React.Component {
             }
             onSubmit={({ formData }) =>
               dispatch(fetchProfileEdit(JSON.stringify(formData)))
-              .then(dispatch(push('/')))
+                .then(dispatch(push('/')))
             }
+            widgets={{ imageUploader: ImageUploadWidget }}
+            hi = "abc"
           >
             <RaisedButton
               type="submit"

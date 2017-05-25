@@ -33,7 +33,7 @@ class MakeTripStep3 extends React.Component {
       const index = reader.result.indexOf(';')
       this.setState({
         image: reader.result.slice(0, index) +
-        ';name=' + fileName + reader.result.slice(index, )
+        ';name=' + fileName + reader.result.slice(index)
       })
     }
   }
