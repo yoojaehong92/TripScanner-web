@@ -47,9 +47,11 @@ class TripDetail extends React.Component {
         <Divider />
         <CardText>
           {
-            content.split('\n').map(line => {
-              return (<span>{ line }<br/></span>)
-            })
+            content ?
+              content.split('\n').map(line => {
+                return (<span>{ line }<br/></span>)
+              }) :
+              null
           }
         </CardText>
         <CardActions>
