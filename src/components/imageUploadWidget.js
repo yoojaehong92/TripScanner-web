@@ -4,10 +4,12 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
+import S from 'shorti'
 
 class ImageUploadWidget extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    formContext: PropTypes.object
   };
   constructor(props) {
     super(props);
@@ -15,6 +17,9 @@ class ImageUploadWidget extends React.Component {
       imageData: null
     }
     this.onChange = this.onChange.bind(this)
+  }
+  componentWillMount() {
+    this.setState({ imageData: this.props.formContext.imageMedium })
   }
   onChange(event) {
     const reader = new FileReader()
@@ -31,19 +36,19 @@ class ImageUploadWidget extends React.Component {
   }
   render() {
     return (
-      <div className="form-group field field-string">
-        <div style={{ float: 'left' }}>
+      <div className="row form-group">
+        <div className="col-sm" >
           <img src= {this.state.imageData} alt={this.state.imageData} height="100" width="100"/>
         </div>
-        <div>
+        <div className="col-sm">
           <RaisedButton
             containerElement="label"
             label="Upload"
           >
-            <input type="file" style={{ display: 'none' }} onChange={ this.onChange }/>
+            <input type="file" style={S('hidden')} onChange={ this.onChange }/>
           </RaisedButton>
         </div>
-        <div style={{ clear: 'both' }}/>
+        <div style={S('clearfix')}/>
       </div>
     );
   }

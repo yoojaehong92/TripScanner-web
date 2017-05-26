@@ -16,7 +16,7 @@ const schema = {
       type: 'object',
       title: 'User',
       properties: {
-        'image_data': {
+        image_data: {
           type: 'string',
           format: 'data-url',
           title: 'Profile Image'
@@ -47,7 +47,7 @@ const uiSchema = {
     },
     date_of_birth: { 'ui:widget': 'date' },
     introduction: { 'ui:widget': 'textarea' },
-    'image_data': { 'ui:widget': 'imageUploader' }
+    image_data: { 'ui:widget': 'imageUploader' }
   }
 }
 class ProfileEditForm extends React.Component {
@@ -78,7 +78,7 @@ class ProfileEditForm extends React.Component {
                 .then(dispatch(push('/')))
             }
             widgets={{ imageUploader: ImageUploadWidget }}
-            hi = "abc"
+            formContext={{ imageMedium: this.props.user.image_medium }}
           >
             <RaisedButton
               type="submit"
