@@ -6,12 +6,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setTripImage } from '../../actions/makeTripAction'
-
+import S from 'shorti'
 
 class MakeTripStep3 extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    step: PropTypes.number
+    step: PropTypes.number,
+    'image_data': PropTypes.string
   };
 
   constructor(props) {
@@ -33,20 +34,24 @@ class MakeTripStep3 extends React.Component {
       const index = reader.result.indexOf(';')
       this.setState({
         image: reader.result.slice(0, index) +
-        ';name=' + fileName + reader.result.slice(index, )
+        ';name=' + fileName + reader.result.slice(index)
       })
     }
   }
   render() {
     return (
-      <RaisedButton
-        containerElement="label" // <-- Just add me!
-        label="Upload"
-      >
-        <input type="file" style={{ display: 'none' }}
-          onChange={ this.onChange }
-        />
-      </RaisedButton>
+      <div>
+        <RaisedButton
+          containerElement="label" // <-- Just add me!
+          label="Upload"
+          style={S('mb-15')}
+        >
+          <input type="file" style={{ display: 'none' }}
+            onChange={ this.onChange }
+          />
+        </RaisedButton>
+        <img src={ this.state.image } style={S('w-100p')}/>
+      </div>
     )
   }
 }
