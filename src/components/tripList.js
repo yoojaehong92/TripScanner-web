@@ -22,8 +22,8 @@ class TripList extends React.Component {
   render() {
     const { trips } = this.props;
     if (trips) {
-      const tripListItems = trips.map((trip) =>
-        <div style={ S('mt-20 mb-20')}>
+      const tripListItems = trips.map((trip, index) =>
+        <div style={S('mt-20 mb-20')} key={ index }>
           <TripListItem
             key={ trip.id }
             trip={ trip }

@@ -32,8 +32,8 @@ class TripListItem extends React.Component {
     const { dispatch } = this.props;
 
     const contentToHtml = content ? content.split('\n')
-      .map(line => {
-        return (<span>{ line }<br/></span>)
+      .map((line, index) => {
+        return (<span key={ index }>{ line }<br/></span>)
       }) : '';
     return (
       <Card>
