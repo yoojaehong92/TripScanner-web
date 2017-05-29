@@ -72,7 +72,7 @@ class SearchForm extends React.Component {
     )
 
     return (
-      <div className="container">
+      <div>
         <div className="row form-group" style={ rowStyle }>
           <div className="col-sm" style={ S('w-100p pt-5') }>
             <PlacesAutocomplete

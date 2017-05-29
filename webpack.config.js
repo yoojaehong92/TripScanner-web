@@ -32,11 +32,11 @@ if(process.env.NODE_ENV === 'development'){
 var image_loaders = {
   test: /\.(gif|png|jpe?g|svg)$/i,
   loaders: [
-    'file?hash=sha512&digest=hex&name=[hash].[ext]',
-    'image-webpack'
+    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+    'image-webpack-loader'
   ]
-}
-loaders.push(image_loaders)
+};
+loaders.push(image_loaders);
 
 var imageWebpackLoader = {
   mozjpeg: {
@@ -44,7 +44,7 @@ var imageWebpackLoader = {
   },
   pngquant:{
     quality: "65-90",
-    speed: 4
+      speed: 4
   },
   svgo:{
     plugins: [
@@ -56,7 +56,7 @@ var imageWebpackLoader = {
       }
     ]
   }
-}
+};
 
 module.exports = {
   devtool: 'source-map',
@@ -67,9 +67,9 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
-    loaders: loaders,
-    imageWebpackLoader: imageWebpackLoader
+    loaders: loaders
   },
+  imageWebpackLoader: imageWebpackLoader,
   plugins: [
     new webpack.DefinePlugin({
       'process.env.APP_URL': JSON.stringify(process.env.APP_URL)

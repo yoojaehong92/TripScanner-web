@@ -24,15 +24,25 @@ class Home extends React.Component {
       dispatch(push('/sign_in'));
 
     return (
-      <div style={S('p-20 pt-65')}>
-        <SearchForm/>
-        <div className="text-center">
-          <RaisedButton
-            label="새로운 동행 만들기"
-            containerElement={ <Link to="/make_trip" /> }
-            icon={ <ContentAddCircle /> }
-            primary
-          />
+      <div>
+        <div
+          style={{
+            width: '100%',
+            height: '600px'
+          }}
+        />
+        <div style={S('pt-50 pb-50 pl-20 pr-20')}>
+          <div className="container">
+            <SearchForm/>
+            <div className="text-center">
+              <RaisedButton
+                label="새로운 동행 만들기"
+                containerElement={ <Link to="/make_trip" /> }
+                icon={ <ContentAddCircle /> }
+                primary
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

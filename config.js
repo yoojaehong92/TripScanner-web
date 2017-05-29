@@ -5,6 +5,6 @@ export default {
   },
   googleMapAPI: 'AIzaSyCVZa1VHc0fu-WhhqW0LCB4_55MwGPLSII',
   apiServer: {
-    host: 'http://localhost:3000/api/v1'
+    host: 'http://huy.dlinkddns.com/api/v1'
   }
 }
