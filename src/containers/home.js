@@ -27,8 +27,13 @@ class Home extends React.Component {
       <div>
         <div
           style={{
+            backgroundImage: 'url(https://github.com/yoojaehong92/TripScanner-web/blob/master/images/plan.jpg?raw=true)',
             width: '100%',
-            height: '600px'
+            height: '320px',
+            backgroundSize: 'cover',
+            backgroundPosition: '50% 60%',
+            backgroundRepeat: 'no-repeat',
+            marginTop: '-60px'
           }}
         />
         <div style={S('pt-50 pb-50 pl-20 pr-20')}>
