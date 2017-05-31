@@ -9,14 +9,21 @@ import {
 } from 'material-ui';
 import ReviewList from './reviewList'
 import PropTypes from 'prop-types';
+import { fetchWrittenReview } from '../actions/reviewAction'
+import { connect } from 'react-redux';
 
 class UserDetail extends React.Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.dispatch(fetchWrittenReview())
   }
 
   render() {
@@ -44,4 +51,4 @@ class UserDetail extends React.Component {
     )
   }
 }
-export default UserDetail
+export default connect()(UserDetail);

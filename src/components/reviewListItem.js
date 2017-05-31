@@ -7,13 +7,16 @@ import ToggleStar from 'material-ui/svg-icons/toggle/star';
 import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ToggleStarHalf from 'material-ui/svg-icons/toggle/star-half';
 import PropTypes from 'prop-types';
-import { cyan500 } from 'material-ui/styles/colors'
-import React from 'react'
+import { cyan500 } from 'material-ui/styles/colors';
+import React from 'react';
 import { connect } from 'react-redux';
+import ReviewForm from './reviewForm';
 
 class ReviewListItem extends React.Component {
   static propTypes = {
-    review: PropTypes.object
+    dispatch: PropTypes.func.isRequired,
+    review: PropTypes.object,
+    isPending: PropTypes.bool
   };
 
   constructor(props) {
@@ -21,9 +24,10 @@ class ReviewListItem extends React.Component {
   }
 
   render() {
+    const { isPending, review } = this.props
     const {
-      rate, updated_at, content, owner
-    } = this.props.review;
+      id, rate, updated_at, content, writer, owner
+    } = review;
 
     const contentToHtml = content ? content.split('\n')
         .map((line, index) => {
@@ -38,23 +42,34 @@ class ReviewListItem extends React.Component {
       else
         rateToHtml.push(<ToggleStarBorder key={ i } color={ cyan500 }/>);
     }
-
     return (
       <div>
         <CardHeader
-          title={ owner.name }
+          title={ isPending ? owner.name : writer.name }
           subtitle={
               <span>{ `${updated_at}` }</span>
           }
-          children={ rateToHtml }
-          avatar={ owner.image_thumb }
+          children={
+            <div style={{ float: 'right', textAlign: 'center' }}>
+              { isPending ? '' : rateToHtml }
+              <p>{ rate }</p>
+            </div>
+          }
+          avatar={ isPending ? owner.name : writer.image_thumb }
         />
         <CardText>
-          { contentToHtml }
+          {
+            isPending ? <ReviewForm id={ id }/> :
+            contentToHtml
+          }
         </CardText>
       </div>
     )
   }
 }
-
-export default connect()(ReviewListItem);
+function mapReview(state) {
+  return {
+    isPending: state.reviewReducer.isPending
+  }
+}
+export default connect(mapReview)(ReviewListItem);

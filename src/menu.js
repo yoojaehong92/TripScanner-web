@@ -8,6 +8,7 @@ import ActionFlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import MapsRateReview from 'material-ui/svg-icons/maps/rate-review'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripsAction'
+import { fetchOwnedReview, fetchWrittenReview, fetchPendingReview } from './actions/reviewAction'
 import { closeDrawer } from './actions/appBarAction'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -36,6 +37,24 @@ class Menu extends React.Component {
     dispatch(closeDrawer())
     dispatch(fetchHostedTrip())
       .then(() => this.props.dispatch(push('/trips_index')))
+  }
+  onTouchOwnedReviews = () => {
+    const { dispatch } = this.props
+    dispatch(closeDrawer())
+    dispatch(fetchOwnedReview())
+      .then(() => this.props.dispatch(push('/reviews')))
+  }
+  onTouchWrittenReviews = () => {
+    const { dispatch } = this.props
+    dispatch(closeDrawer())
+    dispatch(fetchWrittenReview())
+      .then(() => this.props.dispatch(push('/reviews')))
+  }
+  onTouchPendingReviews = () => {
+    const { dispatch } = this.props
+    dispatch(closeDrawer())
+    dispatch(fetchPendingReview())
+      .then(() => this.props.dispatch(push('/reviews')))
   }
 
   render() {
@@ -72,13 +91,18 @@ class Menu extends React.Component {
             nestedItems={[
               <ListItem
                 key={1}
-                primaryText="Joined Trips"
-                onTouchTap={ this.onTouchJoinedTrips }
+                primaryText="Owned Reviews"
+                onTouchTap={ this.onTouchOwnedReviews }
               />,
               <ListItem
                 key={2}
-                primaryText="Hosted Trips"
-                onTouchTap={ this.onTouchHostedTrips }
+                primaryText="Written Reviews"
+                onTouchTap={ this.onTouchWrittenReviews }
+              />,
+              <ListItem
+                key={3}
+                primaryText="Pending Reviews"
+                onTouchTap={ this.onTouchPendingReviews }
               />
             ]}
           />
