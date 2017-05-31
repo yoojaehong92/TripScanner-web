@@ -15,9 +15,14 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { fetchJoin, fetchLeave } from '../actions/tripsAction';
 
-function mapCurrentUser(state) {
+function findByKey(trips, key) {
+  return trips.filter((trip) => trip.id === key).shift()
+}
+
+function mapStateToProps(state, ownProps) {
   return {
-    currentUser: state.currentUserReducer.user
+    currentUser: state.currentUserReducer.user,
+    trip: findByKey(state.tripsReducer.trips, ownProps.uniqKey)
   };
 }
 
@@ -25,7 +30,8 @@ class TripListItem extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     trip: PropTypes.object,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    uniqKey: PropTypes.number.isRequired
   };
 
   constructor(props) {
@@ -41,8 +47,7 @@ class TripListItem extends React.Component {
 
   alreadyJoined(user) {
     return this.props.trip.members
-      .map((member) => member.id)
-      .find((id) => id === user.id) !== null
+      .findIndex((member) => member.id === user.id) !== -1
   }
 
   joinOrLeaveBtn(user) {
@@ -60,52 +65,57 @@ class TripListItem extends React.Component {
   }
 
   render() {
-    const {
-      id, check_in, check_out, city, country, content,
-      owner, members
-    } = this.props.trip;
-    const { dispatch, currentUser } = this.props;
+    if (this.props.trip) {
+      const {
+        id, check_in, check_out, city, country, content,
+        owner, members
+      } = this.props.trip;
+      const { dispatch, currentUser } = this.props;
 
-    const contentToHtml = content ? content.split('\n')
-      .map((line, index) => {
-        return (<span key={ index }>{ line }<br/></span>)
-      }) : '';
+      const contentToHtml = content ? content.split('\n')
+        .map((line, index) => {
+          return (<span key={ index }>{ line }<br/></span>)
+        }) : '';
+      return (
+        <Card>
+          <CardHeader
+            title={ owner.name }
+            subtitle={
+              <div>
+                <span>{ `${city}, ${country}` }</span>
+                <br/>
+                <span>{ `${check_in} ~ ${check_out}` }</span>
+              </div>
+            }
+            avatar={ owner.image_thumb }
+          />
+          <Divider />
+          <UserInfoChips owner={ owner }/>
+          <Divider />
+          <CardText style={S('bg-eee')}>
+            { contentToHtml }
+          </CardText>
+          <Divider />
+          members.length > 0 ? <MemberList members={ members }/> : null
+          <Divider />
+          <CardActions>
+            <FlatButton
+              label="호스트 정보보기"
+              onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
+            />
+            <FlatButton
+              label="동행 자세히보기" secondary
+              onTouchTap={ () => dispatch(push(`trips/${id}`)) }
+            />
+            { this.isOwner(currentUser) ? '' : this.joinOrLeaveBtn(currentUser) }
+          </CardActions>
+        </Card>
+      )
+    }
     return (
-      <Card>
-        <CardHeader
-          title={ owner.name }
-          subtitle={
-            <div>
-              <span>{ `${city}, ${country}` }</span>
-              <br/>
-              <span>{ `${check_in} ~ ${check_out}` }</span>
-            </div>
-          }
-          avatar={ owner.image_thumb }
-        />
-        <Divider />
-        <UserInfoChips owner={ owner }/>
-        <Divider />
-        <CardText style={S('bg-eee')}>
-          { contentToHtml }
-        </CardText>
-        <Divider />
-        members.length > 0 ? <MemberList members={ members }/> : null
-        <Divider />
-        <CardActions>
-          <FlatButton
-            label="호스트 정보보기"
-            onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
-          />
-          <FlatButton
-            label="동행 자세히보기" secondary
-            onTouchTap={ () => dispatch(push(`trips/${id}`)) }
-          />
-          { this.isOwner(currentUser) ? '' : this.joinOrLeaveBtn(currentUser) }
-        </CardActions>
-      </Card>
+      <div></div>
     )
   }
 }
 
-export default connect(mapCurrentUser)(TripListItem);
+export default connect(mapStateToProps)(TripListItem);

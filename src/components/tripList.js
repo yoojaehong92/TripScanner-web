@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TripListItem from './tripListItem';
-import { Divider } from 'material-ui';
+import { CircularProgress, Divider } from 'material-ui';
 import S from 'shorti';
 
 class TripList extends React.Component {
@@ -26,7 +26,7 @@ class TripList extends React.Component {
         <div style={S('mt-20 mb-20')} key={ index }>
           <TripListItem
             key={ trip.id }
-            trip={ trip }
+            uniqKey={ trip.id }
           />
           <Divider />
         </div>
@@ -38,7 +38,14 @@ class TripList extends React.Component {
         </div>
       );
     }
-    return (<div> Something wrong...</div>);
+    return (
+      <div className="text-center">
+        Please wait...
+        <div>
+          <CircularProgress size={80} thickness={5} />
+        </div>
+      </div>
+    );
   }
 }
 

@@ -29,12 +29,12 @@ export function tripsReducer(state = {
         isFetching: false,
         trips: action.trips
       });
-    case RECEIVE_JOIN_TRIP:
     case RECEIVE_TRIP_SHOW:
       return Object.assign({}, state, {
         isFetching: false,
         trip: action.trip
       });
+    case RECEIVE_JOIN_TRIP:
     case RECEIVE_LEAVE_TRIP:
       return Object.assign({}, state, {
         isFetching: false
