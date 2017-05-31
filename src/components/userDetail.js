@@ -7,6 +7,7 @@ import UserInfoChips from './userInfoChips';
 import {
   Card, CardHeader, CardText, Divider
 } from 'material-ui';
+import ReviewList from './reviewList'
 import PropTypes from 'prop-types';
 
 class UserDetail extends React.Component {
@@ -21,22 +22,25 @@ class UserDetail extends React.Component {
   render() {
     const { user } = this.props;
     const introductionToHtml = user.introduction ? user.introduction.split('\n')
-      .map(line => {
-        return (<span>{ line }<br/></span>)
+      .map((line, index) => {
+        return (<span key={ index }>{ line }<br/></span>)
       }) : '';
     return (
-      <Card>
-        <CardHeader
-          title={ user.name }
-          subtitle={ user.email }
-          avatar={ user.image_thumb }
-        />
-        <Divider />
-        <UserInfoChips owner={ user }/>
-        <CardText>
-          { introductionToHtml }
-        </CardText>
-      </Card>
+      <div>
+        <Card>
+          <CardHeader
+            title={ user.name }
+            subtitle={ user.email }
+            avatar={ user.image_thumb }
+          />
+          <Divider />
+          <UserInfoChips owner={ user }/>
+          <CardText>
+            { introductionToHtml }
+          </CardText>
+        </Card>
+        <ReviewList/>
+      </div>
     )
   }
 }

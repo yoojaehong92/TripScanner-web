@@ -25,6 +25,7 @@ import { tripsReducer } from './src/reducers/tripsReducer';
 import { usersReducer } from './src/reducers/usersRedcuer';
 import { appBarReducer } from './src/reducers/appBarReducer';
 import { makeTripReducer } from './src/reducers/makeTripReducer'
+import { reviewReducer } from './src/reducers/reviewReducer'
 
 // for material-ui
 injectTapEventPlugin();
@@ -40,6 +41,7 @@ const store = createStore(
     tripsReducer,
     appBarReducer,
     makeTripReducer,
+    reviewReducer,
     routing: routerReducer
   }),
   applyMiddleware(
