@@ -3,7 +3,8 @@
  */
 
 import {
-  Card, CardActions, CardHeader, CardText, Divider, FlatButton
+  Card, CardActions, CardHeader, CardText, Divider, FlatButton,
+  RaisedButton
 } from 'material-ui';
 import PropTypes from 'prop-types';
 import * as React from 'react';
@@ -12,16 +13,50 @@ import MemberList from './memberList';
 import UserInfoChips from './userInfoChips';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { fetchJoin } from '../actions/tripsAction';
+import { fetchJoin, fetchLeave } from '../actions/tripsAction';
+
+function mapCurrentUser(state) {
+  return {
+    currentUser: state.currentUserReducer.user
+  };
+}
 
 class TripListItem extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    trip: PropTypes.object
+    trip: PropTypes.object,
+    currentUser: PropTypes.object
   };
 
   constructor(props) {
     super(props);
+    this.alreadyJoined = this.alreadyJoined.bind(this);
+    this.joinOrLeaveBtn = this.joinOrLeaveBtn.bind(this);
+    this.isOwner = this.isOwner.bind(this);
+  }
+
+  isOwner(user) {
+    return this.props.trip.owner.id === user.id
+  }
+
+  alreadyJoined(user) {
+    return this.props.trip.members
+      .map((member) => member.id)
+      .find((id) => id === user.id) !== null
+  }
+
+  joinOrLeaveBtn(user) {
+    if (this.alreadyJoined(user)) {
+      return (<RaisedButton
+        label="동행 취소" secondary
+        onTouchTap={ () => this.props.dispatch(fetchLeave(this.props.trip.id)) }
+      />)
+    }
+
+    return (<FlatButton
+      label="동행 참여하기" primary
+      onTouchTap={ () => this.props.dispatch(fetchJoin(this.props.trip.id)) }
+    />)
   }
 
   render() {
@@ -29,7 +64,7 @@ class TripListItem extends React.Component {
       id, check_in, check_out, city, country, content,
       owner, members
     } = this.props.trip;
-    const { dispatch } = this.props;
+    const { dispatch, currentUser } = this.props;
 
     const contentToHtml = content ? content.split('\n')
       .map((line, index) => {
@@ -66,14 +101,11 @@ class TripListItem extends React.Component {
             label="동행 자세히보기" secondary
             onTouchTap={ () => dispatch(push(`trips/${id}`)) }
           />
-          <FlatButton
-            label="동행 참여하기" primary
-            onTouchTap={ () => dispatch(fetchJoin(id)) }
-          />
+          { this.isOwner(currentUser) ? '' : this.joinOrLeaveBtn(currentUser) }
         </CardActions>
       </Card>
     )
   }
 }
 
-export default connect()(TripListItem);
+export default connect(mapCurrentUser)(TripListItem);

@@ -30,6 +30,12 @@ export const RECEIVE_JOIN_TRIP = 'RECEIVE_JOIN_TRIP';
 
 const tripJoinUrl = (id) => `${config.apiServer.host}/trips/${id}/join`
 
+// For api/v1/trips/:id/leave
+export const REQUEST_LEAVE_TRIP = 'REQUEST_LEAVE_TRIP';
+export const RECEIVE_LEAVE_TRIP = 'RECEIVE_LEAVE_TRIP';
+
+const tripLeaveUrl = (id) => `${config.apiServer.host}/trips/${id}/leave`
+
 function requestSearchTrip(query) {
   return {
     type: REQUEST_SEARCH_TRIP,
@@ -104,6 +110,20 @@ function receiveJoin(json) {
   };
 }
 
+function requestLeave(id) {
+  return {
+    type: REQUEST_LEAVE_TRIP,
+    id
+  };
+}
+
+function receiveLeave(json) {
+  return {
+    type: RECEIVE_LEAVE_TRIP,
+    json
+  };
+}
+
 export function fetchSearchTrip(query) {
   return dispatch => {
     dispatch(requestSearchTrip(query));
@@ -170,5 +190,20 @@ export function fetchJoin(id) {
     })
       .then(response => response.json())
       .then(json => dispatch(receiveJoin(json)))
+  };
+}
+
+export function fetchLeave(id) {
+  return dispatch => {
+    dispatch(requestLeave(id));
+    return fetch(tripLeaveUrl(id), {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveLeave(json)))
   };
 }

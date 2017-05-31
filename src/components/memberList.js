@@ -12,6 +12,7 @@ class MemberList extends React.Component {
   };
 
   constructor(props) {
+    // if members changed
     super(props);
   }
 
