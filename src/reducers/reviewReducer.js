@@ -11,8 +11,7 @@ export function reviewReducer(state = {
   switch (action.type) {
     case RECEIVE_REVIEWS:
       return Object.assign({}, state, {
-        reviews: action.reviews,
-        isPending: false
+        reviews: action.reviews
       })
     case PENDING:
       return Object.assign({}, state, {
@@ -24,8 +23,7 @@ export function reviewReducer(state = {
       })
     case SET_USER_REVIEW:
       return Object.assign({}, state, {
-        reviews: action.reviews,
-        isPending: false
+        reviews: action.reviews
       })
     default:
       return state
