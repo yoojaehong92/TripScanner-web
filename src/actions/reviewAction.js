@@ -4,9 +4,10 @@
 
 import config from '../../config';
 
-export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
-export const PENDING = 'PENDING'
-export const NOPENDING = 'NOPENDING'
+export const RECEIVE_REVIEWS = 'RECEIVE;_REVIEWS';
+export const PENDING = 'PENDING';
+export const NO_PENDING = 'NO_PENDING';
+export const SET_USER_REVIEW = 'SET_USER_REVIEW';
 
 const ownedReviewUrl = `${config.apiServer.host}/reviews/owned`;
 
@@ -29,7 +30,13 @@ function pendingReviews() {
 }
 function noPendingReviews() {
   return {
-    type: NOPENDING
+    type: NO_PENDING
+  }
+}
+export function setUserReview(reviews) {
+  return {
+    type: SET_USER_REVIEW,
+    reviews
   }
 }
 export function fetchOwnedReview() {

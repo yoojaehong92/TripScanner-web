@@ -26,7 +26,7 @@ class ReviewListItem extends React.Component {
   render() {
     const { isPending, review } = this.props
     const {
-      id, rate, updated_at, content, writer, owner
+      id, rate, updated_at, content, writer, owner, trip
     } = review;
 
     const contentToHtml = content ? content.split('\n')
@@ -44,19 +44,38 @@ class ReviewListItem extends React.Component {
     }
     return (
       <div>
-        <CardHeader
-          title={ isPending ? owner.name : writer.name }
-          subtitle={
-              <span>{ `${updated_at}` }</span>
-          }
-          children={
-            <div style={{ float: 'right', textAlign: 'center' }}>
-              { isPending ? '' : rateToHtml }
-              <p>{ rate }</p>
-            </div>
-          }
-          avatar={ isPending ? owner.name : writer.image_thumb }
-        />
+        { // review에 owner가 오지 않는 경우 임시로 writer id 만 출력
+          review.writer ?
+            <CardHeader
+              title={ isPending ? owner.name : writer.name }
+              subtitle={
+                isPending ?
+                  <div>
+                    <span>{ `${trip.city}, ${trip.country}` }</span>
+                    <br/>
+                    <span>{ `${trip.check_in} ~ ${trip.check_out}` }</span>
+                  </div> :
+                  <span>{ `${updated_at}` }</span>
+              }
+              children={
+                <div style={{ float: 'right', textAlign: 'center' }}>
+                  { isPending ? '' : rateToHtml }
+                  <p>{ rate }</p>
+                </div>
+              }
+              avatar={ isPending ? owner.image_thumb : writer.image_thumb }
+            /> :
+            <CardHeader
+              title={ 'writer id :' + review.writer_id }
+              children={
+                <div style={{ float: 'right', textAlign: 'center' }}>
+                  { isPending ? '' : rateToHtml }
+                  <p>{ rate }</p>
+                </div>
+              }
+            />
+
+        }
         <CardText>
           {
             isPending ? <ReviewForm id={ id }/> :

@@ -53,7 +53,7 @@ class ReviewForm extends React.Component {
       <div>
         <TextField
           hintText="Message Field"
-          floatingLabelText="MultiLine and FloatingLabel"
+          floatingLabelText="Write a review"
           multiLine
           rows={2}
           style={{ width: '50%' }}
@@ -61,8 +61,8 @@ class ReviewForm extends React.Component {
         />
         <div>
           { rateToHtml }
+          <FlatButton label="Submit" onTouchTap={ () => this.onTouchTap() }/>
         </div>
-        <FlatButton label="Submit" onTouchTap={ () => this.onTouchTap() }/>
       </div>
     )
   }

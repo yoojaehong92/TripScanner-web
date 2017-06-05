@@ -23,6 +23,7 @@ class ReviewList extends React.Component {
   render() {
     const { reviews } = this.props;
 
+
     if (reviews) {
       const reviewListItems = reviews.map((review, index) =>
         <div key={ index }>
@@ -35,7 +36,7 @@ class ReviewList extends React.Component {
       );
       return (
         <Card style={S('mt-20')}>
-          <CardHeader title='Review'/>
+          <CardHeader title="Review"/>
           <Divider />
           { reviewListItems }
         </Card>

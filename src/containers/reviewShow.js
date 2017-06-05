@@ -21,7 +21,11 @@ class ReviewShow extends React.Component {
   render() {
     return (
       <div className="container">
-        <ReviewList/>
+        {
+          this.props.reviews.length ?
+            <ReviewList/> :
+          <p> There is no review </p>
+        }
       </div>
     );
   }
@@ -32,5 +36,4 @@ function mapReview(state) {
     reviews: state.reviewReducer.reviews
   };
 }
-
 export default connect(mapReview)(ReviewShow);
