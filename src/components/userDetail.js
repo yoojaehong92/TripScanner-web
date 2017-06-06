@@ -9,7 +9,7 @@ import {
 } from 'material-ui';
 import ReviewList from './reviewList'
 import PropTypes from 'prop-types';
-import { setUserReview } from '../actions/reviewAction'
+import { fetchUserReview } from '../actions/reviewAction'
 import { connect } from 'react-redux';
 import ToggleStar from 'material-ui/svg-icons/toggle/star';
 import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
@@ -41,7 +41,8 @@ class UserDetail extends React.Component {
       .map((line, index) => {
         return (<span key={ index }>{ line }<br/></span>)
       }) : '';
-    this.props.dispatch(setUserReview(this.props.user.owned_reviews_written))
+    console.log(user)
+    this.props.dispatch(fetchUserReview(user.id))
     return (
       <div>
         <Card>
@@ -52,7 +53,7 @@ class UserDetail extends React.Component {
             children={
               <div style={{ float: 'right', textAlign: 'center' }}>
                 { rateToHtml }
-                <p> { user.written_reviews_count } 회 / { user.written_reviews_rate }</p>
+                <p> { user.written_reviews_count } 회 / { user.written_reviews_rate + ' 점' }</p>
               </div>
             }
           />

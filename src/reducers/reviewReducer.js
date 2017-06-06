@@ -23,7 +23,6 @@ export function reviewReducer(state = {
       })
     case SET_USER_REVIEW:
       return Object.assign({}, state, {
-        reviews: action.reviews
       })
     default:
       return state

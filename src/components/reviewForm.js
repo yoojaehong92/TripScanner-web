@@ -12,6 +12,7 @@ import { FlatButton } from 'material-ui';
 import { fetchUpdateReview } from '../actions/reviewAction';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 class ReviewForm extends React.Component {
   static propTypes = {
@@ -28,8 +29,9 @@ class ReviewForm extends React.Component {
   onMouseDown(id) {
     this.setState({ rate: id + 1 })
   }
-  onTouchTap() {
+  onTouchTap = () => {
     this.props.dispatch(fetchUpdateReview(this.props.id, JSON.stringify({ review: this.state })))
+      .then(this.props.dispatch(push('/')))
   }
   render() {
     const { rate } = this.state
@@ -61,7 +63,7 @@ class ReviewForm extends React.Component {
         />
         <div>
           { rateToHtml }
-          <FlatButton label="Submit" onTouchTap={ () => this.onTouchTap() }/>
+          <FlatButton label="Submit" onTouchTap={ this.onTouchTap }/>
         </div>
       </div>
     )

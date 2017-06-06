@@ -15,6 +15,8 @@ const writtenReviewUrl = `${config.apiServer.host}/reviews/written`;
 
 const pendingReviewUrl = `${config.apiServer.host}/reviews/pending`;
 
+const getUserReviewUrl = (id) => `${config.apiServer.host}/users/${id}/reviews/owned`;
+
 const updateReviewUrl = (id) => `${config.apiServer.host}/reviews/${id}`;
 
 function receiveReviews(json) {
@@ -33,10 +35,16 @@ function noPendingReviews() {
     type: NO_PENDING
   }
 }
-export function setUserReview(reviews) {
-  return {
-    type: SET_USER_REVIEW,
-    reviews
+
+export function fetchUserReview(id) {
+  return dispatch => {
+    dispatch(noPendingReviews())
+    return fetch(getUserReviewUrl(id), {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveReviews(json)))
   }
 }
 export function fetchOwnedReview() {
@@ -47,7 +55,7 @@ export function fetchOwnedReview() {
       credentials: 'include'
     })
       .then(response => response.json())
-      .then(json => dispatch(receiveReviews(json)))
+      .then(json => console.log(json))
   };
 }
 
