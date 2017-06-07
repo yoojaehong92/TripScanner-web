@@ -77,6 +77,9 @@ class MakeTrip extends React.Component {
         {
           this.props.step >= 4 ?
             <div className="text-center">
+              <h3>
+                Please wait...
+              </h3>
               <CircularProgress size={80} thickness={5}/>
             </div> :
             <div>

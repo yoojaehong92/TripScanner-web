@@ -8,6 +8,7 @@ export const RECEIVE_REVIEWS = 'RECEIVE;_REVIEWS';
 export const PENDING = 'PENDING';
 export const NO_PENDING = 'NO_PENDING';
 export const SET_USER_REVIEW = 'SET_USER_REVIEW';
+export const WRITE_REVIEW = 'WRITE_REVIEW'
 
 const ownedReviewUrl = `${config.apiServer.host}/reviews/owned`;
 
@@ -33,6 +34,12 @@ function pendingReviews() {
 function noPendingReviews() {
   return {
     type: NO_PENDING
+  }
+}
+
+function writeReview() {
+  return {
+    type: WRITE_REVIEW
   }
 }
 
@@ -85,7 +92,7 @@ export function fetchPendingReview() {
 
 export function fetchUpdateReview(id, review) {
   return dispatch => {
-    dispatch(pendingReviews())
+    dispatch(writeReview())
     return fetch(updateReviewUrl(id), {
       method: 'PUT',
       credentials: 'include',
