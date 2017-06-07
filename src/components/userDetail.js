@@ -15,6 +15,7 @@ import ToggleStar from 'material-ui/svg-icons/toggle/star';
 import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ToggleStarHalf from 'material-ui/svg-icons/toggle/star-half';
 import { cyan500 } from 'material-ui/styles/colors';
+import S from 'shorti'
 
 class UserDetail extends React.Component {
   static propTypes = {
@@ -51,7 +52,7 @@ class UserDetail extends React.Component {
             subtitle={ user.email }
             avatar={ user.image_thumb }
             children={
-              <div style={{ float: 'right', textAlign: 'center' }}>
+              <div style={S('pull-right text-center')}>
                 { rateToHtml }
                 <p> { user.written_reviews_count } 회 /
                   {
@@ -71,7 +72,13 @@ class UserDetail extends React.Component {
         {
           user.written_reviews_count ?
             <ReviewList /> :
-            null
+            <Card style={S('mt-20')}>
+              <CardHeader title="Review"/>
+              <Divider />
+              <CardText>
+                Empty Reviews
+              </CardText>
+            </Card>
         }
       </div>
     )

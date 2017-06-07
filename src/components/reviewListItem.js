@@ -60,7 +60,7 @@ class ReviewListItem extends React.Component {
               children={
                 <div style={{ float: 'right', textAlign: 'center' }}>
                   { isPending ? '' : rateToHtml }
-                  <p>{ rate + ' 점' }</p>
+                  <p>{ isPending ? '' : rate + ' 점' }</p>
                 </div>
               }
               avatar={ isPending ? owner.image_thumb : writer.image_thumb }
