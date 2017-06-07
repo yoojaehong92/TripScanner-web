@@ -7,6 +7,10 @@ import {
   RECEIVE_LEAVE_TRIP, REQUEST_LEAVE_TRIP
 } from '../actions/tripsAction';
 
+function replacedTripList(state, action) {
+  return state.trips.map(trip => trip.id === action.trip.id ? action.trip : trip)
+}
+
 export function tripsReducer(state = {
   isFetching: false,
   trips: null,
@@ -37,7 +41,8 @@ export function tripsReducer(state = {
     case RECEIVE_JOIN_TRIP:
     case RECEIVE_LEAVE_TRIP:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        trips: replacedTripList(state, action)
       });
 
     default:
