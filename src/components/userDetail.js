@@ -56,7 +56,7 @@ class UserDetail extends React.Component {
                 <p> { user.written_reviews_count } 회 /
                   {
                     user.written_reviews_rate ?
-                    user.written_reviews_rate + ' 점' : '- 점'
+                    user.written_reviews_rate + ' 점' : ' - 점'
                   }
                 </p>
               </div>
@@ -68,7 +68,11 @@ class UserDetail extends React.Component {
             { introductionToHtml }
           </CardText>
         </Card>
-        <ReviewList />
+        {
+          user.written_reviews_count ?
+            <ReviewList /> :
+            null
+        }
       </div>
     )
   }
