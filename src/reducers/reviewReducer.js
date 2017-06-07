@@ -1,7 +1,7 @@
 /**
  * Created by jaehong on 2017. 5. 31..
  */
-import { RECEIVE_REVIEWS, PENDING, NO_PENDING, SET_USER_REVIEW } from '../actions/reviewAction';
+import { RECEIVE_REVIEWS, PENDING, NO_PENDING, SET_USER_REVIEW, WRITE_REVIEW } from '../actions/reviewAction';
 
 export function reviewReducer(state = {
   reviews: [],
@@ -27,6 +27,10 @@ export function reviewReducer(state = {
     case SET_USER_REVIEW:
       return Object.assign({}, state, {
         isFetching: true
+      })
+    case WRITE_REVIEW:
+      return Object.assign({}, state, {
+        isFetching: false
       })
     default:
       return state

@@ -25,8 +25,6 @@ export function tripsReducer(state = {
     case REQUEST_HOSTED_TRIP:
     case REQUEST_SEARCH_TRIP:
     case REQUEST_TRIP_SHOW:
-    case REQUEST_JOIN_TRIP:
-    case REQUEST_LEAVE_TRIP:
       return Object.assign({}, state, {
         isFetching: true
       });
@@ -49,7 +47,9 @@ export function tripsReducer(state = {
         trips: replacedTripList(state, action),
         trip: action.trip
       });
-
+    case REQUEST_JOIN_TRIP:
+    case REQUEST_LEAVE_TRIP:
+      return state;
     default:
       return state;
   }
