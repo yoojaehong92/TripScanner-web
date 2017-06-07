@@ -73,6 +73,7 @@ class TripListItem extends React.Component {
             <TripActionButtons
               trip={ this.props.trip }
               currentUser={ this.props.currentUser }
+              isTripD
             />
           </CardActions>
         </Card>

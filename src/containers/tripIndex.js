@@ -5,35 +5,34 @@ import { push } from 'react-router-redux';
 import TripList from '../components/tripList'
 
 
+function mapStateToProps(state) {
+  return {
+    trips: state.tripsReducer.trips,
+    isFetching: state.tripsReducer.isFetching
+  };
+}
+
 class TripIndex extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    trips: PropTypes.array
+    trips: PropTypes.array,
+    isFetching: PropTypes.bool.isRequired
   };
 
   constructor(props) {
     super(props);
-    if (!this.props.trips)
-      this.props.dispatch(push('/'));
   }
 
   componentWillMount() {
   }
 
   render() {
-    const { trips } = this.props
+    const { trips, isFetching } = this.props;
     return (
       <div className="container">
-        <TripList trips={ trips } />
+        <TripList trips={ trips } isFetching={ isFetching } />
       </div>
     );
   }
 }
 
-function mapTrips(state) {
-  return {
-    trips: state.tripsReducer.trips
-  };
-}
-
-export default connect(mapTrips)(TripIndex);
+export default connect(mapStateToProps)(TripIndex);

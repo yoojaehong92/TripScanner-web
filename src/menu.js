@@ -26,36 +26,39 @@ class Menu extends React.Component {
   }
 
   onTouchJoinedTrips = () => {
-    const { dispatch } = this.props
-    dispatch(closeDrawer())
-    dispatch(fetchJoinedTrip())
-      .then(() => this.props.dispatch(push('/trips_index')))
-  }
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/trips_index'));
+    dispatch(fetchJoinedTrip());
+  };
 
   onTouchHostedTrips = () => {
-    const { dispatch } = this.props
-    dispatch(closeDrawer())
-    dispatch(fetchHostedTrip())
-      .then(() => this.props.dispatch(push('/trips_index')))
-  }
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/trips_index'));
+    dispatch(fetchHostedTrip());
+  };
+
   onTouchOwnedReviews = () => {
-    const { dispatch } = this.props
-    dispatch(closeDrawer())
-    dispatch(fetchOwnedReview())
-      .then(() => this.props.dispatch(push('/reviews')))
-  }
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/reviews'));
+    dispatch(fetchOwnedReview());
+  };
+
   onTouchWrittenReviews = () => {
-    const { dispatch } = this.props
-    dispatch(closeDrawer())
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/reviews'));
     dispatch(fetchWrittenReview())
-      .then(() => this.props.dispatch(push('/reviews')))
-  }
+  };
+
   onTouchPendingReviews = () => {
-    const { dispatch } = this.props
-    dispatch(closeDrawer())
-    dispatch(fetchPendingReview())
-      .then(() => this.props.dispatch(push('/reviews')))
-  }
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/reviews'));
+    dispatch(fetchPendingReview());
+  };
 
   render() {
     return (
