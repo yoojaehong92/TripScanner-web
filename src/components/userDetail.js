@@ -41,7 +41,7 @@ class UserDetail extends React.Component {
       .map((line, index) => {
         return (<span key={ index }>{ line }<br/></span>)
       }) : '';
-    console.log(user)
+
     this.props.dispatch(fetchUserReview(user.id))
     return (
       <div>
@@ -53,7 +53,12 @@ class UserDetail extends React.Component {
             children={
               <div style={{ float: 'right', textAlign: 'center' }}>
                 { rateToHtml }
-                <p> { user.written_reviews_count } 회 / { user.written_reviews_rate + ' 점' }</p>
+                <p> { user.written_reviews_count } 회 /
+                  {
+                    user.written_reviews_rate ?
+                    user.written_reviews_rate + ' 점' : '- 점'
+                  }
+                </p>
               </div>
             }
           />
