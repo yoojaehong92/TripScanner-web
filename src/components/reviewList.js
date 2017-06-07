@@ -6,11 +6,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewListItem from './reviewListItem';
 import S from 'shorti';
-import { connect } from 'react-redux';
+import ApplicationComponent from './baseComponent'
 
-class ReviewList extends React.Component {
+class ReviewList extends ApplicationComponent {
   static propTypes = {
-    reviews: PropTypes.array
+    reviews: PropTypes.array,
+    isPending: PropTypes.bool,
+    isFetching: PropTypes.bool
   };
 
   constructor(props) {
@@ -21,16 +23,19 @@ class ReviewList extends React.Component {
   }
 
   render() {
-    const { reviews } = this.props;
+    const { reviews, isPending, isFetching } = this.props;
 
+    if (isFetching)
+      return this.spinner();
 
-    if (reviews) {
+    if (reviews.length) {
       const reviewListItems = reviews.map((review, index) =>
         <div key={ index }>
           <Divider />
           <ReviewListItem
             key={ review.id }
             review={ review }
+            isPending={ isPending }
           />
           <Divider />
         </div>
@@ -43,13 +48,9 @@ class ReviewList extends React.Component {
         </Card>
       );
     }
-    return (<div> Something wrong...</div>);
+    return this.empty('Empty Reviews')
   }
 }
 
-function mapReviews(state) {
-  return {
-    reviews: state.reviewReducer.reviews
-  }
-}
-export default connect(mapReviews)(ReviewList);
+
+export default ReviewList;

@@ -9,7 +9,6 @@ import {
 } from 'material-ui';
 import ReviewList from './reviewList'
 import PropTypes from 'prop-types';
-import { fetchUserReview } from '../actions/reviewAction'
 import { connect } from 'react-redux';
 import ToggleStar from 'material-ui/svg-icons/toggle/star';
 import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
@@ -19,8 +18,8 @@ import S from 'shorti'
 
 class UserDetail extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    reviews: PropTypes.array
   };
 
   constructor(props) {
@@ -42,8 +41,6 @@ class UserDetail extends React.Component {
       .map((line, index) => {
         return (<span key={ index }>{ line }<br/></span>)
       }) : '';
-
-    this.props.dispatch(fetchUserReview(user.id))
     return (
       <div>
         <Card>
@@ -71,7 +68,7 @@ class UserDetail extends React.Component {
         </Card>
         {
           user.written_reviews_count ?
-            <ReviewList /> :
+            <ReviewList reviews={ this.props.reviews } /> :
             <Card style={S('mt-20')}>
               <CardHeader title="Review"/>
               <Divider />

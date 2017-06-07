@@ -47,7 +47,7 @@ class SignedInMenu extends React.Component {
               />
               <MenuItem
                 primaryText="Sign out"
-                onTouchTap={ () => this.props.dispatch(fetchSignOut()) }
+                onTouchTap={ () => this.props.dispatch(fetchSignOut()).then(push('/sign_in')) }
               />
             </IconMenu>
           }

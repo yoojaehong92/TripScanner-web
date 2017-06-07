@@ -6,23 +6,27 @@ import { RECEIVE_REVIEWS, PENDING, NO_PENDING, SET_USER_REVIEW } from '../action
 export function reviewReducer(state = {
   reviews: [],
   isPending: false,
-  isOwned: false
+  isFetching: false
 }, action) {
   switch (action.type) {
     case RECEIVE_REVIEWS:
       return Object.assign({}, state, {
-        reviews: action.reviews
+        reviews: action.reviews,
+        isFetching: false
       })
     case PENDING:
       return Object.assign({}, state, {
-        isPending: true
+        isPending: true,
+        isFetching: true
       })
     case NO_PENDING:
       return Object.assign({}, state, {
-        isPending: false
+        isPending: false,
+        isFetching: true
       })
     case SET_USER_REVIEW:
       return Object.assign({}, state, {
+        isFetching: true
       })
     default:
       return state

@@ -15,7 +15,7 @@ class TripActionButtons extends React.Component {
     dispatch: PropTypes.func.isRequired,
     trip: PropTypes.object,
     currentUser: PropTypes.object,
-    isTripDetailLink: PropTypes.object
+    isTripDetailLink: PropTypes.bool
   };
 
   static defaultProps = {

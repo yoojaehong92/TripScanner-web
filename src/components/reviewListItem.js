@@ -9,7 +9,6 @@ import ToggleStarHalf from 'material-ui/svg-icons/toggle/star-half';
 import PropTypes from 'prop-types';
 import { cyan500 } from 'material-ui/styles/colors';
 import React from 'react';
-import { connect } from 'react-redux';
 import ReviewForm from './reviewForm';
 
 class ReviewListItem extends React.Component {
@@ -86,9 +85,5 @@ class ReviewListItem extends React.Component {
     )
   }
 }
-function mapReview(state) {
-  return {
-    isPending: state.reviewReducer.isPending
-  }
-}
-export default connect(mapReview)(ReviewListItem);
+
+export default ReviewListItem;

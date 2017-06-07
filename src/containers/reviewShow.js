@@ -6,14 +6,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReviewList from '../components/reviewList'
-import ActionDescription from 'material-ui/svg-icons/action/description'
-import { cyan500 } from 'material-ui/styles/colors';
-import S from 'shorti'
 
 class ReviewShow extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    reviews: PropTypes.array
+    reviews: PropTypes.array,
+    isPending: PropTypes.bool,
+    isFetching: PropTypes.bool
   };
 
   constructor(props) {
@@ -23,14 +22,11 @@ class ReviewShow extends React.Component {
   render() {
     return (
       <div className="container">
-        {
-          this.props.reviews.length ?
-            <ReviewList/> :
-            <div className="container" style={S('text-center')}>
-              <ActionDescription color={ cyan500 } style={S('w-120 h-120')}/>
-              <p> Empty Reviews</p>
-            </div>
-        }
+        <ReviewList
+          reviews={ this.props.reviews }
+          isPending={ this.props.isPending }
+          isFetching={ this.props.isFetching }
+        />
       </div>
     );
   }
@@ -38,7 +34,9 @@ class ReviewShow extends React.Component {
 
 function mapReview(state) {
   return {
-    reviews: state.reviewReducer.reviews
+    reviews: state.reviewReducer.reviews,
+    isPending: state.reviewReducer.isPending,
+    isFetching: state.reviewReducer.isFetching
   };
 }
 export default connect(mapReview)(ReviewShow);

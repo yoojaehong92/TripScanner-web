@@ -10,6 +10,7 @@ import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 import { fetchJoinedTrip, fetchHostedTrip } from './actions/tripsAction'
 import { fetchOwnedReview, fetchWrittenReview, fetchPendingReview } from './actions/reviewAction'
 import { closeDrawer } from './actions/appBarAction'
+import { fetchSignOut } from './actions/currentUserAction'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -58,6 +59,19 @@ class Menu extends React.Component {
     dispatch(closeDrawer());
     dispatch(push('/reviews'));
     dispatch(fetchPendingReview());
+  };
+
+  onTouchEditProfile = () => {
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(push('/profile_edit'));
+  };
+
+  onTouchSignOut = () => {
+    const { dispatch } = this.props;
+    dispatch(closeDrawer());
+    dispatch(fetchSignOut());
+    dispatch(push('/sign_in'));
   };
 
   render() {
@@ -117,12 +131,12 @@ class Menu extends React.Component {
               <ListItem
                 key={1}
                 primaryText="Edit Profile"
-                onTouchTap={ this.onTouchJoinedTrips }
+                onTouchTap={ this.onTouchEditProfile }
               />,
               <ListItem
                 key={2}
-                primaryText="Hosted Trips"
-                onTouchTap={ this.onTouchHostedTrips }
+                primaryText="Sign Out"
+                onTouchTap={ this.onTouchSignOut }
               />
             ]}
           />

@@ -41,10 +41,7 @@ class TripList extends ApplicationComponent {
         {
           tripListItems.length ?
             tripListItems :
-            <div className="container" style={S('text-center')}>
-              <ActionDescription color={ cyan500 } style={S('w-120 h-120')}/>
-              <p> Empty Trips</p>
-            </div>
+            this.empty('Empty Trips')
         }
       </div>
     );
