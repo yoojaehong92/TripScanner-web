@@ -4,7 +4,7 @@ import S from 'shorti'
 
 const SignIn = () => {
   return (
-    <div style={S('p-20')}>
+    <div style={S('p-20')} className="container">
       <SignInForm/>
     </div>
   );

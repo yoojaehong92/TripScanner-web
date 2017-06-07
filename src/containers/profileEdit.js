@@ -7,7 +7,7 @@ import S from 'shorti'
 
 const ProfileEdit = () => {
   return (
-    <div style={S('p-20')}>
+    <div style={S('p-20')} className="container">
       <ProfileEditForm/>
     </div>
   );
