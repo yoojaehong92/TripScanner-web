@@ -8,7 +8,11 @@ import {
 } from '../actions/tripsAction';
 
 function replacedTripList(state, action) {
-  return state.trips.map(trip => trip.id === action.trip.id ? action.trip : trip)
+  if (state.trips) {
+    return state.trips
+      .map(trip => trip.id === action.trip.id ? action.trip : trip);
+  }
+  return null
 }
 
 export function tripsReducer(state = {
@@ -42,7 +46,8 @@ export function tripsReducer(state = {
     case RECEIVE_LEAVE_TRIP:
       return Object.assign({}, state, {
         isFetching: false,
-        trips: replacedTripList(state, action)
+        trips: replacedTripList(state, action),
+        trip: action.trip
       });
 
     default:

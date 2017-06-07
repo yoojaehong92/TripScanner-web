@@ -4,17 +4,26 @@
 
 import {
   Card, CardActions, CardHeader, CardMedia,
-  CardText, CardTitle, FlatButton, Divider
+  CardText, CardTitle, Divider
 } from 'material-ui';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import UserInfoChips from './userInfoChips';
 import { connect } from 'react-redux';
+import TripActionButtons from './tripActionButtons';
+import MemberList from './memberList';
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUserReducer.user
+  };
+}
 
 class TripDetail extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    trip: PropTypes.object
+    trip: PropTypes.object,
+    currentUser: PropTypes.object
   };
 
   constructor(props) {
@@ -24,7 +33,7 @@ class TripDetail extends React.Component {
   render() {
     const {
       check_in, check_out, city, country, image_original, content,
-      owner
+      owner, members
     } = this.props.trip;
     return (
       <Card>
@@ -54,21 +63,19 @@ class TripDetail extends React.Component {
               null
           }
         </CardText>
+        <Divider />
+          members.length > 0 ? <MemberList members={ members }/> : null
+        <Divider />
         <CardActions>
-          <FlatButton label="Action1" />
-          <FlatButton label="Action2" />
+          <TripActionButtons
+            trip={ this.props.trip }
+            currentUser={ this.props.currentUser }
+            isTripDetailLink={ false }
+          />
         </CardActions>
       </Card>
     )
   }
 }
 
-/*
-<FlatButton
- label="호스트 정보보기"
- onTouchTap={ () => dispatch(push(`users/${owner.id}`)) }
- />
- <FlatButton label="동행 참여하기" primary />
-* */
-
-export default connect()(TripDetail);
+export default connect(mapStateToProps)(TripDetail);
