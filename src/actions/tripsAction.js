@@ -120,7 +120,7 @@ function requestLeave(id) {
 function receiveLeave(json) {
   return {
     type: RECEIVE_LEAVE_TRIP,
-    json
+    trip: json.trip
   };
 }
 
