@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import TripListItem from './tripListItem';
 import { Divider } from 'material-ui';
 import S from 'shorti';
-import ActionDescription from 'material-ui/svg-icons/action/description'
-import { cyan500 } from 'material-ui/styles/colors';
 import ApplicationComponent from './baseComponent'
 
 class TripList extends ApplicationComponent {
