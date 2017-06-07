@@ -57,7 +57,7 @@ class SignInForm extends React.Component {
     if (this.props.user)
       this.props.dispatch(push('/'))
     return (
-      <Card style={S('w-50p center-block color-eee')}>
+      <Card style={S('center-block color-eee')}>
         <CardTitle title="SignIn" titleStyle={S('text-center')} style={S('bg-eee')}/>
         <CardText>
           <Form encType="application/json"
