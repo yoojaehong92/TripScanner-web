@@ -64,7 +64,7 @@ class ProfileEditForm extends React.Component {
       dispatch(push('/'))
 
     return (
-      <Card style={S('w-50p center-block')}>
+      <Card style={S('center-block')}>
         <CardTitle title="Profile" titleStyle={S('text-center')} style={S('bg-eee')}/>
         <CardText>
           <Form

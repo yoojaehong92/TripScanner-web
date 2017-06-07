@@ -99,7 +99,7 @@ class SignUpForm extends React.Component {
           </Card> :
           <div/>
         }
-        <Card style={S('w-50p center-block')}>
+        <Card style={S('center-block')}>
           <CardTitle title="SignUp" titleStyle={S('text-center')} style={S('bg-eee')}/>
           <CardText>
             <Form encType="application/json"
