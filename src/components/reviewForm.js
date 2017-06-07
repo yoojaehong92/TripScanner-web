@@ -7,12 +7,11 @@ import TextField from 'material-ui/TextField';
 import ToggleStar from 'material-ui/svg-icons/toggle/star';
 import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ToggleStarHalf from 'material-ui/svg-icons/toggle/star-half';
-import { cyan500 } from 'material-ui/styles/colors';
+import { cyan500, grey300 } from 'material-ui/styles/colors';
 import { FlatButton } from 'material-ui';
 import { fetchUpdateReview } from '../actions/reviewAction';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 class ReviewForm extends React.Component {
   static propTypes = {
@@ -23,15 +22,19 @@ class ReviewForm extends React.Component {
     super(props)
     this.state = {
       rate: 0,
-      content: ''
+      content: '',
+      disable: false
     }
+    this.onTouchTap = this.onTouchTap.bind(this);
   }
   onMouseDown(id) {
-    this.setState({ rate: id + 1 })
+    if (!this.state.disable)
+      this.setState({ rate: id + 1 })
   }
   onTouchTap = () => {
-    this.props.dispatch(fetchUpdateReview(this.props.id, JSON.stringify({ review: this.state })))
-      .then(this.props.dispatch(push('/')))
+    const { dispatch } = this.props;
+    dispatch(fetchUpdateReview(this.props.id, JSON.stringify({ review: this.state })))
+      .then(() => this.setState({ disable: true }))
   }
   render() {
     const { rate } = this.state
@@ -39,15 +42,27 @@ class ReviewForm extends React.Component {
     for (let i = 0; i < 5; i++) {
       if ((rate - i) >= 1) {
         rateToHtml.push(
-          <ToggleStar key={ i } color={ cyan500 } onMouseDown={ () => this.onMouseDown(i) }/>
+          <ToggleStar
+            key={ i }
+            color={ this.state.disable ? grey300 : cyan500 }
+            onMouseDown={ () => this.onMouseDown(i) }
+          />
         );
       } else if ((rate - i) === 0.5) {
         rateToHtml.push(
-          <ToggleStarHalf key={ i } color={ cyan500 } onMouseDown={ () => this.onMouseDown(i) }/>
+          <ToggleStarHalf
+            key={ i }
+            color={ this.state.disable ? grey300 : cyan500 }
+            onMouseDown={ () => this.onMouseDown(i) }
+          />
         );
       } else {
         rateToHtml.push(
-          <ToggleStarBorder key={ i } color={ cyan500 } onMouseDown={ () => this.onMouseDown(i) }/>
+          <ToggleStarBorder
+            key={ i }
+            color={ this.state.disable ? grey300 : cyan500 }
+            onMouseDown={ () => this.onMouseDown(i) }
+          />
         );
       }
     }
@@ -58,12 +73,17 @@ class ReviewForm extends React.Component {
           floatingLabelText="Write a review"
           multiLine
           rows={2}
-          style={{ width: '50%' }}
+          style={{ width: '100%' }}
           onChange={(event) => this.setState({ content: event.target.value })}
+          disabled={ this.state.disable }
         />
         <div>
           { rateToHtml }
-          <FlatButton label="Submit" onTouchTap={ this.onTouchTap }/>
+          <FlatButton
+            label="Submit"
+            onTouchTap={ this.onTouchTap }
+            disabled={ this.state.disable }
+          />
         </div>
       </div>
     )

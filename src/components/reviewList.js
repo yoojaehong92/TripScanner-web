@@ -27,6 +27,7 @@ class ReviewList extends React.Component {
     if (reviews) {
       const reviewListItems = reviews.map((review, index) =>
         <div key={ index }>
+          <Divider />
           <ReviewListItem
             key={ review.id }
             review={ review }

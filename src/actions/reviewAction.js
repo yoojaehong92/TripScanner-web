@@ -84,12 +84,15 @@ export function fetchPendingReview() {
 }
 
 export function fetchUpdateReview(id, review) {
-  return fetch(updateReviewUrl(id), {
-    method: 'PUT',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: review
-  })
+  return dispatch => {
+    dispatch(pendingReviews())
+    return fetch(updateReviewUrl(id), {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: review
+    })
+  };
 }
