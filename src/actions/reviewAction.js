@@ -55,7 +55,7 @@ export function fetchOwnedReview() {
       credentials: 'include'
     })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => dispatch(receiveReviews(json)))
   };
 }
 

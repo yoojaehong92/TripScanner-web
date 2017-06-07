@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import TripListItem from './tripListItem';
 import { CircularProgress, Divider } from 'material-ui';
 import S from 'shorti';
+import ActionDescription from 'material-ui/svg-icons/action/description'
+import { cyan500 } from 'material-ui/styles/colors';
 
 class TripList extends React.Component {
   static propTypes = {
@@ -32,9 +34,15 @@ class TripList extends React.Component {
         </div>
       );
       return (
-        // Need to check tripListItems empty.
         <div>
-          { tripListItems }
+          {
+            tripListItems.length ?
+              tripListItems :
+              <div className="container" style={S('text-center')}>
+                <ActionDescription color={ cyan500 } style={S('w-120 h-120')}/>
+                <p> Empty Trips</p>
+              </div>
+          }
         </div>
       );
     }
