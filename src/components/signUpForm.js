@@ -89,7 +89,7 @@ class SignUpForm extends React.Component {
       <div>
         {
           this.props.hasError ?
-          <Card style={S('w-50p center-block color-933 mb-20')}>
+          <Card style={S('center-block color-933 mb-20')}>
             <CardTitle title="Errors"
               titleStyle={S('text-center color-933')} style={S('bg-eaa')}
             />

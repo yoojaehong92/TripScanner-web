@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
 import TripList from '../components/tripList'
 
 
