@@ -17,6 +17,9 @@ class UserShow extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
     const { id } = this.props.params;
     const { dispatch } = this.props;
     dispatch(fetchShow(id));
